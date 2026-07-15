@@ -34,6 +34,13 @@ const I18N = {
     ethnologueNote: 'демография и статус (частично платно)',
     elpNote: 'проект документации исчезающих языков',
     footNote: 'Статус — агрегированная шкала AES (Glottolog) по данным ElCat, Ethnologue и UNESCO. Число носителей — Wikidata (P1098); для малых языков может быть устаревшим.',
+    verifyNote: 'Данные собраны автоматически и могут содержать неточности — сверяйтесь с первоисточниками.',
+    learnTitle: 'Познакомиться с языком',
+    glosbeTitle: 'Словарь Glosbe', glosbeNote: 'переводы, примеры, произношение',
+    forvoTitle: 'Произношение — Forvo', forvoNote: 'слова, озвученные носителями',
+    coursesTitle: 'Найти курсы и уроки', coursesNote: 'поиск в Google',
+    coursesQuery: '{name} язык курсы уроки',
+    supportLabel: 'Поддержать проект:',
     footer: 'Данные: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · сборка {date} · статус угрозы — шкала AES (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Переключить тему', close: 'Закрыть',
   },
@@ -63,6 +70,13 @@ const I18N = {
     ethnologueNote: 'demographics and status (partly paywalled)',
     elpNote: 'documentation project for endangered languages',
     footNote: 'Status is the aggregated AES scale (Glottolog) based on ElCat, Ethnologue and UNESCO. Speaker counts come from Wikidata (P1098) and may be outdated for small languages.',
+    verifyNote: 'Data is aggregated automatically and may contain inaccuracies — please verify against the primary sources.',
+    learnTitle: 'Get to know the language',
+    glosbeTitle: 'Glosbe dictionary', glosbeNote: 'translations, examples, pronunciation',
+    forvoTitle: 'Pronunciation — Forvo', forvoNote: 'words spoken by native speakers',
+    coursesTitle: 'Find courses & lessons', coursesNote: 'Google search',
+    coursesQuery: '{name} language course lessons',
+    supportLabel: 'Support the project:',
     footer: 'Data: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · build {date} · endangerment — AES scale (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Toggle theme', close: 'Close',
   },
@@ -92,6 +106,13 @@ const I18N = {
     ethnologueNote: 'demografía y estado (parcialmente de pago)',
     elpNote: 'proyecto de documentación de lenguas amenazadas',
     footNote: 'El estado es la escala agregada AES (Glottolog) basada en ElCat, Ethnologue y UNESCO. El número de hablantes proviene de Wikidata (P1098) y puede estar desactualizado.',
+    verifyNote: 'Los datos se recopilan automáticamente y pueden contener errores — verifíquelos en las fuentes primarias.',
+    learnTitle: 'Conocer la lengua',
+    glosbeTitle: 'Diccionario Glosbe', glosbeNote: 'traducciones, ejemplos, pronunciación',
+    forvoTitle: 'Pronunciación — Forvo', forvoNote: 'palabras pronunciadas por hablantes nativos',
+    coursesTitle: 'Buscar cursos y lecciones', coursesNote: 'búsqueda en Google',
+    coursesQuery: 'curso de {name} lecciones',
+    supportLabel: 'Apoyar el proyecto:',
     footer: 'Datos: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · compilación {date} · amenaza — escala AES (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Cambiar tema', close: 'Cerrar',
   },
@@ -121,6 +142,13 @@ const I18N = {
     ethnologueNote: 'Demografie und Status (teilweise kostenpflichtig)',
     elpNote: 'Dokumentationsprojekt für bedrohte Sprachen',
     footNote: 'Der Status ist die aggregierte AES-Skala (Glottolog) auf Basis von ElCat, Ethnologue und UNESCO. Sprecherzahlen stammen aus Wikidata (P1098) und können veraltet sein.',
+    verifyNote: 'Die Daten werden automatisch zusammengetragen und können Fehler enthalten — bitte anhand der Primärquellen prüfen.',
+    learnTitle: 'Die Sprache kennenlernen',
+    glosbeTitle: 'Glosbe-Wörterbuch', glosbeNote: 'Übersetzungen, Beispiele, Aussprache',
+    forvoTitle: 'Aussprache — Forvo', forvoNote: 'von Muttersprachlern gesprochene Wörter',
+    coursesTitle: 'Kurse und Lektionen finden', coursesNote: 'Google-Suche',
+    coursesQuery: '{name} Sprachkurs lernen',
+    supportLabel: 'Projekt unterstützen:',
     footer: 'Daten: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · Stand {date} · Gefährdung — AES-Skala (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Thema wechseln', close: 'Schließen',
   },
@@ -150,6 +178,13 @@ const I18N = {
     ethnologueNote: 'démographie et statut (en partie payant)',
     elpNote: 'projet de documentation des langues menacées',
     footNote: 'Le statut est l’échelle agrégée AES (Glottolog), fondée sur ElCat, Ethnologue et l’UNESCO. Le nombre de locuteurs provient de Wikidata (P1098) et peut être obsolète.',
+    verifyNote: 'Les données sont agrégées automatiquement et peuvent contenir des erreurs — vérifiez-les auprès des sources primaires.',
+    learnTitle: 'Découvrir la langue',
+    glosbeTitle: 'Dictionnaire Glosbe', glosbeNote: 'traductions, exemples, prononciation',
+    forvoTitle: 'Prononciation — Forvo', forvoNote: 'mots prononcés par des locuteurs natifs',
+    coursesTitle: 'Trouver des cours et leçons', coursesNote: 'recherche Google',
+    coursesQuery: 'cours de {name} leçons',
+    supportLabel: 'Soutenir le projet :',
     footer: 'Données : {glottolog} (CC BY 4.0) · {wikidata} (CC0) · version {date} · menace — échelle AES (Glottolog : ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Changer de thème', close: 'Fermer',
   },
@@ -270,37 +305,52 @@ function switchTiles(theme) {
 function markerStroke() {
   return root.getAttribute('data-theme') === 'dark' ? '#1a1a19' : '#ffffff';
 }
+function accentColor() {
+  return getComputedStyle(root).getPropertyValue('--accent').trim();
+}
+
+// базовый / наведённый / выбранный стили маркера
+let selectedIdx = null;
+function baseStyle(r) {
+  return { radius: 4.5, weight: 1, color: markerStroke(), opacity: 0.9, fillColor: aesColor(r.aes), fillOpacity: 0.85 };
+}
+function hoverStyle(r) {
+  return { radius: 7.5, weight: 2.5, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
+}
+function selectedStyle(r) {
+  return { radius: 9, weight: 3, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
+}
+function styleFor(i) {
+  const r = ROWS[i];
+  return i === selectedIdx ? selectedStyle(r) : baseStyle(r);
+}
+function selectMarker(i) {
+  const prev = selectedIdx;
+  selectedIdx = i;
+  if (prev !== null && markers[prev]) markers[prev].setStyle(styleFor(prev));
+  if (i !== null && markers[i]) { markers[i].setStyle(selectedStyle(ROWS[i])); markers[i].bringToFront(); }
+}
+
 function buildMarkers() {
-  const stroke = markerStroke();
-  markers = ROWS.map(r => {
+  markers = ROWS.map((r, i) => {
     if (r.lat === null || r.lon === null) return null;
-    const m = L.circleMarker([r.lat, r.lon], {
-      radius: 4.5,
-      weight: 1,
-      color: stroke,
-      opacity: 0.9,
-      fillColor: aesColor(r.aes),
-      fillOpacity: 0.85,
-    });
+    const m = L.circleMarker([r.lat, r.lon], baseStyle(r));
     m.on('click', () => openDetail(r, { fly: false }));
     m.on('mouseover', () => {
-      m.setStyle({ radius: 7 });
+      if (i !== selectedIdx) m.setStyle(hoverStyle(r));
+      m.bringToFront();
       m.bindTooltip(
         `<strong>${esc(r.label)}</strong><br><span class="tip-sub">${esc(r.fam || T.isolate)} · ${esc(T.aes[r.aes])}</span>`,
         { className: 'lang-tip', direction: 'top', offset: [0, -8], sticky: false },
       ).openTooltip();
     });
-    m.on('mouseout', () => { m.setStyle({ radius: 4.5 }); m.closeTooltip(); });
+    m.on('mouseout', () => { m.setStyle(styleFor(i)); m.closeTooltip(); });
     return m;
   });
 }
 function restyleMarkers() {
-  const stroke = markerStroke();
-  const colors = {};
-  for (let a = 0; a <= 6; a++) colors[a] = aesColor(a);
-  markers.forEach((m, i) => {
-    if (m) m.setStyle({ color: stroke, fillColor: colors[ROWS[i].aes] });
-  });
+  markers.forEach((m, i) => { if (m) m.setStyle(styleFor(i)); });
+  if (selectedIdx !== null && markers[selectedIdx]) markers[selectedIdx].bringToFront();
 }
 function updateMapMarkers() {
   markerGroup.clearLayers();
@@ -465,6 +515,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(
 function closeDetail() {
   detail.hidden = true;
   selectedId = null;
+  selectMarker(null);
   history.replaceState(null, '', location.pathname + location.search);
   document.querySelectorAll('tbody tr.selected').forEach(tr => tr.classList.remove('selected'));
 }
@@ -476,12 +527,25 @@ function linkItem(url, title, note) {
 
 function openDetail(r, { fly }) {
   selectedId = r.id;
+  selectMarker(r.idx);
   history.replaceState(null, '', '#l=' + r.id);
   document.querySelectorAll('tbody tr.selected').forEach(tr => tr.classList.remove('selected'));
   const tr = els.body.querySelector(`tr[data-id="${r.id}"]`);
   if (tr) tr.classList.add('selected');
 
   const countries = r.ccList.length ? r.ccList.map(countryName).join(', ') : '—';
+
+  // практические ссылки: словарь, произношение, курсы
+  const learn = [];
+  if (r.iso) {
+    learn.push(linkItem(`https://glosbe.com/${r.iso}/${LANG}`, T.glosbeTitle, T.glosbeNote));
+    learn.push(linkItem(`https://forvo.com/languages/${r.iso}/`, T.forvoTitle, T.forvoNote));
+  }
+  learn.push(linkItem(
+    `https://www.google.com/search?q=${encodeURIComponent(tpl(T.coursesQuery, { name: r.label }))}`,
+    T.coursesTitle, T.coursesNote,
+  ));
+
   const links = [];
   links.push(linkItem(`https://glottolog.org/resource/languoid/id/${r.id}`, 'Glottolog', T.glottologNote));
   if (r.wr) links.push(linkItem(r.wr, T.wikiRu, T.wikiNote));
@@ -510,13 +574,23 @@ function openDetail(r, { fly }) {
       <dt>${esc(T.cardSpeakers)}</dt><dd>${r.spk === null ? esc(T.noData) : esc(fmtFull.format(r.spk)) + ' (Wikidata)'}</dd>
       <dt>${esc(T.cardMed)}</dt><dd>${esc(T.med[r.med] || '—')}</dd>
     </dl>
+    <h3>${esc(T.learnTitle)}</h3>
+    <ul class="links">${learn.join('')}</ul>
     <h3>${esc(T.cardLinks)}</h3>
     <ul class="links">${links.join('')}</ul>
-    <p class="foot-note">${esc(T.footNote)}</p>`;
+    <p class="foot-note">${esc(T.footNote)} ${esc(T.verifyNote)}</p>`;
   detail.hidden = false;
 
   if (fly && r.lat !== null && map) {
-    map.flyTo([r.lat, r.lon], Math.max(map.getZoom(), 5), { duration: 0.8 });
+    const z = Math.max(map.getZoom(), 5);
+    let center = L.latLng(r.lat, r.lon);
+    // на десктопе карточка накрывает правую часть карты — целимся левее,
+    // чтобы выбранный маркер остался на виду
+    if (window.innerWidth > 900) {
+      const px = map.project(center, z).add([Math.min(430, window.innerWidth * 0.92) / 2, 0]);
+      center = map.unproject(px, z);
+    }
+    map.flyTo(center, z, { duration: 0.8 });
   }
 }
 
@@ -601,11 +675,19 @@ async function boot() {
   });
 
   document.getElementById('subtitle').textContent = tpl(T.subtitle, { n: fmtFull.format(ROWS.length) });
-  document.getElementById('footer').innerHTML = tpl(esc(T.footer), {
+  const credits = tpl(esc(T.footer), {
     glottolog: '<a href="https://glottolog.org" target="_blank" rel="noopener">Glottolog 5.x</a>',
     wikidata: '<a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>',
     date: esc(data.generated),
   });
+  const donate = [
+    ['https://buymeacoffee.com/ipupok', '☕ Buy Me a Coffee'],
+    ['https://ko-fi.com/ipupok', 'Ko-fi'],
+    ['https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY', 'PayPal'],
+  ].map(([u, t]) => `<a href="${u}" target="_blank" rel="noopener">${t}</a>`).join(' · ');
+  document.getElementById('footer').innerHTML =
+    `<span>${credits} · ${esc(T.verifyNote)}</span>` +
+    `<span class="donations">${esc(T.supportLabel)} ${donate}</span>`;
 
   initMap();
   buildMarkers();

@@ -297,11 +297,16 @@ td .na { color: var(--muted); }
 
 /* ---- footer ---- */
 .site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  justify-content: space-between;
   padding: 8px 20px 14px;
   color: var(--muted);
   font-size: 12px;
 }
 .site-footer a { color: var(--ink-2); }
+.site-footer .donations { white-space: nowrap; }
 
 /* ---- leaflet theme fixes ---- */
 .leaflet-container { font: inherit; }
