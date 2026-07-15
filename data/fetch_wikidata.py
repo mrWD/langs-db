@@ -15,17 +15,24 @@ import urllib.request
 ENDPOINT = "https://query.wikidata.org/sparql"
 UA = "langs-db-builder/1.0 (https://github.com/; lvigtor@gmail.com) python-urllib"
 
+LABEL_LANGS = ["ru", "es", "de", "fr"]
+
 QUERY_TMPL = """
 SELECT ?iso (MAX(?spk) AS ?speakers) (SAMPLE(?ruw) AS ?ruwiki)
-       (SAMPLE(?enw) AS ?enwiki) (SAMPLE(?ruLabel) AS ?nameRu) WHERE {
+       (SAMPLE(?enw) AS ?enwiki) %(label_projs)s WHERE {
   ?item wdt:P220 ?iso .
-  FILTER(STRSTARTS(?iso, "%s"))
+  FILTER(STRSTARTS(?iso, "%(letter)s"))
   OPTIONAL { ?item wdt:P1098 ?spk }
   OPTIONAL { ?ruw schema:about ?item ; schema:isPartOf <https://ru.wikipedia.org/> }
   OPTIONAL { ?enw schema:about ?item ; schema:isPartOf <https://en.wikipedia.org/> }
-  OPTIONAL { ?item rdfs:label ?ruLabel . FILTER(LANG(?ruLabel) = "ru") }
+  %(label_opts)s
 } GROUP BY ?iso
 """
+
+LABEL_PROJS = " ".join(f"(SAMPLE(?l{lg}) AS ?name_{lg})" for lg in LABEL_LANGS)
+LABEL_OPTS = "\n  ".join(
+    f'OPTIONAL {{ ?item rdfs:label ?l{lg} . FILTER(LANG(?l{lg}) = "{lg}") }}' for lg in LABEL_LANGS
+)
 
 
 def run_query(query, retries=3):
@@ -47,7 +54,7 @@ def run_query(query, retries=3):
 def main():
     out = {}
     for letter in string.ascii_lowercase:
-        rows = run_query(QUERY_TMPL % letter)
+        rows = run_query(QUERY_TMPL % {"letter": letter, "label_projs": LABEL_PROJS, "label_opts": LABEL_OPTS})
         for b in rows:
             iso = b["iso"]["value"]
             rec = {}
@@ -56,8 +63,9 @@ def main():
                     rec["speakers"] = int(float(b["speakers"]["value"]))
                 except ValueError:
                     pass
-            if "nameRu" in b:
-                rec["name_ru"] = b["nameRu"]["value"]
+            for lg in LABEL_LANGS:
+                if f"name_{lg}" in b:
+                    rec[f"name_{lg}"] = b[f"name_{lg}"]["value"]
             if "ruwiki" in b:
                 rec["wiki_ru"] = b["ruwiki"]["value"]
             if "enwiki" in b:

@@ -13,53 +13,62 @@
 
 <header class="site-header">
   <div class="title-block">
-    <h1>Языки мира</h1>
-    <p class="subtitle">Интерактивный атлас: <span id="total-count">…</span> языков — семьи, носители, статус угрозы, карта и материалы для изучения</p>
+    <h1 data-i18n="h1">Языки мира</h1>
+    <p class="subtitle" id="subtitle"></p>
   </div>
-  <button id="theme-toggle" class="icon-btn" title="Переключить тему" aria-label="Переключить тему">◐</button>
+  <div class="header-controls">
+    <select id="lang-select" class="lang-select" aria-label="Interface language">
+      <option value="ru">Русский</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+      <option value="de">Deutsch</option>
+      <option value="fr">Français</option>
+    </select>
+    <button id="theme-toggle" class="icon-btn" title="" aria-label="">◐</button>
+  </div>
 </header>
 
-<section class="toolbar" aria-label="Поиск и фильтры">
-  <input id="search" type="search" placeholder="Поиск: алтайский, ainu, ket, Turkic…" autocomplete="off">
-  <select id="f-macroarea" aria-label="Макрорегион"></select>
-  <select id="f-family" aria-label="Языковая семья"></select>
-  <select id="f-country" aria-label="Страна"></select>
-  <select id="f-speakers" aria-label="Число носителей">
-    <option value="">Носители: любые</option>
-    <option value="5">&gt; 1 млн</option>
-    <option value="4">100 тыс. – 1 млн</option>
-    <option value="3">10–100 тыс.</option>
-    <option value="2">1–10 тыс.</option>
-    <option value="1">&lt; 1 тыс.</option>
-    <option value="0">нет данных</option>
+<section class="toolbar" aria-label="Search and filters">
+  <input id="search" type="search" autocomplete="off">
+  <select id="f-macroarea"></select>
+  <select id="f-family"></select>
+  <select id="f-country"></select>
+  <select id="f-speakers">
+    <option value="" data-i18n="spkAny"></option>
+    <option value="5" data-i18n="spk5"></option>
+    <option value="4" data-i18n="spk4"></option>
+    <option value="3" data-i18n="spk3"></option>
+    <option value="2" data-i18n="spk2"></option>
+    <option value="1" data-i18n="spk1"></option>
+    <option value="0" data-i18n="spk0"></option>
   </select>
-  <select id="f-med" aria-label="Степень описанности">
-    <option value="">Материалы: любые</option>
-    <option value="g">Есть грамматика</option>
-    <option value="s">Хотя бы очерк грамматики</option>
-    <option value="d">Хотя бы тексты / словарь</option>
-    <option value="n">Почти не описан</option>
+  <select id="f-med">
+    <option value="" data-i18n="matAny"></option>
+    <option value="g" data-i18n="matG"></option>
+    <option value="s" data-i18n="matS"></option>
+    <option value="d" data-i18n="matD"></option>
+    <option value="n" data-i18n="matN"></option>
   </select>
-  <button id="reset" class="ghost-btn" title="Сбросить все фильтры">Сбросить</button>
+  <button id="reset" class="ghost-btn" data-i18n="reset"></button>
 </section>
 
-<section class="status-row" aria-label="Фильтр по статусу угрозы">
-  <span class="status-row-label">Статус:</span>
+<section class="status-row" aria-label="Endangerment status filter">
+  <span class="status-row-label" data-i18n="statusLabel"></span>
   <div id="status-chips" class="chips" role="group"></div>
   <span id="result-count" class="result-count" aria-live="polite"></span>
 </section>
 
 <main class="content">
-  <section class="table-pane" aria-label="Список языков">
+  <section class="table-pane" aria-label="Language list">
     <div class="table-scroll" id="table-scroll">
       <table id="lang-table">
         <thead>
           <tr>
-            <th data-sort="name" class="sortable">Язык<span class="sort-arrow"></span></th>
-            <th data-sort="fam" class="sortable">Семья<span class="sort-arrow"></span></th>
-            <th data-sort="ma" class="sortable hide-narrow">Регион<span class="sort-arrow"></span></th>
-            <th data-sort="spk" class="sortable num">Носители<span class="sort-arrow"></span></th>
-            <th data-sort="aes" class="sortable">Статус<span class="sort-arrow"></span></th>
+            <th data-sort="name" class="sortable"><span data-i18n="thLang"></span><span class="sort-arrow"></span></th>
+            <th data-sort="fam" class="sortable"><span data-i18n="thFam"></span><span class="sort-arrow"></span></th>
+            <th data-sort="ma" class="sortable hide-narrow"><span data-i18n="thRegion"></span><span class="sort-arrow"></span></th>
+            <th data-sort="spk" class="sortable num"><span data-i18n="thSpeakers"></span><span class="sort-arrow"></span></th>
+            <th data-sort="aes" class="sortable"><span data-i18n="thStatus"></span><span class="sort-arrow"></span></th>
           </tr>
         </thead>
         <tbody id="table-body"></tbody>
@@ -68,23 +77,18 @@
     </div>
   </section>
 
-  <section class="map-pane" aria-label="Карта языков">
+  <section class="map-pane" aria-label="Language map">
     <div id="map"></div>
     <div id="legend" class="legend" aria-hidden="false"></div>
   </section>
 </main>
 
-<aside id="detail" class="detail" hidden aria-label="Карточка языка">
-  <button id="detail-close" class="icon-btn detail-close" aria-label="Закрыть">✕</button>
+<aside id="detail" class="detail" hidden aria-label="Language card">
+  <button id="detail-close" class="icon-btn detail-close" aria-label="Close">✕</button>
   <div id="detail-body"></div>
 </aside>
 
-<footer class="site-footer">
-  Данные: <a href="https://glottolog.org" target="_blank" rel="noopener">Glottolog 5.x</a> (CC BY 4.0) ·
-  <a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a> (CC0) ·
-  сборка <span id="generated-date"></span> ·
-  статус угрозы — шкала AES (Glottolog: ElCat / Ethnologue / UNESCO)
-</footer>
+<footer class="site-footer" id="footer"></footer>
 
 <script src="vendor/leaflet.js"></script>
 <script src="app.js"></script>

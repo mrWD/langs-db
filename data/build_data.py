@@ -6,7 +6,7 @@ Output is a compact column-oriented JSON:
 Row fields (index = position in cols):
   id    glottocode
   name  English name (Glottolog)
-  nr    Russian name (Wikidata label, may be "")
+  nr/nes/nde/nfr  Russian/Spanish/German/French names (Wikidata labels, may be "")
   iso   ISO 639-3 code (may be "")
   fam   top-level family name ("" = isolate)
   ma    macroarea
@@ -38,6 +38,8 @@ CATEGORY_MAP = {
 }
 
 RU_STRIP = re.compile(r"\s+язык$", re.IGNORECASE)
+ES_STRIP = re.compile(r"^(idioma|lengua)\s+", re.IGNORECASE)
+FR_STRIP = re.compile(r"^langue\s+", re.IGNORECASE)
 
 
 def clean_ru(name):
@@ -48,6 +50,21 @@ def clean_ru(name):
     if name and name[0] in lat2cyr and any("Ѐ" <= ch <= "ӿ" for ch in name[1:]):
         name = lat2cyr[name[0]] + name[1:]
     return name[:1].upper() + name[1:] if name else ""
+
+
+def cap(name):
+    return name[:1].upper() + name[1:] if name else ""
+
+
+def clean_label(lang, name):
+    """Normalize a Wikidata label: drop generic 'idioma/langue/язык' words, capitalize."""
+    if lang == "ru":
+        return clean_ru(name)
+    if lang == "es":
+        return cap(ES_STRIP.sub("", name).strip())
+    if lang == "fr":
+        return cap(FR_STRIP.sub("", name).strip())
+    return cap(name.strip())
 
 
 def main():
@@ -81,7 +98,10 @@ def main():
         rows.append([
             r["ID"],
             r["Name"],
-            clean_ru(w.get("name_ru", "")),
+            clean_label("ru", w.get("name_ru", "")),
+            clean_label("es", w.get("name_es", "")),
+            clean_label("de", w.get("name_de", "")),
+            clean_label("fr", w.get("name_fr", "")),
             iso,
             fam,
             r["Macroarea"],
@@ -96,20 +116,21 @@ def main():
             w.get("wiki_en", ""),
         ])
 
-    rows.sort(key=lambda x: (-(x[11] or 0), x[1]))
+    SPK = 14
+    rows.sort(key=lambda x: (-(x[SPK] or 0), x[1]))
     out = {
         "generated": datetime.date.today().isoformat(),
-        "cols": ["id", "name", "nr", "iso", "fam", "ma", "lat", "lon", "cc", "aes", "med", "spk", "cat", "wr", "we"],
+        "cols": ["id", "name", "nr", "nes", "nde", "nfr", "iso", "fam", "ma", "lat", "lon", "cc", "aes", "med", "spk", "cat", "wr", "we"],
         "rows": rows,
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
 
-    n_map = sum(1 for x in rows if x[6] is not None)
-    n_spk = sum(1 for x in rows if x[11] is not None)
-    n_ru = sum(1 for x in rows if x[2])
-    print(f"{len(rows)} languages | {n_map} with coords | {n_spk} with speakers | {n_ru} with ru names")
+    n_map = sum(1 for x in rows if x[9] is not None)
+    n_spk = sum(1 for x in rows if x[SPK] is not None)
+    labels = " | ".join(f"{c}: {sum(1 for x in rows if x[i])}" for i, c in ((2, "ru"), (3, "es"), (4, "de"), (5, "fr")))
+    print(f"{len(rows)} languages | {n_map} with coords | {n_spk} with speakers | labels {labels}")
     print(f"data.json: {os.path.getsize(OUT) / 1e6:.2f} MB")
 
 
