@@ -41,6 +41,15 @@ const I18N = {
     coursesTitle: 'Найти курсы и уроки', coursesNote: 'поиск в Google',
     coursesQuery: '{name} язык курсы уроки',
     supportLabel: 'Поддержать проект:',
+    levelLangs: 'Только языки', levelAll: 'Языки и диалекты',
+    dialect: 'диалект', dialectOf: 'диалект языка {name}', dialectsTitle: 'Диалекты ({n})',
+    compareBtn: 'Сравнить', compareTitle: 'Сравнение языков',
+    comparePick: 'Второй язык: начните вводить название…',
+    compareBasic: 'Основные параметры', compareGrammar: 'Грамматика — признаки WALS',
+    compareMatches: 'Совпадают {m} из {n} общих признаков',
+    compareNoWals: 'Нет типологических данных (WALS): {name}',
+    compareLoading: 'Загрузка данных WALS…',
+    compareNote: 'Названия признаков — на английском (база WALS). Покрытие неполное: у многих языков описано лишь несколько признаков; для диалектов используются данные родительского языка.',
     footer: 'Данные: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · сборка {date} · статус угрозы — шкала AES (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Переключить тему', close: 'Закрыть',
   },
@@ -77,6 +86,15 @@ const I18N = {
     coursesTitle: 'Find courses & lessons', coursesNote: 'Google search',
     coursesQuery: '{name} language course lessons',
     supportLabel: 'Support the project:',
+    levelLangs: 'Languages only', levelAll: 'Languages & dialects',
+    dialect: 'dialect', dialectOf: 'dialect of {name}', dialectsTitle: 'Dialects ({n})',
+    compareBtn: 'Compare', compareTitle: 'Language comparison',
+    comparePick: 'Second language: start typing a name…',
+    compareBasic: 'Basic parameters', compareGrammar: 'Grammar — WALS features',
+    compareMatches: '{m} of {n} shared features match',
+    compareNoWals: 'No typological data (WALS): {name}',
+    compareLoading: 'Loading WALS data…',
+    compareNote: 'Feature names are in English (WALS database). Coverage is uneven: many languages have only a few coded features; dialects use their parent language’s data.',
     footer: 'Data: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · build {date} · endangerment — AES scale (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Toggle theme', close: 'Close',
   },
@@ -113,6 +131,15 @@ const I18N = {
     coursesTitle: 'Buscar cursos y lecciones', coursesNote: 'búsqueda en Google',
     coursesQuery: 'curso de {name} lecciones',
     supportLabel: 'Apoyar el proyecto:',
+    levelLangs: 'Solo lenguas', levelAll: 'Lenguas y dialectos',
+    dialect: 'dialecto', dialectOf: 'dialecto de {name}', dialectsTitle: 'Dialectos ({n})',
+    compareBtn: 'Comparar', compareTitle: 'Comparación de lenguas',
+    comparePick: 'Segunda lengua: escriba un nombre…',
+    compareBasic: 'Parámetros básicos', compareGrammar: 'Gramática — rasgos WALS',
+    compareMatches: 'Coinciden {m} de {n} rasgos comunes',
+    compareNoWals: 'Sin datos tipológicos (WALS): {name}',
+    compareLoading: 'Cargando datos WALS…',
+    compareNote: 'Los nombres de los rasgos están en inglés (base WALS). La cobertura es desigual: muchas lenguas tienen pocos rasgos codificados; los dialectos usan los datos de su lengua matriz.',
     footer: 'Datos: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · compilación {date} · amenaza — escala AES (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Cambiar tema', close: 'Cerrar',
   },
@@ -149,6 +176,15 @@ const I18N = {
     coursesTitle: 'Kurse und Lektionen finden', coursesNote: 'Google-Suche',
     coursesQuery: '{name} Sprachkurs lernen',
     supportLabel: 'Projekt unterstützen:',
+    levelLangs: 'Nur Sprachen', levelAll: 'Sprachen & Dialekte',
+    dialect: 'Dialekt', dialectOf: 'Dialekt von {name}', dialectsTitle: 'Dialekte ({n})',
+    compareBtn: 'Vergleichen', compareTitle: 'Sprachvergleich',
+    comparePick: 'Zweite Sprache: Namen eingeben…',
+    compareBasic: 'Grundparameter', compareGrammar: 'Grammatik — WALS-Merkmale',
+    compareMatches: '{m} von {n} gemeinsamen Merkmalen stimmen überein',
+    compareNoWals: 'Keine typologischen Daten (WALS): {name}',
+    compareLoading: 'WALS-Daten werden geladen…',
+    compareNote: 'Merkmalsnamen sind auf Englisch (WALS-Datenbank). Die Abdeckung ist ungleichmäßig: viele Sprachen haben nur wenige kodierte Merkmale; Dialekte nutzen die Daten ihrer Muttersprache.',
     footer: 'Daten: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · Stand {date} · Gefährdung — AES-Skala (Glottolog: ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Thema wechseln', close: 'Schließen',
   },
@@ -185,6 +221,15 @@ const I18N = {
     coursesTitle: 'Trouver des cours et leçons', coursesNote: 'recherche Google',
     coursesQuery: 'cours de {name} leçons',
     supportLabel: 'Soutenir le projet :',
+    levelLangs: 'Langues seulement', levelAll: 'Langues et dialectes',
+    dialect: 'dialecte', dialectOf: 'dialecte de {name}', dialectsTitle: 'Dialectes ({n})',
+    compareBtn: 'Comparer', compareTitle: 'Comparaison de langues',
+    comparePick: 'Deuxième langue : saisissez un nom…',
+    compareBasic: 'Paramètres de base', compareGrammar: 'Grammaire — traits WALS',
+    compareMatches: '{m} des {n} traits communs concordent',
+    compareNoWals: 'Pas de données typologiques (WALS) : {name}',
+    compareLoading: 'Chargement des données WALS…',
+    compareNote: 'Les noms des traits sont en anglais (base WALS). La couverture est inégale : beaucoup de langues n’ont que quelques traits codés ; les dialectes utilisent les données de leur langue mère.',
     footer: 'Données : {glottolog} (CC BY 4.0) · {wikidata} (CC0) · version {date} · menace — échelle AES (Glottolog : ElCat / Ethnologue / UNESCO)',
     themeTitle: 'Changer de thème', close: 'Fermer',
   },
@@ -247,6 +292,8 @@ function applyStatic() {
 
 // ---------- state ----------
 let ROWS = [];
+let byId = new Map();      // glottocode -> row
+let childrenOf = new Map(); // language glottocode -> [dialect rows]
 let filtered = [];
 let renderedCount = 0;
 const PAGE = 200;
@@ -309,16 +356,16 @@ function accentColor() {
   return getComputedStyle(root).getPropertyValue('--accent').trim();
 }
 
-// базовый / наведённый / выбранный стили маркера
+// базовый / наведённый / выбранный стили маркера (диалекты — мельче)
 let selectedIdx = null;
 function baseStyle(r) {
-  return { radius: 4.5, weight: 1, color: markerStroke(), opacity: 0.9, fillColor: aesColor(r.aes), fillOpacity: 0.85 };
+  return { radius: r.par ? 3 : 4.5, weight: 1, color: markerStroke(), opacity: 0.9, fillColor: aesColor(r.aes), fillOpacity: r.par ? 0.7 : 0.85 };
 }
 function hoverStyle(r) {
-  return { radius: 7.5, weight: 2.5, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
+  return { radius: r.par ? 6 : 7.5, weight: 2.5, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
 }
 function selectedStyle(r) {
-  return { radius: 9, weight: 3, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
+  return { radius: r.par ? 7.5 : 9, weight: 3, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
 }
 function styleFor(i) {
   const r = ROWS[i];
@@ -386,6 +433,7 @@ const els = {
   cc: document.getElementById('f-country'),
   spk: document.getElementById('f-speakers'),
   med: document.getElementById('f-med'),
+  lvl: document.getElementById('f-level'),
   chips: document.getElementById('status-chips'),
   count: document.getElementById('result-count'),
   body: document.getElementById('table-body'),
@@ -416,7 +464,9 @@ function applyFilters() {
   const spk = els.spk.value;
   const med = els.med.value;
 
+  const lvl = els.lvl.value;
   filtered = ROWS.filter(r => {
+    if (lvl !== 'all' && r.par) return false;
     if (!activeStatuses.has(r.aes)) return false;
     if (ma && !r.maList.includes(ma)) return false;
     if (fam) {
@@ -510,7 +560,25 @@ document.querySelectorAll('thead th.sortable').forEach(th => {
 const detail = document.getElementById('detail');
 const detailBody = document.getElementById('detail-body');
 document.getElementById('detail-close').addEventListener('click', closeDetail);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  const cmp = document.getElementById('compare');
+  if (!cmp.hidden) closeCompare();
+  else closeDetail();
+});
+
+// переходы по карточкам (родитель ↔ диалекты) и кнопка сравнения
+detailBody.addEventListener('click', e => {
+  const open = e.target.closest('[data-open]');
+  if (open) {
+    e.preventDefault();
+    const r = byId.get(open.dataset.open);
+    if (r) openDetail(r, { fly: true });
+    return;
+  }
+  const cmp = e.target.closest('[data-compare]');
+  if (cmp) openCompare(byId.get(cmp.dataset.compare));
+});
 
 function closeDetail() {
   detail.hidden = true;
@@ -527,12 +595,19 @@ function linkItem(url, title, note) {
 
 function openDetail(r, { fly }) {
   selectedId = r.id;
+  // диалект открыт, а диалекты скрыты фильтром — включаем их
+  if (r.par && els.lvl.value !== 'all') {
+    els.lvl.value = 'all';
+    applyFilters();
+  }
   selectMarker(r.idx);
   history.replaceState(null, '', '#l=' + r.id);
   document.querySelectorAll('tbody tr.selected').forEach(tr => tr.classList.remove('selected'));
   const tr = els.body.querySelector(`tr[data-id="${r.id}"]`);
   if (tr) tr.classList.add('selected');
 
+  const parent = r.par ? byId.get(r.par) : null;
+  const dialects = childrenOf.get(r.id) || [];
   const countries = r.ccList.length ? r.ccList.map(countryName).join(', ') : '—';
 
   // практические ссылки: словарь, произношение, курсы
@@ -565,15 +640,24 @@ function openDetail(r, { fly }) {
       <span class="code-chip" title="Glottocode">${esc(r.id)}</span>
       ${r.iso ? `<span class="code-chip" title="ISO 639-3">ISO ${esc(r.iso)}</span>` : ''}
     </div>
-    <div class="status-line"><span class="dot" style="--c:var(--aes-${r.aes})"></span>${esc(T.aes[r.aes])}</div>
+    <div class="status-row-line">
+      <div class="status-line"><span class="dot" style="--c:var(--aes-${r.aes})"></span>${esc(T.aes[r.aes])}</div>
+      <button class="ghost-btn compare-btn" data-compare="${esc(r.id)}">⚖ ${esc(T.compareBtn)}</button>
+    </div>
     <dl>
       <dt>${esc(T.cardFamily)}</dt><dd>${esc(r.fam || T.cardIsolate)}</dd>
-      <dt>${esc(T.cardType)}</dt><dd>${esc(T.cat[r.cat] || r.cat)}</dd>
+      <dt>${esc(T.cardType)}</dt><dd>${parent
+        ? `${esc(T.dialect)} · <a href="#l=${esc(parent.id)}" data-open="${esc(parent.id)}">${esc(parent.label)}</a>`
+        : esc(T.cat[r.cat] || r.cat)}</dd>
       <dt>${esc(T.cardRegion)}</dt><dd>${esc(maName(r.ma))}</dd>
       <dt>${esc(T.cardCountries)}</dt><dd>${esc(countries)}</dd>
       <dt>${esc(T.cardSpeakers)}</dt><dd>${r.spk === null ? esc(T.noData) : esc(fmtFull.format(r.spk)) + ' (Wikidata)'}</dd>
       <dt>${esc(T.cardMed)}</dt><dd>${esc(T.med[r.med] || '—')}</dd>
     </dl>
+    ${dialects.length ? `
+    <h3>${esc(tpl(T.dialectsTitle, { n: fmtFull.format(dialects.length) }))}</h3>
+    <div class="dial-chips">${dialects.map(d =>
+      `<a href="#l=${esc(d.id)}" data-open="${esc(d.id)}">${esc(d.label)}</a>`).join('')}</div>` : ''}
     <h3>${esc(T.learnTitle)}</h3>
     <ul class="links">${learn.join('')}</ul>
     <h3>${esc(T.cardLinks)}</h3>
@@ -592,6 +676,127 @@ function openDetail(r, { fly }) {
     }
     map.flyTo(center, z, { duration: 0.8 });
   }
+}
+
+// ---------- compare ----------
+const cmpEls = {
+  overlay: document.getElementById('compare'),
+  body: document.getElementById('compare-body'),
+  search: document.getElementById('cmp-search'),
+  results: document.getElementById('cmp-results'),
+};
+let cmpA = null;
+let cmpB = null;
+let walsPromise = null;
+
+function loadWals() {
+  if (!walsPromise) {
+    walsPromise = fetch('wals.json').then(resp => resp.json());
+  }
+  return walsPromise;
+}
+function openCompare(a, b) {
+  cmpA = a;
+  cmpB = b || null;
+  cmpEls.search.value = '';
+  cmpEls.results.hidden = true;
+  cmpEls.overlay.hidden = false;
+  cmpEls.search.placeholder = T.comparePick;
+  renderCompare();
+  if (!cmpB) cmpEls.search.focus();
+}
+function closeCompare() {
+  cmpEls.overlay.hidden = true;
+  if (selectedId) history.replaceState(null, '', '#l=' + selectedId);
+}
+document.getElementById('compare-close').addEventListener('click', closeCompare);
+cmpEls.overlay.addEventListener('click', e => { if (e.target === cmpEls.overlay) closeCompare(); });
+
+cmpEls.search.addEventListener('input', () => {
+  const q = cmpEls.search.value.trim().toLowerCase();
+  if (q.length < 2) { cmpEls.results.hidden = true; return; }
+  const found = [];
+  for (const r of ROWS) {
+    if (r.id !== cmpA.id && r.search.includes(q)) {
+      found.push(r);
+      if (found.length >= 12) break;
+    }
+  }
+  cmpEls.results.innerHTML = found.map(r =>
+    `<button data-id="${esc(r.id)}"><strong>${esc(r.label)}</strong> <span>${esc(r.par ? tpl(T.dialectOf, { name: byId.get(r.par)?.label || '' }) : r.fam || T.isolate)}</span></button>`).join('');
+  cmpEls.results.hidden = !found.length;
+});
+cmpEls.results.addEventListener('click', e => {
+  const btn = e.target.closest('button[data-id]');
+  if (!btn) return;
+  cmpB = byId.get(btn.dataset.id);
+  cmpEls.results.hidden = true;
+  cmpEls.search.value = '';
+  renderCompare();
+});
+
+function cmpBasicRow(label, va, vb) {
+  const match = va === vb && va !== '—';
+  return `<tr class="${match ? 'match' : ''}"><td>${esc(label)}</td><td>${esc(va)}</td><td>${esc(vb)}</td></tr>`;
+}
+function basicVal(r) {
+  return {
+    fam: r.fam || T.cardIsolate,
+    type: r.par ? tpl(T.dialectOf, { name: byId.get(r.par)?.label || '' }) : (T.cat[r.cat] || r.cat),
+    ma: maName(r.ma),
+    cc: r.ccList.length ? r.ccList.map(countryName).join(', ') : '—',
+    spk: r.spk === null ? T.noData : fmtCompact.format(r.spk),
+    aes: T.aes[r.aes],
+    med: T.med[r.med] || '—',
+  };
+}
+async function renderCompare() {
+  const a = cmpA, b = cmpB;
+  history.replaceState(null, '', b ? `#cmp=${a.id},${b.id}` : '#cmp=' + a.id);
+  const head = `<div class="cmp-heads"><div>${esc(a.label)}</div><div>${b ? esc(b.label) : '…'}</div></div>`;
+  if (!b) {
+    cmpEls.body.innerHTML = head;
+    return;
+  }
+  const va = basicVal(a), vb = basicVal(b);
+  const basic = `
+    <h3>${esc(T.compareBasic)}</h3>
+    <table class="cmp-table">
+      ${cmpBasicRow(T.cardFamily, va.fam, vb.fam)}
+      ${cmpBasicRow(T.cardType, va.type, vb.type)}
+      ${cmpBasicRow(T.cardRegion, va.ma, vb.ma)}
+      ${cmpBasicRow(T.cardCountries, va.cc, vb.cc)}
+      ${cmpBasicRow(T.cardSpeakers, va.spk, vb.spk)}
+      ${cmpBasicRow(T.thStatus, va.aes, vb.aes)}
+      ${cmpBasicRow(T.cardMed, va.med, vb.med)}
+    </table>`;
+  cmpEls.body.innerHTML = head + basic + `<h3>${esc(T.compareGrammar)}</h3><p class="cmp-note">${esc(T.compareLoading)}</p>`;
+
+  const wals = await loadWals();
+  if (cmpA !== a || cmpB !== b) return; // пока грузилось, выбрали другое
+  const wa = wals.langs[a.id] || wals.langs[a.par];
+  const wb = wals.langs[b.id] || wals.langs[b.par];
+  const missing = [!wa && a, !wb && b].filter(Boolean)
+    .map(r => `<p class="cmp-note">${esc(tpl(T.compareNoWals, { name: r.label }))}</p>`).join('');
+  let grammar = '';
+  if (wa && wb) {
+    const common = Object.keys(wa).filter(f => f in wb)
+      .sort((x, y) => parseInt(x) - parseInt(y) || x.localeCompare(y));
+    const matches = common.filter(f => wa[f] === wb[f]);
+    const rows = common.map(f => {
+      const feat = wals.features[f];
+      const same = wa[f] === wb[f];
+      return `<tr class="${same ? 'match' : ''}"><td>${esc(feat.n)}</td>` +
+        `<td>${esc(feat.v[wa[f]] || wa[f])}</td><td>${esc(feat.v[wb[f]] || wb[f])}</td></tr>`;
+    }).join('');
+    grammar = common.length
+      ? `<p class="cmp-summary">${esc(tpl(T.compareMatches, { m: matches.length, n: common.length }))}</p>
+         <table class="cmp-table">${rows}</table>`
+      : '';
+  }
+  cmpEls.body.innerHTML = head + basic +
+    `<h3>${esc(T.compareGrammar)}</h3>` + missing + grammar +
+    `<p class="cmp-note">${esc(T.compareNote)}</p>`;
 }
 
 // ---------- filter widgets ----------
@@ -639,10 +844,10 @@ els.search.addEventListener('input', () => {
   clearTimeout(searchTimer);
   searchTimer = setTimeout(applyFilters, 130);
 });
-[els.ma, els.fam, els.cc, els.spk, els.med].forEach(el => el.addEventListener('change', applyFilters));
+[els.ma, els.fam, els.cc, els.spk, els.med, els.lvl].forEach(el => el.addEventListener('change', applyFilters));
 document.getElementById('reset').addEventListener('click', () => {
   els.search.value = '';
-  [els.ma, els.fam, els.cc, els.spk, els.med].forEach(el => (el.value = ''));
+  [els.ma, els.fam, els.cc, els.spk, els.med, els.lvl].forEach(el => (el.value = ''));
   activeStatuses.clear();
   [0, 1, 2, 3, 4, 5, 6].forEach(a => activeStatuses.add(a));
   els.chips.querySelectorAll('.chip').forEach(c => { c.classList.remove('off'); c.setAttribute('aria-pressed', 'true'); });
@@ -663,7 +868,7 @@ async function boot() {
       fam: row[idx.fam], ma: row[idx.ma], lat: row[idx.lat], lon: row[idx.lon],
       cc: row[idx.cc], aes: row[idx.aes], med: row[idx.med],
       spk: row[idx.spk] === undefined || row[idx.spk] === null ? null : row[idx.spk],
-      cat: row[idx.cat], wr: row[idx.wr], we: row[idx.we], idx: i,
+      cat: row[idx.cat], wr: row[idx.wr], we: row[idx.we], par: row[idx.par] || '', idx: i,
     };
     r.ccList = r.cc ? r.cc.split(';') : [];
     r.maList = r.ma ? r.ma.split(';') : [];
@@ -673,8 +878,22 @@ async function boot() {
     r.search = `${r.name}|${r.nr}|${r.nes}|${r.nde}|${r.nfr}|${r.iso}|${r.id}|${r.fam}`.toLowerCase();
     return r;
   });
+  byId = new Map(ROWS.map(r => [r.id, r]));
+  childrenOf = new Map();
+  for (const r of ROWS) {
+    if (!r.par) continue;
+    if (!childrenOf.has(r.par)) childrenOf.set(r.par, []);
+    childrenOf.get(r.par).push(r);
+    const p = byId.get(r.par);
+    if (p) {
+      // у диалекта подпись «диалект языка X»; родитель ищется и по именам диалектов
+      r.sub = tpl(T.dialectOf, { name: p.label });
+      r.search += `|${p.name}|${p[nameCol || 'name'] || ''}`.toLowerCase();
+    }
+  }
 
-  document.getElementById('subtitle').textContent = tpl(T.subtitle, { n: fmtFull.format(ROWS.length) });
+  const nLangs = ROWS.reduce((n, r) => n + (r.par ? 0 : 1), 0);
+  document.getElementById('subtitle').textContent = tpl(T.subtitle, { n: fmtFull.format(nLangs) });
   const credits = tpl(esc(T.footer), {
     glottolog: '<a href="https://glottolog.org" target="_blank" rel="noopener">Glottolog 5.x</a>',
     wikidata: '<a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>',
@@ -697,8 +916,14 @@ async function boot() {
 
   const m = location.hash.match(/^#l=([a-z0-9]+)/);
   if (m) {
-    const r = ROWS.find(x => x.id === m[1]);
+    const r = byId.get(m[1]);
     if (r) openDetail(r, { fly: true });
+  }
+  const c = location.hash.match(/^#cmp=([a-z0-9]+)(?:,([a-z0-9]+))?/);
+  if (c) {
+    const a = byId.get(c[1]);
+    const b = c[2] ? byId.get(c[2]) : null;
+    if (a) openCompare(a, b);
   }
 }
 

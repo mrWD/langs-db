@@ -49,6 +49,10 @@
     <option value="d" data-i18n="matD"></option>
     <option value="n" data-i18n="matN"></option>
   </select>
+  <select id="f-level">
+    <option value="" data-i18n="levelLangs"></option>
+    <option value="all" data-i18n="levelAll"></option>
+  </select>
   <button id="reset" class="ghost-btn" data-i18n="reset"></button>
 </section>
 
@@ -87,6 +91,18 @@
   <button id="detail-close" class="icon-btn detail-close" aria-label="Close">✕</button>
   <div id="detail-body"></div>
 </aside>
+
+<div id="compare" class="compare-overlay" hidden>
+  <div class="compare-panel" role="dialog" aria-modal="true">
+    <button id="compare-close" class="icon-btn compare-close" aria-label="Close">✕</button>
+    <h2 data-i18n="compareTitle"></h2>
+    <div class="compare-pick">
+      <input id="cmp-search" type="search" autocomplete="off">
+      <div id="cmp-results" class="cmp-results" hidden></div>
+    </div>
+    <div id="compare-body"></div>
+  </div>
+</div>
 
 <footer class="site-footer" id="footer"></footer>
 

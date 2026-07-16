@@ -18,6 +18,8 @@ Row fields (index = position in cols):
   cat   L=spoken, S=sign, P=pidgin, M=mixed
   wr    ru.wikipedia URL ("" if none)
   we    en.wikipedia URL ("" if none)
+  par   parent language glottocode ("" for languages, filled for dialects;
+        dialects inherit aes and cc from the parent when their own are empty)
 """
 
 import csv
@@ -83,18 +85,26 @@ def main():
 
     wd = json.load(open(os.path.join(RAW, "wikidata.json")))
 
+    kept_langs = set()
     rows = []
     for r in langs:
-        if r["Level"] != "language":
+        if r["Level"] == "language":
+            c = CATEGORY_MAP.get(cat.get(r["ID"], ""))
+            if not c:
+                continue  # bookkeeping, unattested, artificial, speech register, unclassifiable
+            par = ""
+        elif r["Level"] == "dialect":
+            par = r["Language_ID"]
+            c = "L"
+        else:
             continue
-        c = CATEGORY_MAP.get(cat.get(r["ID"], ""))
-        if not c:
-            continue  # bookkeeping, unattested, artificial, speech register, unclassifiable
         iso = r["ISO639P3code"]
         w = wd.get(iso, {})
         fam = by_id.get(r["Family_ID"], {}).get("Name", "") if r["Family_ID"] else ""
         lat = round(float(r["Latitude"]), 3) if r["Latitude"] else None
         lon = round(float(r["Longitude"]), 3) if r["Longitude"] else None
+        if r["Level"] == "language":
+            kept_langs.add(r["ID"])
         rows.append([
             r["ID"],
             r["Name"],
@@ -114,23 +124,37 @@ def main():
             c,
             w.get("wiki_ru", ""),
             w.get("wiki_en", ""),
+            par,
         ])
 
-    SPK = 14
+    # диалекты только тех языков, что попали в атлас; статус и страны
+    # наследуются от родителя, если своих нет
+    ID, CC, AES, PAR, SPK = 0, 11, 12, 18, 14
+    by_row_id = {x[ID]: x for x in rows}
+    rows = [x for x in rows if not x[PAR] or x[PAR] in kept_langs]
+    for x in rows:
+        parent = by_row_id.get(x[PAR])
+        if parent is not None:
+            if x[AES] == 0:
+                x[AES] = parent[AES]
+            if not x[CC]:
+                x[CC] = parent[CC]
+
     rows.sort(key=lambda x: (-(x[SPK] or 0), x[1]))
     out = {
         "generated": datetime.date.today().isoformat(),
-        "cols": ["id", "name", "nr", "nes", "nde", "nfr", "iso", "fam", "ma", "lat", "lon", "cc", "aes", "med", "spk", "cat", "wr", "we"],
+        "cols": ["id", "name", "nr", "nes", "nde", "nfr", "iso", "fam", "ma", "lat", "lon", "cc", "aes", "med", "spk", "cat", "wr", "we", "par"],
         "rows": rows,
     }
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w") as f:
         json.dump(out, f, ensure_ascii=False, separators=(",", ":"))
 
+    n_dial = sum(1 for x in rows if x[PAR])
     n_map = sum(1 for x in rows if x[9] is not None)
     n_spk = sum(1 for x in rows if x[SPK] is not None)
     labels = " | ".join(f"{c}: {sum(1 for x in rows if x[i])}" for i, c in ((2, "ru"), (3, "es"), (4, "de"), (5, "fr")))
-    print(f"{len(rows)} languages | {n_map} with coords | {n_spk} with speakers | labels {labels}")
+    print(f"{len(rows)} rows ({len(rows) - n_dial} languages + {n_dial} dialects) | {n_map} with coords | {n_spk} with speakers | labels {labels}")
     print(f"data.json: {os.path.getsize(OUT) / 1e6:.2f} MB")
 
 
