@@ -1,239 +1,10 @@
 /* Языки мира / Languages of the World — interactive atlas.
-   Data: Glottolog (CC BY 4.0) + Wikidata (CC0). */
+   Data: Glottolog (CC BY 4.0) + Wikidata (CC0) + WALS (CC BY 4.0).
+   Переводы интерфейса — в i18n.js, счётчик посещений — в stats.js. */
 'use strict';
 
-// ---------- i18n ----------
-const LOCALES = ['ru', 'en', 'es', 'de', 'fr'];
-// column with the localized language name for each UI locale (en uses Glottolog name)
-const NAME_COL = { ru: 'nr', en: null, es: 'nes', de: 'nde', fr: 'nfr' };
-
-const I18N = {
-  ru: {
-    title: 'Языки мира — интерактивный атлас',
-    h1: 'Языки мира',
-    subtitle: 'Интерактивный атлас: {n} языков — семьи, носители, статус угрозы, карта и материалы для изучения',
-    searchPh: 'Поиск: алтайский, ainu, ket, Turkic…',
-    regionAll: 'Регион: все', familyAll: 'Семья: все', countryAll: 'Страна: все',
-    spkAny: 'Носители: любые', spk5: '> 1 млн', spk4: '100 тыс. – 1 млн', spk3: '10–100 тыс.',
-    spk2: '1–10 тыс.', spk1: '< 1 тыс.', spk0: 'нет данных',
-    matAny: 'Материалы: любые', matG: 'Есть грамматика', matS: 'Хотя бы очерк грамматики',
-    matD: 'Хотя бы тексты / словарь', matN: 'Почти не описан',
-    reset: 'Сбросить', statusLabel: 'Статус:', found: 'Найдено: {n}',
-    aes: ['Нет данных', 'Вне угрозы', 'Уязвимый', 'Под угрозой', 'Серьёзная угроза', 'На грани исчезновения', 'Вымерший'],
-    med: { 0: 'Полная грамматика (300+ стр.)', 1: 'Грамматика', 2: 'Очерк грамматики', 3: 'Фонология, тексты или словарь', 4: 'Список слов или меньше', '-1': 'Нет данных' },
-    ma: { 'Eurasia': 'Евразия', 'Africa': 'Африка', 'North America': 'Сев. Америка', 'South America': 'Юж. Америка', 'Papunesia': 'Папунезия', 'Australia': 'Австралия' },
-    cat: { L: 'устный язык', S: 'жестовый язык', P: 'пиджин', M: 'смешанный язык' },
-    thLang: 'Язык', thFam: 'Семья', thRegion: 'Регион', thSpeakers: 'Носители', thStatus: 'Статус',
-    isolate: 'изолят', familyIsolates: 'Изоляты ({n})', cardIsolate: 'Изолят / вне семьи',
-    cardFamily: 'Семья', cardType: 'Тип', cardRegion: 'Макрорегион', cardCountries: 'Страны',
-    cardSpeakers: 'Носители', cardMed: 'Лучшее описание', noData: 'нет данных',
-    cardLinks: 'Материалы и ссылки',
-    glottologNote: 'классификация, библиография описаний',
-    wikiRu: 'Википедия (рус.)', wikiEn: 'Wikipedia (англ.)', wikiNote: 'обзорная статья',
-    olacTitle: 'OLAC — языковые архивы', olacNote: 'записи речи, тексты, учебные материалы',
-    ethnologueNote: 'демография и статус (частично платно)',
-    elpNote: 'проект документации исчезающих языков',
-    footNote: 'Статус — агрегированная шкала AES (Glottolog) по данным ElCat, Ethnologue и UNESCO. Число носителей — Wikidata (P1098); для малых языков может быть устаревшим.',
-    verifyNote: 'Данные собраны автоматически и могут содержать неточности — сверяйтесь с первоисточниками.',
-    learnTitle: 'Познакомиться с языком',
-    glosbeTitle: 'Словарь Glosbe', glosbeNote: 'переводы, примеры, произношение',
-    forvoTitle: 'Произношение — Forvo', forvoNote: 'слова, озвученные носителями',
-    coursesTitle: 'Найти курсы и уроки', coursesNote: 'поиск в Google',
-    coursesQuery: '{name} язык курсы уроки',
-    supportLabel: 'Поддержать проект:',
-    levelLangs: 'Только языки', levelAll: 'Языки и диалекты',
-    dialect: 'диалект', dialectOf: 'диалект языка {name}', dialectsTitle: 'Диалекты ({n})',
-    compareBtn: 'Сравнить', compareTitle: 'Сравнение языков',
-    comparePick: 'Второй язык: начните вводить название…',
-    compareBasic: 'Основные параметры', compareGrammar: 'Грамматика — признаки WALS',
-    compareMatches: 'Совпадают {m} из {n} общих признаков',
-    compareNoWals: 'Нет типологических данных (WALS): {name}',
-    compareLoading: 'Загрузка данных WALS…',
-    compareNote: 'Названия признаков — на английском (база WALS). Покрытие неполное: у многих языков описано лишь несколько признаков; для диалектов используются данные родительского языка.',
-    footer: 'Данные: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · сборка {date} · статус угрозы — шкала AES (Glottolog: ElCat / Ethnologue / UNESCO)',
-    themeTitle: 'Переключить тему', close: 'Закрыть',
-  },
-  en: {
-    title: 'Languages of the World — interactive atlas',
-    h1: 'Languages of the World',
-    subtitle: 'Interactive atlas: {n} languages — families, speakers, endangerment status, map and learning resources',
-    searchPh: 'Search: ainu, ket, Altai, Turkic…',
-    regionAll: 'Region: all', familyAll: 'Family: all', countryAll: 'Country: all',
-    spkAny: 'Speakers: any', spk5: '> 1 M', spk4: '100 k – 1 M', spk3: '10–100 k',
-    spk2: '1–10 k', spk1: '< 1 000', spk0: 'no data',
-    matAny: 'Materials: any', matG: 'Has a grammar', matS: 'At least a grammar sketch',
-    matD: 'At least texts / dictionary', matN: 'Barely documented',
-    reset: 'Reset', statusLabel: 'Status:', found: 'Found: {n}',
-    aes: ['No data', 'Not endangered', 'Vulnerable', 'Endangered', 'Severely endangered', 'Critically endangered', 'Extinct'],
-    med: { 0: 'Full grammar (300+ pp.)', 1: 'Grammar', 2: 'Grammar sketch', 3: 'Phonology, texts or dictionary', 4: 'Wordlist or less', '-1': 'No data' },
-    ma: { 'Eurasia': 'Eurasia', 'Africa': 'Africa', 'North America': 'N. America', 'South America': 'S. America', 'Papunesia': 'Papunesia', 'Australia': 'Australia' },
-    cat: { L: 'spoken language', S: 'sign language', P: 'pidgin', M: 'mixed language' },
-    thLang: 'Language', thFam: 'Family', thRegion: 'Region', thSpeakers: 'Speakers', thStatus: 'Status',
-    isolate: 'isolate', familyIsolates: 'Isolates ({n})', cardIsolate: 'Isolate / unclassified',
-    cardFamily: 'Family', cardType: 'Type', cardRegion: 'Macroarea', cardCountries: 'Countries',
-    cardSpeakers: 'Speakers', cardMed: 'Best description', noData: 'no data',
-    cardLinks: 'Materials & links',
-    glottologNote: 'classification, bibliography of descriptions',
-    wikiRu: 'Wikipedia (Russian)', wikiEn: 'Wikipedia (English)', wikiNote: 'overview article',
-    olacTitle: 'OLAC — language archives', olacNote: 'audio recordings, texts, learning materials',
-    ethnologueNote: 'demographics and status (partly paywalled)',
-    elpNote: 'documentation project for endangered languages',
-    footNote: 'Status is the aggregated AES scale (Glottolog) based on ElCat, Ethnologue and UNESCO. Speaker counts come from Wikidata (P1098) and may be outdated for small languages.',
-    verifyNote: 'Data is aggregated automatically and may contain inaccuracies — please verify against the primary sources.',
-    learnTitle: 'Get to know the language',
-    glosbeTitle: 'Glosbe dictionary', glosbeNote: 'translations, examples, pronunciation',
-    forvoTitle: 'Pronunciation — Forvo', forvoNote: 'words spoken by native speakers',
-    coursesTitle: 'Find courses & lessons', coursesNote: 'Google search',
-    coursesQuery: '{name} language course lessons',
-    supportLabel: 'Support the project:',
-    levelLangs: 'Languages only', levelAll: 'Languages & dialects',
-    dialect: 'dialect', dialectOf: 'dialect of {name}', dialectsTitle: 'Dialects ({n})',
-    compareBtn: 'Compare', compareTitle: 'Language comparison',
-    comparePick: 'Second language: start typing a name…',
-    compareBasic: 'Basic parameters', compareGrammar: 'Grammar — WALS features',
-    compareMatches: '{m} of {n} shared features match',
-    compareNoWals: 'No typological data (WALS): {name}',
-    compareLoading: 'Loading WALS data…',
-    compareNote: 'Feature names are in English (WALS database). Coverage is uneven: many languages have only a few coded features; dialects use their parent language’s data.',
-    footer: 'Data: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · build {date} · endangerment — AES scale (Glottolog: ElCat / Ethnologue / UNESCO)',
-    themeTitle: 'Toggle theme', close: 'Close',
-  },
-  es: {
-    title: 'Lenguas del mundo — atlas interactivo',
-    h1: 'Lenguas del mundo',
-    subtitle: 'Atlas interactivo: {n} lenguas — familias, hablantes, grado de amenaza, mapa y recursos de aprendizaje',
-    searchPh: 'Buscar: ainu, ket, Altai, Turkic…',
-    regionAll: 'Región: todas', familyAll: 'Familia: todas', countryAll: 'País: todos',
-    spkAny: 'Hablantes: cualquiera', spk5: '> 1 M', spk4: '100 mil – 1 M', spk3: '10–100 mil',
-    spk2: '1–10 mil', spk1: '< 1000', spk0: 'sin datos',
-    matAny: 'Materiales: cualquiera', matG: 'Con gramática', matS: 'Al menos un esbozo gramatical',
-    matD: 'Al menos textos / diccionario', matN: 'Apenas documentada',
-    reset: 'Restablecer', statusLabel: 'Estado:', found: 'Encontradas: {n}',
-    aes: ['Sin datos', 'No amenazada', 'Vulnerable', 'Amenazada', 'Seriamente amenazada', 'En peligro crítico', 'Extinta'],
-    med: { 0: 'Gramática completa (300+ págs.)', 1: 'Gramática', 2: 'Esbozo gramatical', 3: 'Fonología, textos o diccionario', 4: 'Lista de palabras o menos', '-1': 'Sin datos' },
-    ma: { 'Eurasia': 'Eurasia', 'Africa': 'África', 'North America': 'América del Norte', 'South America': 'América del Sur', 'Papunesia': 'Papunesia', 'Australia': 'Australia' },
-    cat: { L: 'lengua hablada', S: 'lengua de señas', P: 'pidgin', M: 'lengua mixta' },
-    thLang: 'Lengua', thFam: 'Familia', thRegion: 'Región', thSpeakers: 'Hablantes', thStatus: 'Estado',
-    isolate: 'aislada', familyIsolates: 'Lenguas aisladas ({n})', cardIsolate: 'Lengua aislada / sin clasificar',
-    cardFamily: 'Familia', cardType: 'Tipo', cardRegion: 'Macroárea', cardCountries: 'Países',
-    cardSpeakers: 'Hablantes', cardMed: 'Mejor descripción', noData: 'sin datos',
-    cardLinks: 'Materiales y enlaces',
-    glottologNote: 'clasificación, bibliografía de descripciones',
-    wikiRu: 'Wikipedia (ruso)', wikiEn: 'Wikipedia (inglés)', wikiNote: 'artículo general',
-    olacTitle: 'OLAC — archivos lingüísticos', olacNote: 'grabaciones, textos, materiales de aprendizaje',
-    ethnologueNote: 'demografía y estado (parcialmente de pago)',
-    elpNote: 'proyecto de documentación de lenguas amenazadas',
-    footNote: 'El estado es la escala agregada AES (Glottolog) basada en ElCat, Ethnologue y UNESCO. El número de hablantes proviene de Wikidata (P1098) y puede estar desactualizado.',
-    verifyNote: 'Los datos se recopilan automáticamente y pueden contener errores — verifíquelos en las fuentes primarias.',
-    learnTitle: 'Conocer la lengua',
-    glosbeTitle: 'Diccionario Glosbe', glosbeNote: 'traducciones, ejemplos, pronunciación',
-    forvoTitle: 'Pronunciación — Forvo', forvoNote: 'palabras pronunciadas por hablantes nativos',
-    coursesTitle: 'Buscar cursos y lecciones', coursesNote: 'búsqueda en Google',
-    coursesQuery: 'curso de {name} lecciones',
-    supportLabel: 'Apoyar el proyecto:',
-    levelLangs: 'Solo lenguas', levelAll: 'Lenguas y dialectos',
-    dialect: 'dialecto', dialectOf: 'dialecto de {name}', dialectsTitle: 'Dialectos ({n})',
-    compareBtn: 'Comparar', compareTitle: 'Comparación de lenguas',
-    comparePick: 'Segunda lengua: escriba un nombre…',
-    compareBasic: 'Parámetros básicos', compareGrammar: 'Gramática — rasgos WALS',
-    compareMatches: 'Coinciden {m} de {n} rasgos comunes',
-    compareNoWals: 'Sin datos tipológicos (WALS): {name}',
-    compareLoading: 'Cargando datos WALS…',
-    compareNote: 'Los nombres de los rasgos están en inglés (base WALS). La cobertura es desigual: muchas lenguas tienen pocos rasgos codificados; los dialectos usan los datos de su lengua matriz.',
-    footer: 'Datos: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · compilación {date} · amenaza — escala AES (Glottolog: ElCat / Ethnologue / UNESCO)',
-    themeTitle: 'Cambiar tema', close: 'Cerrar',
-  },
-  de: {
-    title: 'Sprachen der Welt — interaktiver Atlas',
-    h1: 'Sprachen der Welt',
-    subtitle: 'Interaktiver Atlas: {n} Sprachen — Familien, Sprecher, Gefährdungsstatus, Karte und Lernmaterialien',
-    searchPh: 'Suche: ainu, ket, Altai, Turkic…',
-    regionAll: 'Region: alle', familyAll: 'Familie: alle', countryAll: 'Land: alle',
-    spkAny: 'Sprecher: beliebig', spk5: '> 1 Mio.', spk4: '100 Tsd. – 1 Mio.', spk3: '10–100 Tsd.',
-    spk2: '1–10 Tsd.', spk1: '< 1000', spk0: 'keine Daten',
-    matAny: 'Materialien: beliebig', matG: 'Grammatik vorhanden', matS: 'Mindestens Grammatikskizze',
-    matD: 'Mindestens Texte / Wörterbuch', matN: 'Kaum dokumentiert',
-    reset: 'Zurücksetzen', statusLabel: 'Status:', found: 'Gefunden: {n}',
-    aes: ['Keine Daten', 'Nicht gefährdet', 'Verwundbar', 'Gefährdet', 'Ernsthaft gefährdet', 'Vom Aussterben bedroht', 'Ausgestorben'],
-    med: { 0: 'Vollständige Grammatik (300+ S.)', 1: 'Grammatik', 2: 'Grammatikskizze', 3: 'Phonologie, Texte oder Wörterbuch', 4: 'Wortliste oder weniger', '-1': 'Keine Daten' },
-    ma: { 'Eurasia': 'Eurasien', 'Africa': 'Afrika', 'North America': 'Nordamerika', 'South America': 'Südamerika', 'Papunesia': 'Papunesien', 'Australia': 'Australien' },
-    cat: { L: 'gesprochene Sprache', S: 'Gebärdensprache', P: 'Pidgin', M: 'Mischsprache' },
-    thLang: 'Sprache', thFam: 'Familie', thRegion: 'Region', thSpeakers: 'Sprecher', thStatus: 'Status',
-    isolate: 'isoliert', familyIsolates: 'Isolierte Sprachen ({n})', cardIsolate: 'Isolierte Sprache / nicht klassifiziert',
-    cardFamily: 'Familie', cardType: 'Typ', cardRegion: 'Makroregion', cardCountries: 'Länder',
-    cardSpeakers: 'Sprecher', cardMed: 'Beste Beschreibung', noData: 'keine Daten',
-    cardLinks: 'Materialien & Links',
-    glottologNote: 'Klassifikation, Bibliographie der Beschreibungen',
-    wikiRu: 'Wikipedia (Russisch)', wikiEn: 'Wikipedia (Englisch)', wikiNote: 'Übersichtsartikel',
-    olacTitle: 'OLAC — Spracharchive', olacNote: 'Tonaufnahmen, Texte, Lernmaterialien',
-    ethnologueNote: 'Demografie und Status (teilweise kostenpflichtig)',
-    elpNote: 'Dokumentationsprojekt für bedrohte Sprachen',
-    footNote: 'Der Status ist die aggregierte AES-Skala (Glottolog) auf Basis von ElCat, Ethnologue und UNESCO. Sprecherzahlen stammen aus Wikidata (P1098) und können veraltet sein.',
-    verifyNote: 'Die Daten werden automatisch zusammengetragen und können Fehler enthalten — bitte anhand der Primärquellen prüfen.',
-    learnTitle: 'Die Sprache kennenlernen',
-    glosbeTitle: 'Glosbe-Wörterbuch', glosbeNote: 'Übersetzungen, Beispiele, Aussprache',
-    forvoTitle: 'Aussprache — Forvo', forvoNote: 'von Muttersprachlern gesprochene Wörter',
-    coursesTitle: 'Kurse und Lektionen finden', coursesNote: 'Google-Suche',
-    coursesQuery: '{name} Sprachkurs lernen',
-    supportLabel: 'Projekt unterstützen:',
-    levelLangs: 'Nur Sprachen', levelAll: 'Sprachen & Dialekte',
-    dialect: 'Dialekt', dialectOf: 'Dialekt von {name}', dialectsTitle: 'Dialekte ({n})',
-    compareBtn: 'Vergleichen', compareTitle: 'Sprachvergleich',
-    comparePick: 'Zweite Sprache: Namen eingeben…',
-    compareBasic: 'Grundparameter', compareGrammar: 'Grammatik — WALS-Merkmale',
-    compareMatches: '{m} von {n} gemeinsamen Merkmalen stimmen überein',
-    compareNoWals: 'Keine typologischen Daten (WALS): {name}',
-    compareLoading: 'WALS-Daten werden geladen…',
-    compareNote: 'Merkmalsnamen sind auf Englisch (WALS-Datenbank). Die Abdeckung ist ungleichmäßig: viele Sprachen haben nur wenige kodierte Merkmale; Dialekte nutzen die Daten ihrer Muttersprache.',
-    footer: 'Daten: {glottolog} (CC BY 4.0) · {wikidata} (CC0) · Stand {date} · Gefährdung — AES-Skala (Glottolog: ElCat / Ethnologue / UNESCO)',
-    themeTitle: 'Thema wechseln', close: 'Schließen',
-  },
-  fr: {
-    title: 'Langues du monde — atlas interactif',
-    h1: 'Langues du monde',
-    subtitle: 'Atlas interactif : {n} langues — familles, locuteurs, degré de menace, carte et ressources d’apprentissage',
-    searchPh: 'Rechercher : ainu, ket, Altai, Turkic…',
-    regionAll: 'Région : toutes', familyAll: 'Famille : toutes', countryAll: 'Pays : tous',
-    spkAny: 'Locuteurs : tous', spk5: '> 1 M', spk4: '100 k – 1 M', spk3: '10–100 k',
-    spk2: '1–10 k', spk1: '< 1000', spk0: 'aucune donnée',
-    matAny: 'Matériaux : tous', matG: 'Grammaire disponible', matS: 'Au moins une esquisse grammaticale',
-    matD: 'Au moins textes / dictionnaire', matN: 'À peine documentée',
-    reset: 'Réinitialiser', statusLabel: 'Statut :', found: 'Trouvées : {n}',
-    aes: ['Aucune donnée', 'Non menacée', 'Vulnérable', 'Menacée', 'Sérieusement menacée', 'En danger critique', 'Éteinte'],
-    med: { 0: 'Grammaire complète (300+ p.)', 1: 'Grammaire', 2: 'Esquisse grammaticale', 3: 'Phonologie, textes ou dictionnaire', 4: 'Liste de mots ou moins', '-1': 'Aucune donnée' },
-    ma: { 'Eurasia': 'Eurasie', 'Africa': 'Afrique', 'North America': 'Amérique du Nord', 'South America': 'Amérique du Sud', 'Papunesia': 'Papunésie', 'Australia': 'Australie' },
-    cat: { L: 'langue parlée', S: 'langue des signes', P: 'pidgin', M: 'langue mixte' },
-    thLang: 'Langue', thFam: 'Famille', thRegion: 'Région', thSpeakers: 'Locuteurs', thStatus: 'Statut',
-    isolate: 'isolat', familyIsolates: 'Isolats ({n})', cardIsolate: 'Isolat / non classée',
-    cardFamily: 'Famille', cardType: 'Type', cardRegion: 'Macro-aire', cardCountries: 'Pays',
-    cardSpeakers: 'Locuteurs', cardMed: 'Meilleure description', noData: 'aucune donnée',
-    cardLinks: 'Matériaux et liens',
-    glottologNote: 'classification, bibliographie des descriptions',
-    wikiRu: 'Wikipédia (russe)', wikiEn: 'Wikipédia (anglais)', wikiNote: 'article général',
-    olacTitle: 'OLAC — archives linguistiques', olacNote: 'enregistrements, textes, matériaux d’apprentissage',
-    ethnologueNote: 'démographie et statut (en partie payant)',
-    elpNote: 'projet de documentation des langues menacées',
-    footNote: 'Le statut est l’échelle agrégée AES (Glottolog), fondée sur ElCat, Ethnologue et l’UNESCO. Le nombre de locuteurs provient de Wikidata (P1098) et peut être obsolète.',
-    verifyNote: 'Les données sont agrégées automatiquement et peuvent contenir des erreurs — vérifiez-les auprès des sources primaires.',
-    learnTitle: 'Découvrir la langue',
-    glosbeTitle: 'Dictionnaire Glosbe', glosbeNote: 'traductions, exemples, prononciation',
-    forvoTitle: 'Prononciation — Forvo', forvoNote: 'mots prononcés par des locuteurs natifs',
-    coursesTitle: 'Trouver des cours et leçons', coursesNote: 'recherche Google',
-    coursesQuery: 'cours de {name} leçons',
-    supportLabel: 'Soutenir le projet :',
-    levelLangs: 'Langues seulement', levelAll: 'Langues et dialectes',
-    dialect: 'dialecte', dialectOf: 'dialecte de {name}', dialectsTitle: 'Dialectes ({n})',
-    compareBtn: 'Comparer', compareTitle: 'Comparaison de langues',
-    comparePick: 'Deuxième langue : saisissez un nom…',
-    compareBasic: 'Paramètres de base', compareGrammar: 'Grammaire — traits WALS',
-    compareMatches: '{m} des {n} traits communs concordent',
-    compareNoWals: 'Pas de données typologiques (WALS) : {name}',
-    compareLoading: 'Chargement des données WALS…',
-    compareNote: 'Les noms des traits sont en anglais (base WALS). La couverture est inégale : beaucoup de langues n’ont que quelques traits codés ; les dialectes utilisent les données de leur langue mère.',
-    footer: 'Données : {glottolog} (CC BY 4.0) · {wikidata} (CC0) · version {date} · menace — échelle AES (Glottolog : ElCat / Ethnologue / UNESCO)',
-    themeTitle: 'Changer de thème', close: 'Fermer',
-  },
-};
+// ---------- locale ----------
+const LOCALES = Object.keys(I18N);
 
 function detectLang() {
   const saved = localStorage.getItem('langs-ui');
@@ -246,7 +17,8 @@ function detectLang() {
 }
 const LANG = detectLang();
 const T = I18N[LANG];
-const tpl = (s, vars) => s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
+const RTL = RTL_LOCALES.includes(LANG);
+const tpl = (s, vars) => String(s).replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
 
 const fmtCompact = new Intl.NumberFormat(LANG, { notation: 'compact', maximumFractionDigits: 1 });
 const fmtFull = new Intl.NumberFormat(LANG);
@@ -272,17 +44,21 @@ function esc(s) {
 
 // ---------- static UI text ----------
 function applyStatic() {
-  document.documentElement.lang = LANG;
+  const root = document.documentElement;
+  root.lang = LANG;
+  root.dir = RTL ? 'rtl' : 'ltr';
   document.title = T.title;
   const meta = document.querySelector('meta[name="description"]');
-  if (meta) meta.content = T.subtitle.replace('{n}', '8000');
+  if (meta) meta.content = tpl(T.subtitle, { n: '8000', d: '13700' });
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = T[el.dataset.i18n] ?? el.textContent; });
   document.getElementById('search').placeholder = T.searchPh;
   const theme = document.getElementById('theme-toggle');
   theme.title = T.themeTitle;
   theme.setAttribute('aria-label', T.themeTitle);
   document.getElementById('detail-close').setAttribute('aria-label', T.close);
+
   const sel = document.getElementById('lang-select');
+  sel.innerHTML = LOCALES.map(l => `<option value="${l}">${esc(LOCALE_NAMES[l])}</option>`).join('');
   sel.value = LANG;
   sel.addEventListener('change', () => {
     localStorage.setItem('langs-ui', sel.value);
@@ -292,8 +68,9 @@ function applyStatic() {
 
 // ---------- state ----------
 let ROWS = [];
-let byId = new Map();      // glottocode -> row
-let childrenOf = new Map(); // language glottocode -> [dialect rows]
+let byId = new Map();
+let childrenOf = new Map();
+let altNames = null;          // {glottocode: [name, ...]} — грузится лениво
 let filtered = [];
 let renderedCount = 0;
 const PAGE = 200;
@@ -327,6 +104,7 @@ let map = null;
 let tiles = null;
 let markers = [];
 let markerGroup = null;
+let selectedIdx = null;
 
 const TILE_URLS = {
   light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -357,7 +135,6 @@ function accentColor() {
 }
 
 // базовый / наведённый / выбранный стили маркера (диалекты — мельче)
-let selectedIdx = null;
 function baseStyle(r) {
   return { radius: r.par ? 3 : 4.5, weight: 1, color: markerStroke(), opacity: 0.9, fillColor: aesColor(r.aes), fillOpacity: r.par ? 0.7 : 0.85 };
 }
@@ -368,8 +145,7 @@ function selectedStyle(r) {
   return { radius: r.par ? 7.5 : 9, weight: 3, color: accentColor(), opacity: 1, fillColor: aesColor(r.aes), fillOpacity: 1 };
 }
 function styleFor(i) {
-  const r = ROWS[i];
-  return i === selectedIdx ? selectedStyle(r) : baseStyle(r);
+  return i === selectedIdx ? selectedStyle(ROWS[i]) : baseStyle(ROWS[i]);
 }
 function selectMarker(i) {
   const prev = selectedIdx;
@@ -387,7 +163,7 @@ function buildMarkers() {
       if (i !== selectedIdx) m.setStyle(hoverStyle(r));
       m.bringToFront();
       m.bindTooltip(
-        `<strong>${esc(r.label)}</strong><br><span class="tip-sub">${esc(r.fam || T.isolate)} · ${esc(T.aes[r.aes])}</span>`,
+        `<strong>${esc(r.label)}</strong><br><span class="tip-sub">${esc(r.par ? r.sub : (r.fam || T.isolate))} · ${esc(T.aes[r.aes])}</span>`,
         { className: 'lang-tip', direction: 'top', offset: [0, -8], sticky: false },
       ).openTooltip();
     });
@@ -406,7 +182,7 @@ function updateMapMarkers() {
     const m = markers[r.idx];
     if (m) { markerGroup.addLayer(m); pts.push(m.getLatLng()); }
   }
-  // with a small result set, bring the map to it
+  // с небольшим набором результатов подводим карту к найденному
   if (pts.length && pts.length <= 100) {
     map.fitBounds(L.latLngBounds(pts).pad(0.25), { maxZoom: 6, animate: true });
   }
@@ -438,6 +214,7 @@ const els = {
   count: document.getElementById('result-count'),
   body: document.getElementById('table-body'),
   scroll: document.getElementById('table-scroll'),
+  empty: document.getElementById('empty-state'),
 };
 
 function spkBucket(spk) {
@@ -455,6 +232,14 @@ function medMatch(mode, med) {
   if (mode === 'n') return med === 4;
   return true;
 }
+function matchesQuery(r, q) {
+  if (r.search.includes(q)) return true;
+  if (altNames) {
+    const alt = altNames[r.id];
+    if (alt) return alt.some(n => n.toLowerCase().includes(q));
+  }
+  return false;
+}
 
 function applyFilters() {
   const q = els.search.value.trim().toLowerCase();
@@ -463,10 +248,11 @@ function applyFilters() {
   const cc = els.cc.value;
   const spk = els.spk.value;
   const med = els.med.value;
-
   const lvl = els.lvl.value;
+
   filtered = ROWS.filter(r => {
-    if (lvl !== 'all' && r.par) return false;
+    // при поиске диалекты показываем всегда — иначе их просто не найти
+    if (!q && lvl !== 'all' && r.par) return false;
     if (!activeStatuses.has(r.aes)) return false;
     if (ma && !r.maList.includes(ma)) return false;
     if (fam) {
@@ -475,7 +261,7 @@ function applyFilters() {
     if (cc && !r.ccList.includes(cc)) return false;
     if (spk !== '' && spkBucket(r.spk) !== +spk) return false;
     if (med && !medMatch(med, r.med)) return false;
-    if (q && !r.search.includes(q)) return false;
+    if (q && !matchesQuery(r, q)) return false;
     return true;
   });
   sortFiltered();
@@ -483,20 +269,38 @@ function applyFilters() {
   updateMapMarkers();
   renderLegend();
   els.count.textContent = tpl(T.found, { n: fmtFull.format(filtered.length) });
+  renderEmptyState(q);
+}
+
+function renderEmptyState(q) {
+  if (filtered.length || !q) {
+    els.empty.hidden = true;
+    return;
+  }
+  const wiki = `https://${LANG}.wikipedia.org/w/index.php?search=${encodeURIComponent(q)}`;
+  const glot = `https://glottolog.org/glottolog?namequerytype=part&name=${encodeURIComponent(q)}`;
+  els.empty.innerHTML = `
+    <h3>${esc(T.nothingTitle)}</h3>
+    <p>${esc(T.nothingText)}</p>
+    <p class="empty-links">
+      <a href="${esc(wiki)}" target="_blank" rel="noopener">${esc(tpl(T.nothingWiki, { q }))}</a>
+      <a href="${esc(glot)}" target="_blank" rel="noopener">${esc(tpl(T.nothingGlottolog, { q }))}</a>
+    </p>`;
+  els.empty.hidden = false;
 }
 
 function sortFiltered() {
   const k = sortKey, d = sortDir;
   filtered.sort((a, b) => {
     let va, vb;
-    if (k === 'name') { return d * collator.compare(a.label, b.label); }
+    if (k === 'name') return d * collator.compare(a.label, b.label);
     if (k === 'fam') { va = a.fam || '￿'; vb = b.fam || '￿'; return d * collator.compare(va, vb); }
-    if (k === 'ma') { return d * collator.compare(maName(a.ma), maName(b.ma)); }
+    if (k === 'ma') return d * collator.compare(maName(a.ma), maName(b.ma));
     if (k === 'aes') {
       va = a.aes === 0 ? 7 : a.aes; vb = b.aes === 0 ? 7 : b.aes;
       return d * (va - vb) || collator.compare(a.label, b.label);
     }
-    // spk: nulls always last regardless of direction
+    // spk: пустые значения всегда в конце, независимо от направления
     va = a.spk; vb = b.spk;
     if (va === null && vb === null) return collator.compare(a.label, b.label);
     if (va === null) return 1;
@@ -543,7 +347,6 @@ new IntersectionObserver(entries => {
   if (entries[0].isIntersecting && renderedCount < filtered.length) renderTable(false);
 }, { root: els.scroll, rootMargin: '600px' }).observe(document.getElementById('table-sentinel'));
 
-// sorting
 document.querySelectorAll('thead th.sortable').forEach(th => {
   th.addEventListener('click', () => {
     const k = th.dataset.sort;
@@ -562,12 +365,11 @@ const detailBody = document.getElementById('detail-body');
 document.getElementById('detail-close').addEventListener('click', closeDetail);
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
-  const cmp = document.getElementById('compare');
-  if (!cmp.hidden) closeCompare();
+  if (!document.getElementById('compare').hidden) closeCompare();
+  else if (!document.getElementById('stats').hidden) closeStats();
   else closeDetail();
 });
 
-// переходы по карточкам (родитель ↔ диалекты) и кнопка сравнения
 detailBody.addEventListener('click', e => {
   const open = e.target.closest('[data-open]');
   if (open) {
@@ -595,11 +397,6 @@ function linkItem(url, title, note) {
 
 function openDetail(r, { fly }) {
   selectedId = r.id;
-  // диалект открыт, а диалекты скрыты фильтром — включаем их
-  if (r.par && els.lvl.value !== 'all') {
-    els.lvl.value = 'all';
-    applyFilters();
-  }
   selectMarker(r.idx);
   history.replaceState(null, '', '#l=' + r.id);
   document.querySelectorAll('tbody tr.selected').forEach(tr => tr.classList.remove('selected'));
@@ -609,8 +406,8 @@ function openDetail(r, { fly }) {
   const parent = r.par ? byId.get(r.par) : null;
   const dialects = childrenOf.get(r.id) || [];
   const countries = r.ccList.length ? r.ccList.map(countryName).join(', ') : '—';
+  const alt = (altNames && altNames[r.id] || []).filter(n => n !== r.name && n !== r.label);
 
-  // практические ссылки: словарь, произношение, курсы
   const learn = [];
   if (r.iso) {
     learn.push(linkItem(`https://glosbe.com/${r.iso}/${LANG}`, T.glosbeTitle, T.glosbeNote));
@@ -654,6 +451,7 @@ function openDetail(r, { fly }) {
       <dt>${esc(T.cardSpeakers)}</dt><dd>${r.spk === null ? esc(T.noData) : esc(fmtFull.format(r.spk)) + ' (Wikidata)'}</dd>
       <dt>${esc(T.cardMed)}</dt><dd>${esc(T.med[r.med] || '—')}</dd>
     </dl>
+    ${alt.length ? `<h3>${esc(T.alsoKnown)}</h3><p class="alt-names">${esc(alt.slice(0, 24).join(' · '))}</p>` : ''}
     ${dialects.length ? `
     <h3>${esc(tpl(T.dialectsTitle, { n: fmtFull.format(dialects.length) }))}</h3>
     <div class="dial-chips">${dialects.map(d =>
@@ -668,10 +466,11 @@ function openDetail(r, { fly }) {
   if (fly && r.lat !== null && map) {
     const z = Math.max(map.getZoom(), 5);
     let center = L.latLng(r.lat, r.lon);
-    // на десктопе карточка накрывает правую часть карты — целимся левее,
-    // чтобы выбранный маркер остался на виду
+    // на десктопе карточка накрывает край карты — целимся в сторону, чтобы
+    // выбранный маркер остался на виду
     if (window.innerWidth > 900) {
-      const px = map.project(center, z).add([Math.min(430, window.innerWidth * 0.92) / 2, 0]);
+      const shift = Math.min(430, window.innerWidth * 0.92) / 2;
+      const px = map.project(center, z).add([RTL ? -shift : shift, 0]);
       center = map.unproject(px, z);
     }
     map.flyTo(center, z, { duration: 0.8 });
@@ -690,9 +489,7 @@ let cmpB = null;
 let walsPromise = null;
 
 function loadWals() {
-  if (!walsPromise) {
-    walsPromise = fetch('wals.json').then(resp => resp.json());
-  }
+  if (!walsPromise) walsPromise = fetch('wals.json').then(resp => resp.json());
   return walsPromise;
 }
 function openCompare(a, b) {
@@ -717,13 +514,13 @@ cmpEls.search.addEventListener('input', () => {
   if (q.length < 2) { cmpEls.results.hidden = true; return; }
   const found = [];
   for (const r of ROWS) {
-    if (r.id !== cmpA.id && r.search.includes(q)) {
+    if (r.id !== cmpA.id && matchesQuery(r, q)) {
       found.push(r);
       if (found.length >= 12) break;
     }
   }
   cmpEls.results.innerHTML = found.map(r =>
-    `<button data-id="${esc(r.id)}"><strong>${esc(r.label)}</strong> <span>${esc(r.par ? tpl(T.dialectOf, { name: byId.get(r.par)?.label || '' }) : r.fam || T.isolate)}</span></button>`).join('');
+    `<button data-id="${esc(r.id)}"><strong>${esc(r.label)}</strong> <span>${esc(r.par ? r.sub : (r.fam || T.isolate))}</span></button>`).join('');
   cmpEls.results.hidden = !found.length;
 });
 cmpEls.results.addEventListener('click', e => {
@@ -816,22 +613,19 @@ function buildStatusChips() {
 }
 
 function buildSelects() {
-  // macroareas (a language may span several, ';'-separated)
   const mas = [...new Set(ROWS.flatMap(r => r.maList))].filter(Boolean).sort();
   els.ma.innerHTML = `<option value="">${esc(T.regionAll)}</option>` +
     mas.map(m => `<option value="${esc(m)}">${esc(T.ma[m] || m)}</option>`).join('');
 
-  // families by size
   const famCount = new Map();
-  for (const r of ROWS) famCount.set(r.fam, (famCount.get(r.fam) || 0) + 1);
+  for (const r of ROWS) if (!r.par) famCount.set(r.fam, (famCount.get(r.fam) || 0) + 1);
   const fams = [...famCount.entries()].filter(([f]) => f).sort((a, b) => b[1] - a[1]);
   els.fam.innerHTML = `<option value="">${esc(T.familyAll)}</option>` +
     fams.map(([f, n]) => `<option value="${esc(f)}">${esc(f)} (${n})</option>`).join('') +
     `<option value="__isolate__">${esc(tpl(T.familyIsolates, { n: famCount.get('') || 0 }))}</option>`;
 
-  // countries sorted by localized name
   const ccCount = new Map();
-  for (const r of ROWS) for (const c of r.ccList) ccCount.set(c, (ccCount.get(c) || 0) + 1);
+  for (const r of ROWS) if (!r.par) for (const c of r.ccList) ccCount.set(c, (ccCount.get(c) || 0) + 1);
   const ccs = [...ccCount.entries()]
     .map(([c, n]) => ({ c, n, name: countryName(c) }))
     .sort((a, b) => collator.compare(a.name, b.name));
@@ -860,11 +654,11 @@ async function boot() {
   const resp = await fetch('data.json');
   const data = await resp.json();
   const idx = Object.fromEntries(data.cols.map((c, i) => [c, i]));
-  const nameCol = NAME_COL[LANG];
+
   ROWS = data.rows.map((row, i) => {
+    const nm = row[idx.nm] || null;
     const r = {
-      id: row[idx.id], name: row[idx.name], nr: row[idx.nr], nes: row[idx.nes],
-      nde: row[idx.nde], nfr: row[idx.nfr], iso: row[idx.iso],
+      id: row[idx.id], name: row[idx.name], nm, iso: row[idx.iso],
       fam: row[idx.fam], ma: row[idx.ma], lat: row[idx.lat], lon: row[idx.lon],
       cc: row[idx.cc], aes: row[idx.aes], med: row[idx.med],
       spk: row[idx.spk] === undefined || row[idx.spk] === null ? null : row[idx.spk],
@@ -872,12 +666,14 @@ async function boot() {
     };
     r.ccList = r.cc ? r.cc.split(';') : [];
     r.maList = r.ma ? r.ma.split(';') : [];
-    const localized = nameCol ? r[nameCol] : '';
+    const localized = nm ? nm[LANG] : '';
     r.label = localized || r.name;
     r.sub = localized && localized.toLowerCase() !== r.name.toLowerCase() ? r.name : '';
-    r.search = `${r.name}|${r.nr}|${r.nes}|${r.nde}|${r.nfr}|${r.iso}|${r.id}|${r.fam}`.toLowerCase();
+    // в поиск идут все локализованные названия — искать можно на любом языке
+    r.search = `${r.name}|${nm ? Object.values(nm).join('|') : ''}|${r.iso}|${r.id}|${r.fam}`.toLowerCase();
     return r;
   });
+
   byId = new Map(ROWS.map(r => [r.id, r]));
   childrenOf = new Map();
   for (const r of ROWS) {
@@ -886,17 +682,19 @@ async function boot() {
     childrenOf.get(r.par).push(r);
     const p = byId.get(r.par);
     if (p) {
-      // у диалекта подпись «диалект языка X»; родитель ищется и по именам диалектов
       r.sub = tpl(T.dialectOf, { name: p.label });
-      r.search += `|${p.name}|${p[nameCol || 'name'] || ''}`.toLowerCase();
+      r.search += `|${p.name}|${p.label}`.toLowerCase();
     }
   }
 
   const nLangs = ROWS.reduce((n, r) => n + (r.par ? 0 : 1), 0);
-  document.getElementById('subtitle').textContent = tpl(T.subtitle, { n: fmtFull.format(nLangs) });
+  document.getElementById('subtitle').textContent = tpl(T.subtitle, {
+    n: fmtFull.format(nLangs), d: fmtFull.format(ROWS.length - nLangs),
+  });
   const credits = tpl(esc(T.footer), {
     glottolog: '<a href="https://glottolog.org" target="_blank" rel="noopener">Glottolog 5.x</a>',
     wikidata: '<a href="https://www.wikidata.org" target="_blank" rel="noopener">Wikidata</a>',
+    wals: '<a href="https://wals.info" target="_blank" rel="noopener">WALS</a>',
     date: esc(data.generated),
   });
   const donate = [
@@ -922,9 +720,19 @@ async function boot() {
   const c = location.hash.match(/^#cmp=([a-z0-9]+)(?:,([a-z0-9]+))?/);
   if (c) {
     const a = byId.get(c[1]);
-    const b = c[2] ? byId.get(c[2]) : null;
-    if (a) openCompare(a, b);
+    if (a) openCompare(a, c[2] ? byId.get(c[2]) : null);
   }
+
+  initAnalytics({ T, esc, tpl, fmtFull, LANG, collator, countryName });
+
+  // альтернативные названия (86 тыс. вариантов) — фоном, поиск станет шире
+  fetch('altnames.json')
+    .then(r => r.json())
+    .then(a => {
+      altNames = a;
+      if (els.search.value.trim()) applyFilters();
+    })
+    .catch(() => {});
 }
 
 boot().catch(err => {

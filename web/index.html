@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Языки мира — интерактивный атлас</title>
-<meta name="description" content="Интерактивный атлас языков мира: поиск по 8000 языков, семьи, число носителей, статус угрозы исчезновения, карта и материалы для изучения.">
+<meta name="description" content="Интерактивный атлас языков мира: поиск по 8000 языков и 13 700 диалектов, семьи, число носителей, статус угрозы, карта, сравнение грамматик.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌍</text></svg>">
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="style.css">
@@ -17,13 +17,8 @@
     <p class="subtitle" id="subtitle"></p>
   </div>
   <div class="header-controls">
-    <select id="lang-select" class="lang-select" aria-label="Interface language">
-      <option value="ru">Русский</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="de">Deutsch</option>
-      <option value="fr">Français</option>
-    </select>
+    <button id="stats-btn" class="ghost-btn" data-i18n="statsBtn"></button>
+    <select id="lang-select" class="lang-select" aria-label="Interface language"></select>
     <button id="theme-toggle" class="icon-btn" title="" aria-label="">◐</button>
   </div>
 </header>
@@ -77,6 +72,7 @@
         </thead>
         <tbody id="table-body"></tbody>
       </table>
+      <div id="empty-state" class="empty-state" hidden></div>
       <div id="table-sentinel"></div>
     </div>
   </section>
@@ -92,9 +88,9 @@
   <div id="detail-body"></div>
 </aside>
 
-<div id="compare" class="compare-overlay" hidden>
-  <div class="compare-panel" role="dialog" aria-modal="true">
-    <button id="compare-close" class="icon-btn compare-close" aria-label="Close">✕</button>
+<div id="compare" class="overlay" hidden>
+  <div class="panel" role="dialog" aria-modal="true">
+    <button id="compare-close" class="icon-btn panel-close" aria-label="Close">✕</button>
     <h2 data-i18n="compareTitle"></h2>
     <div class="compare-pick">
       <input id="cmp-search" type="search" autocomplete="off">
@@ -104,9 +100,19 @@
   </div>
 </div>
 
+<div id="stats" class="overlay" hidden>
+  <div class="panel panel-narrow" role="dialog" aria-modal="true">
+    <button id="stats-close" class="icon-btn panel-close" aria-label="Close">✕</button>
+    <h2 data-i18n="statsTitle"></h2>
+    <div id="stats-body"></div>
+  </div>
+</div>
+
 <footer class="site-footer" id="footer"></footer>
 
 <script src="vendor/leaflet.js"></script>
+<script src="i18n.js"></script>
+<script src="stats.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
