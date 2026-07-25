@@ -315,7 +315,10 @@ function looksRelated(q, name) {
   return i >= 5;
 }
 
-function nearestLanguages(lat, lon, maxKm = 400, limit = 5) {
+// 200 км — предел, на котором «здесь говорят» ещё правда: у крупных языков в
+// Glottolog одна точка на весь ареал, и без ограничения к городу притягивался
+// бы язык за три сотни километров
+function nearestLanguages(lat, lon, maxKm = 200, limit = 5) {
   const kx = 111.32 * Math.cos(lat * Math.PI / 180);
   const seen = new Set();
   const out = [];
@@ -338,6 +341,60 @@ function nearestLanguages(lat, lon, maxKm = 400, limit = 5) {
   return out;
 }
 
+// Полнотекстовый поиск Википедии умеет то, чего не умеют геокодер и Wikidata:
+// сопоставляет производные формы («sandonese» → Сандоно). Язык запроса заранее
+// неизвестен, поэтому спрашиваем несколько изданий, выбранных по письменности.
+function wikiCandidates(q) {
+  const set = [LANG];
+  if (/[Ѐ-ӿ]/.test(q)) set.push('ru', 'uk');
+  else if (/[؀-ۿ]/.test(q)) set.push('ar');
+  else if (/[぀-ヿ一-鿿]/.test(q)) set.push('ja', 'zh');
+  else if (/[ऀ-ॿ]/.test(q)) set.push('hi');
+  else set.push('en', 'it', 'es', 'fr', 'de');
+  return [...new Set(set)].slice(0, 6);
+}
+
+async function wikiPlaces(q) {
+  const reqs = wikiCandidates(q).map(async wiki => {
+    try {
+      const url = `https://${wiki}.wikipedia.org/w/api.php?action=query&generator=search`
+        + `&gsrsearch=${encodeURIComponent(q)}&gsrlimit=3&prop=coordinates&format=json&origin=*`;
+      const j = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
+      return Object.values(j?.query?.pages || {});
+    } catch { return []; }
+  });
+  const pages = (await Promise.all(reqs)).flat();
+  const out = [];
+  for (const p of pages) {
+    const c = (p.coordinates || [])[0];
+    if (!c || !looksRelated(q, p.title)) continue;
+    out.push({ name: p.title, country: '', lat: c.lat, lon: c.lon });
+  }
+  return out;
+}
+
+async function osmPlaces(q) {
+  try {
+    // без accept-language: имена приходят на языке самого места, и запрос
+    // сверяется с настоящим названием, а не с его переводом. Страну
+    // локализуем сами по коду
+    const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8'
+      + `&addressdetails=1&q=${encodeURIComponent(q)}`;
+    const raw = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
+    const out = [];
+    for (const x of raw) {
+      const a = x.address || {};
+      const name = a.city || a.town || a.village || a.municipality || a.county || a.state;
+      // сверяем именно с населённым пунктом: название улицы или заведения
+      // может содержать запрос, находясь за тысячу километров от него
+      if (!name || !looksRelated(q, name)) continue;
+      const cc = (a.country_code || '').toUpperCase();
+      out.push({ name, country: cc ? countryName(cc) : '', lat: +x.lat, lon: +x.lon });
+    }
+    return out;
+  } catch { return []; }
+}
+
 async function geoFallback(q) {
   if (q.length < 3) return;
   const hint = () => document.getElementById('geo-hint');
@@ -346,38 +403,31 @@ async function geoFallback(q) {
 
   let places = geoCache.get(q);
   if (!places) {
-    try {
-      // без accept-language: имена приходят на языке самого места, и запрос
-      // сверяется с настоящим названием, а не с его переводом. Страну
-      // локализуем сами по коду
-      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6'
-        + `&addressdetails=1&q=${encodeURIComponent(q)}`;
-      const raw = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
-      const byPlace = new Map();
-      for (const x of raw) {
-        const a = x.address || {};
-        const name = a.city || a.town || a.village || a.municipality || a.county || a.state;
-        if (!name || byPlace.has(name)) continue;
-        // сверяем именно с населённым пунктом: название улицы или заведения
-        // может содержать запрос, находясь за тысячу километров от него
-        if (!looksRelated(q, name)) continue;
-        const cc = (a.country_code || '').toUpperCase();
-        byPlace.set(name, { name, country: cc ? countryName(cc) : '', lat: +x.lat, lon: +x.lon });
-      }
-      places = [...byPlace.values()].slice(0, 2);
-      geoCache.set(q, places);
-    } catch {
-      places = [];
-      geoCache.set(q, places);
+    // геокодер знает, что именно является населённым пунктом, поэтому он
+    // основной. Википедия — запасной: она берёт производные формы названий
+    // («sandonese» → Сандоно), но отдаёт и любые объекты с координатами,
+    // от стадионов до тюрем, поэтому идёт в ход, только когда OSM промолчал
+    const osm = await osmPlaces(q);
+    const found = osm.length ? osm : (await wikiPlaces(q)).slice(0, 2);
+    const byPlace = new Map();
+    for (const p of found) {
+      const key = normPlace(p.name);
+      if (key && !byPlace.has(key)) byPlace.set(key, p);
     }
+    places = [...byPlace.values()].slice(0, 3);
+    geoCache.set(q, places);
   }
   // пока ходили в сеть, запрос мог смениться
   if (els.search.value.trim().toLowerCase() !== q || !hint()) return;
   if (!places || !places.length) { hint().textContent = ''; return; }
 
-  hint().innerHTML = places.map(p => {
-    const near = nearestLanguages(p.lat, p.lon);
-    if (!near.length) return '';
+  // место без языков поблизости показывать не о чем
+  const withLangs = places
+    .map(p => ({ p, near: nearestLanguages(p.lat, p.lon) }))
+    .filter(x => x.near.length);
+  if (!withLangs.length) { hint().textContent = ''; return; }
+
+  hint().innerHTML = withLangs.map(({ p, near }) => {
     const links = near.map(({ lang, d }) =>
       `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}">${esc(lang.label)}</a>` +
       `<span class="geo-km">≈${fmtFull.format(Math.round(d))} km</span>`).join('');
