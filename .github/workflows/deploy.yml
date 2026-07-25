@@ -22,6 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Version assets by commit so browsers never mix old and new files
+        run: sed -i "s/?v=[A-Za-z0-9._-]*/?v=${GITHUB_SHA::8}/g" web/index.html
       - uses: actions/configure-pages@v5
         with:
           enablement: true

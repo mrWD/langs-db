@@ -282,12 +282,120 @@ function renderEmptyState(q) {
   els.empty.innerHTML = `
     <h3>${esc(T.nothingTitle)}</h3>
     <p>${esc(T.nothingText)}</p>
+    <div id="geo-hint" class="geo-hint"></div>
     <p class="empty-links">
       <a href="${esc(wiki)}" target="_blank" rel="noopener">${esc(tpl(T.nothingWiki, { q }))}</a>
       <a href="${esc(glot)}" target="_blank" rel="noopener">${esc(tpl(T.nothingGlottolog, { q }))}</a>
     </p>`;
   els.empty.hidden = false;
+  geoFallback(q);
 }
+
+// ---------- географическая подсказка ----------
+// Многие местные говоры («sandonatese») не выделены в каталогах отдельной
+// единицей, зато их название образовано от места. Спрашиваем геокодер OSM,
+// не место ли это, и показываем языки этого района. Запрос уходит только
+// когда обычный поиск не нашёл ничего.
+const geoCache = new Map();
+
+// Геокодер отвечает и на случайные совпадения: «вологодский» находит
+// Вологодский переулок в сибирском селе. Принимаем место, только если его
+// название и запрос имеют общую основу — «sandonatese» ↔ «San Donà di Piave».
+function normPlace(s) {
+  return s.toLowerCase().normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-zа-я0-9]+/gi, '');
+}
+function looksRelated(q, name) {
+  const a = normPlace(q), b = normPlace(name);
+  if (!a || !b) return false;
+  if (a.includes(b) || b.includes(a)) return true;
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  return i >= 5;
+}
+
+function nearestLanguages(lat, lon, maxKm = 400, limit = 5) {
+  const kx = 111.32 * Math.cos(lat * Math.PI / 180);
+  const seen = new Set();
+  const out = [];
+  const scored = [];
+  for (const r of ROWS) {
+    if (r.lat === null) continue;
+    if (r.aes === 6) continue;   // «здесь говорят» — значит, не о вымерших
+    const d = Math.hypot((r.lat - lat) * 111.32, (r.lon - lon) * kx);
+    if (d <= maxKm) scored.push({ r, d });
+  }
+  scored.sort((a, b) => a.d - b.d);
+  for (const { r, d } of scored) {
+    // диалекты сводим к родительскому языку: в Glottolog у них общая точка
+    const lang = r.par ? (byId.get(r.par) || r) : r;
+    if (seen.has(lang.id)) continue;
+    seen.add(lang.id);
+    out.push({ lang, d });
+    if (out.length >= limit) break;
+  }
+  return out;
+}
+
+async function geoFallback(q) {
+  if (q.length < 3) return;
+  const hint = () => document.getElementById('geo-hint');
+  if (!hint()) return;
+  hint().textContent = T.nothingLooking;
+
+  let places = geoCache.get(q);
+  if (!places) {
+    try {
+      // без accept-language: имена приходят на языке самого места, и запрос
+      // сверяется с настоящим названием, а не с его переводом. Страну
+      // локализуем сами по коду
+      const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6'
+        + `&addressdetails=1&q=${encodeURIComponent(q)}`;
+      const raw = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
+      const byPlace = new Map();
+      for (const x of raw) {
+        const a = x.address || {};
+        const name = a.city || a.town || a.village || a.municipality || a.county || a.state;
+        if (!name || byPlace.has(name)) continue;
+        // сверяем именно с населённым пунктом: название улицы или заведения
+        // может содержать запрос, находясь за тысячу километров от него
+        if (!looksRelated(q, name)) continue;
+        const cc = (a.country_code || '').toUpperCase();
+        byPlace.set(name, { name, country: cc ? countryName(cc) : '', lat: +x.lat, lon: +x.lon });
+      }
+      places = [...byPlace.values()].slice(0, 2);
+      geoCache.set(q, places);
+    } catch {
+      places = [];
+      geoCache.set(q, places);
+    }
+  }
+  // пока ходили в сеть, запрос мог смениться
+  if (els.search.value.trim().toLowerCase() !== q || !hint()) return;
+  if (!places || !places.length) { hint().textContent = ''; return; }
+
+  hint().innerHTML = places.map(p => {
+    const near = nearestLanguages(p.lat, p.lon);
+    if (!near.length) return '';
+    const links = near.map(({ lang, d }) =>
+      `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}">${esc(lang.label)}</a>` +
+      `<span class="geo-km">≈${fmtFull.format(Math.round(d))} km</span>`).join('');
+    return `<div class="geo-place">
+      <div class="geo-place-name">📍 ${esc(T.nothingPlace)} <strong>${esc(p.name)}</strong>${p.country ? ', ' + esc(p.country) : ''}</div>
+      <div class="geo-langs"><span class="geo-cap">${esc(T.nothingSpoken)}</span>${links}</div>
+    </div>`;
+  }).join('');
+}
+
+// переход к языку из географической подсказки
+els.empty.addEventListener('click', e => {
+  const a = e.target.closest('[data-open]');
+  if (!a) return;
+  e.preventDefault();
+  const r = byId.get(a.dataset.open);
+  if (r) openDetail(r, { fly: true });
+});
 
 function sortFiltered() {
   const k = sortKey, d = sortDir;
