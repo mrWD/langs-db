@@ -318,7 +318,7 @@ function looksRelated(q, name) {
 // 200 км — предел, на котором «здесь говорят» ещё правда: у крупных языков в
 // Glottolog одна точка на весь ареал, и без ограничения к городу притягивался
 // бы язык за три сотни километров
-function nearestLanguages(lat, lon, maxKm = 200, limit = 5) {
+function nearestLanguages(lat, lon, cc = '', maxKm = 200, limit = 5) {
   const kx = 111.32 * Math.cos(lat * Math.PI / 180);
   const seen = new Set();
   const out = [];
@@ -326,6 +326,10 @@ function nearestLanguages(lat, lon, maxKm = 200, limit = 5) {
   for (const r of ROWS) {
     if (r.lat === null) continue;
     if (r.aes === 6) continue;   // «здесь говорят» — значит, не о вымерших
+    if (r.cat === 'S') continue; // жестовый язык не бывает местным говором
+    // страна места известна — не предлагаем язык из-за границы, даже если
+    // его точка оказалась ближе
+    if (cc && r.ccList.length && !r.ccList.includes(cc)) continue;
     const d = Math.hypot((r.lat - lat) * 111.32, (r.lon - lon) * kx);
     if (d <= maxKm) scored.push({ r, d });
   }
@@ -368,7 +372,7 @@ async function wikiPlaces(q) {
   for (const p of pages) {
     const c = (p.coordinates || [])[0];
     if (!c || !looksRelated(q, p.title)) continue;
-    out.push({ name: p.title, country: '', lat: c.lat, lon: c.lon });
+    out.push({ name: p.title, cc: '', country: '', lat: c.lat, lon: c.lon });
   }
   return out;
 }
@@ -389,7 +393,7 @@ async function osmPlaces(q) {
       // может содержать запрос, находясь за тысячу километров от него
       if (!name || !looksRelated(q, name)) continue;
       const cc = (a.country_code || '').toUpperCase();
-      out.push({ name, country: cc ? countryName(cc) : '', lat: +x.lat, lon: +x.lon });
+      out.push({ name, cc, country: cc ? countryName(cc) : '', lat: +x.lat, lon: +x.lon });
     }
     return out;
   } catch { return []; }
@@ -423,17 +427,29 @@ async function geoFallback(q) {
 
   // место без языков поблизости показывать не о чем
   const withLangs = places
-    .map(p => ({ p, near: nearestLanguages(p.lat, p.lon) }))
+    .map(p => ({ p, near: nearestLanguages(p.lat, p.lon, p.cc) }))
     .filter(x => x.near.length);
   if (!withLangs.length) { hint().textContent = ''; return; }
 
   hint().innerHTML = withLangs.map(({ p, near }) => {
-    const links = near.map(({ lang, d }) =>
-      `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}">${esc(lang.label)}</a>` +
-      `<span class="geo-km">≈${fmtFull.format(Math.round(d))} km</span>`).join('');
+    // главный ответ — один язык, по которому сразу можно кликнуть; остальные
+    // уводим в приписку, чтобы не заставлять выбирать из списка километров
+    const top = near[0].lang;
+    const facts = [
+      top.fam || T.cardIsolate,
+      top.spk === null ? '' : `${T.cardSpeakers}: ${fmtCompact.format(top.spk)}`,
+      T.aes[top.aes],
+    ].filter(Boolean).join(' · ');
+    const rest = near.slice(1).map(({ lang, d }) =>
+      `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}" title="≈${fmtFull.format(Math.round(d))} km">${esc(lang.label)}</a>`).join('');
     return `<div class="geo-place">
       <div class="geo-place-name">📍 ${esc(T.nothingPlace)} <strong>${esc(p.name)}</strong>${p.country ? ', ' + esc(p.country) : ''}</div>
-      <div class="geo-langs"><span class="geo-cap">${esc(T.nothingSpoken)}</span>${links}</div>
+      <a class="geo-primary" href="#l=${esc(top.id)}" data-open="${esc(top.id)}">
+        <span class="geo-primary-cap">${esc(T.nothingGuess)}</span>
+        <span class="geo-primary-name">${esc(top.label)} <span class="geo-arrow">→</span></span>
+        <span class="geo-primary-sub">${esc(facts)}</span>
+      </a>
+      ${rest ? `<div class="geo-langs"><span class="geo-cap">${esc(T.nothingAlso)}:</span>${rest}</div>` : ''}
     </div>`;
   }).join('');
 }
