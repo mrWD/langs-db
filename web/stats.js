@@ -85,15 +85,17 @@ function cityLabel(tz) {
 async function renderStats() {
   const { T, esc, tpl, fmtFull } = statsCtx;
   const body = document.getElementById('stats-body');
-  const [data, liveTotal, liveToday] = await Promise.all([
+  // три верхние цифры читаем вживую, разбивку — из суточного файла
+  const [data, liveTotal, liveUniq, liveToday] = await Promise.all([
     fetch('stats.json').then(r => (r.ok ? r.json() : null)).catch(() => null),
     readCounter('total'),
+    readCounter('uniq'),
     readCounter('d-' + utcDay()),
   ]);
 
   const total = liveTotal !== null ? liveTotal : (data ? data.total : 0);
+  const uniq = liveUniq !== null ? liveUniq : (data ? data.uniq : 0);
   const today = liveToday !== null ? liveToday : 0;
-  const uniq = data ? data.uniq : 0;
 
   const cards = `
     <div class="stat-cards">
