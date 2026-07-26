@@ -691,14 +691,19 @@ function openDetail(r, { fly }) {
     <h3>${esc(tpl(T.dialectsTitle, { n: fmtFull.format(dialects.length) }))}</h3>
     <div class="dial-chips">${dialects.map(d =>
       `<a href="#l=${esc(d.id)}" data-open="${esc(d.id)}">${esc(d.label)}</a>`).join('')}</div>` : ''}
+    <div id="rel-box" class="rel-box"></div>
     <h3>${esc(T.learnTitle)}</h3>
     <ul class="links">${learn.join('')}</ul>
     <h3>${esc(T.cardLinks)}</h3>
     <ul class="links">${links.join('')}</ul>
     <p class="foot-note">${esc(T.footNote)} ${esc(T.verifyNote)}</p>`;
   detail.hidden = false;
+  renderRelations(r);
+  if (!related) loadRelated().then(() => { if (selectedId === r.id) renderRelations(r); });
 
-  if (fly && r.lat !== null && map) {
+  // карта в свёрнутой вкладке имеет нулевой размер, и полёт к точке делит на ноль
+  const mapReady = map && map.getSize().x > 0 && map.getSize().y > 0;
+  if (fly && r.lat !== null && mapReady) {
     const z = Math.max(map.getZoom(), 5);
     let center = L.latLng(r.lat, r.lon);
     // на десктопе карточка накрывает край карты — целимся в сторону, чтобы
@@ -710,6 +715,92 @@ function openDetail(r, { fly }) {
     }
     map.flyTo(center, z, { duration: 0.8 });
   }
+}
+
+// ---------- связи языка ----------
+let related = null;        // {glottocode: {g: [[id,%,n]], l: [[id,%,n]]}}
+let relatedPromise = null;
+let cladeNames = [];
+let byClade = new Map();   // индекс последней ветви → языки этой ветви
+
+function loadRelated() {
+  if (!relatedPromise) {
+    relatedPromise = fetch('related.json')
+      .then(r => r.json())
+      .then(d => { related = d; return d; })
+      .catch(() => (related = {}));
+  }
+  return relatedPromise;
+}
+
+function relLinks(list) {
+  return list.map(([id, pct, n]) => {
+    const r = byId.get(id);
+    if (!r) return '';
+    return `<a href="#l=${esc(id)}" data-open="${esc(id)}" title="${esc(String(n))}">` +
+      `${esc(r.label)} <span class="rel-pct">${pct}%</span></a>`;
+  }).filter(Boolean).join('');
+}
+
+function kinLinks(r) {
+  // Родственники — потомки ближайшей общей ветви. Спускаться до последнего узла
+  // мало: украинский сидит на уровень глубже русского (East Slavic ›
+  // Ukrainian-Rusyn) и иначе в родню не попал бы. Поэтому идём от самой узкой
+  // ветви вверх, пока не наберётся хотя бы пара языков
+  for (let i = r.cls.length - 1; i >= 0; i--) {
+    const members = (byClade.get(r.cls[i]) || []).filter(x => x.id !== r.id);
+    if (members.length >= 2 || (members.length && i === 0)) {
+      return { clade: cladeNames[r.cls[i]], members };
+    }
+  }
+  return { clade: '', members: [] };
+}
+
+function renderRelations(r) {
+  const box = document.getElementById('rel-box');
+  if (!box) return;
+  const parts = [];
+
+  if (r.cls.length) {
+    const branch = r.cls.map(k => esc(cladeNames[k])).join(' › ');
+    parts.push(`<div class="rel-line"><span class="rel-cap">${esc(T.relBranch)}:</span>` +
+      `<span class="rel-branch">${branch}</span></div>`);
+  }
+  const kin = kinLinks(r);
+  if (kin.members.length) {
+    const shown = kin.members.slice(0, 12);
+    const more = kin.members.length - shown.length;
+    parts.push(`<div class="rel-line"><span class="rel-cap">${esc(T.relKin)}` +
+      `${kin.clade ? ` <span class="rel-clade">(${esc(kin.clade)})</span>` : ''}:</span>` +
+      `<span class="rel-links">${shown.map(x =>
+        `<a href="#l=${esc(x.id)}" data-open="${esc(x.id)}">${esc(x.label)}</a>`).join('')}` +
+      `${more > 0 ? `<span class="rel-pct">+${fmtFull.format(more)}</span>` : ''}</span></div>`);
+  }
+
+  // грамматика и лексика — из related.json, для диалекта берём родителя
+  const rel = related && (related[r.id] || (r.par ? related[r.par] : null));
+  if (rel?.g) {
+    parts.push(`<div class="rel-line"><span class="rel-cap">${esc(T.relGram)}:</span>` +
+      `<span class="rel-links">${relLinks(rel.g.slice(0, 8))}</span></div>`);
+  }
+  if (rel?.l) {
+    parts.push(`<div class="rel-line"><span class="rel-cap">${esc(T.relLex)}:</span>` +
+      `<span class="rel-links">${relLinks(rel.l.slice(0, 8))}</span></div>`);
+  }
+
+  if (r.lat !== null) {
+    const geo = nearestLanguages(r.lat, r.lon, '', 400, 7).filter(x => x.lang.id !== r.id).slice(0, 6);
+    if (geo.length) {
+      parts.push(`<div class="rel-line"><span class="rel-cap">${esc(T.relGeo)}:</span>` +
+        `<span class="rel-links">${geo.map(({ lang, d }) =>
+          `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}">${esc(lang.label)}` +
+          `<span class="rel-pct">${fmtFull.format(Math.round(d))} km</span></a>`).join('')}</span></div>`);
+    }
+  }
+
+  box.innerHTML = parts.length
+    ? `<h3>${esc(T.relTitle)}</h3>${parts.join('')}<p class="foot-note">${esc(T.relNote)}</p>`
+    : '';
 }
 
 // ---------- compare ----------
@@ -897,7 +988,8 @@ async function boot() {
       fam: row[idx.fam], ma: row[idx.ma], lat: row[idx.lat], lon: row[idx.lon],
       cc: row[idx.cc], aes: row[idx.aes], med: row[idx.med],
       spk: row[idx.spk] === undefined || row[idx.spk] === null ? null : row[idx.spk],
-      cat: row[idx.cat], wr: row[idx.wr], we: row[idx.we], par: row[idx.par] || '', idx: i,
+      cat: row[idx.cat], wr: row[idx.wr], we: row[idx.we], par: row[idx.par] || '',
+      cls: row[idx.cls] || [], idx: i,
     };
     r.ccList = r.cc ? r.cc.split(';') : [];
     r.maList = r.ma ? r.ma.split(';') : [];
@@ -910,6 +1002,15 @@ async function boot() {
   });
 
   byId = new Map(ROWS.map(r => [r.id, r]));
+  cladeNames = data.clades || [];
+  byClade = new Map();
+  for (const r of ROWS) {
+    if (r.par) continue;                    // родню ищем среди языков, не диалектов
+    for (const k of r.cls) {                // язык числится во всех своих ветвях
+      if (!byClade.has(k)) byClade.set(k, []);
+      byClade.get(k).push(r);
+    }
+  }
   childrenOf = new Map();
   for (const r of ROWS) {
     if (!r.par) continue;

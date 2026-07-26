@@ -98,7 +98,7 @@ def main():
     langs = list(csv.DictReader(open(os.path.join(RAW, "languages.csv"))))
     by_id = {r["ID"]: r for r in langs}
 
-    aes, med, cat = {}, {}, {}
+    aes, med, cat, classification = {}, {}, {}, {}
     for row in csv.DictReader(open(os.path.join(RAW, "values.csv"))):
         p = row["Parameter_ID"]
         if p == "aes":
@@ -107,8 +107,28 @@ def main():
             med[row["Language_ID"]] = int(row["Value"])
         elif p == "category":
             cat[row["Language_ID"]] = row["Value"]
+        elif p == "classification":
+            classification[row["Language_ID"]] = row["Value"]
 
     wd = json.load(open(os.path.join(RAW, "wikidata.json")))
+
+    # Полное дерево Glottolog: путь предков от семьи к ближайшей ветви.
+    # Названия веток храним отдельной таблицей, в строках — только индексы,
+    # иначе «Indo-European/Classical Indo-European/...» повторится тысячи раз
+    clade_idx, clade_names = {}, []
+
+    def clade_path(gid):
+        path = classification.get(gid, "")
+        out = []
+        for cid in path.split("/"):
+            name = by_id.get(cid, {}).get("Name")
+            if not name:
+                continue
+            if cid not in clade_idx:
+                clade_idx[cid] = len(clade_names)
+                clade_names.append(name)
+            out.append(clade_idx[cid])
+        return out
 
     kept_langs = set()
     rows = []
@@ -136,6 +156,7 @@ def main():
             r["ID"], r["Name"], names or 0, iso, fam, r["Macroarea"], lat, lon,
             r["Countries"], aes.get(r["ID"], 0), med.get(r["ID"], -1),
             w.get("speakers"), c, w.get("wiki_ru", ""), w.get("wiki_en", ""), par,
+            clade_path(r["ID"]),
         ])
 
     # keep only dialects whose parent language made it into the atlas;
@@ -155,7 +176,8 @@ def main():
     out = {
         "generated": datetime.date.today().isoformat(),
         "cols": ["id", "name", "nm", "iso", "fam", "ma", "lat", "lon", "cc",
-                 "aes", "med", "spk", "cat", "wr", "we", "par"],
+                 "aes", "med", "spk", "cat", "wr", "we", "par", "cls"],
+        "clades": clade_names,
         "rows": rows,
     }
     os.makedirs(WEB, exist_ok=True)

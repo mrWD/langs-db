@@ -50,6 +50,14 @@
   параметры + грамматические признаки из [WALS](https://wals.info) (192
   признака, 2 501 язык) с подсветкой совпадений; для диалектов используются
   данные родительского языка.
+- **Связи языка** в карточке — четыре независимых измерения:
+  - *ветвь и родственники* — полное дерево Glottolog (до 10 уровней:
+    «Indo-European › … › East Slavic»), родня берётся от ближайшей ветви;
+  - *похожи грамматикой* — доля совпавших признаков WALS (970 языков, у
+    которых закодировано хотя бы 30 признаков);
+  - *похожи лексикой* — списки Сводеша [ASJP](https://asjp.clld.org) сравнены
+    методом LDND (5 544 языка, 870 тыс. пар);
+  - *соседи на карте* — ближайшие языки по координатам.
 
 ## Запуск
 
@@ -91,6 +99,7 @@ data/
 | [Glottolog](https://glottolog.org) (glottolog-cldf) | языки, диалекты, семьи, координаты, страны, статус AES, MED | CC BY 4.0 |
 | [Wikidata](https://www.wikidata.org) | число носителей (P1098), локализованные названия, ссылки на Википедию | CC0 |
 | [WALS](https://wals.info) (cldf-datasets/wals) | 192 грамматических признака для сравнения языков | CC BY 4.0 |
+| [ASJP](https://asjp.clld.org) (lexibank/asjp) | списки Сводеша для лексического сходства | CC BY 4.0 |
 
 - **AES** (Agglomerated Endangerment Status) — сводный статус угрозы по данным
   ElCat, Ethnologue и UNESCO: 1 «вне угрозы» … 6 «вымерший».
@@ -114,6 +123,12 @@ for f in values parameters codes languages; do
   curl -sL -o raw/wals_$f.csv https://raw.githubusercontent.com/cldf-datasets/wals/master/cldf/$f.csv
 done
 python3 build_wals.py
+# 5) (опционально) сходство языков: грамматическое и лексическое
+for f in forms languages; do
+  curl -sL -o raw/asjp_$f.csv https://raw.githubusercontent.com/lexibank/asjp/master/cldf/$f.csv
+done
+python3 -m venv ../.venv && ../.venv/bin/pip install rapidfuzz   # нужен один раз
+../.venv/bin/python build_related.py     # ~6 минут: 870 тыс. пар
 ```
 
 ## Статистика посещений
