@@ -377,6 +377,43 @@ async function wikiPlaces(q) {
   return out;
 }
 
+// Самый точный ответ даёт не география, а текст Википедии: местные говоры
+// перечислены в статьях о языках («sandonatese» — в «Lingua veneta»). Находим
+// такие статьи, переводим их в элементы Wikidata и берём те, у которых есть код
+// Glottolog или ISO — то есть которые и есть язык из нашей базы.
+async function languageMentions(q) {
+  const wikis = wikiCandidates(q).slice(0, 3);
+  const found = [];
+  const titles = new Map();   // QID → {title, wiki}
+  await Promise.all(wikis.map(async wiki => {
+    try {
+      const url = `https://${wiki}.wikipedia.org/w/api.php?action=query&generator=search&format=json&origin=*`
+        + `&gsrsearch=${encodeURIComponent(`insource:"${q}"`)}&gsrlimit=10&prop=pageprops`;
+      const j = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
+      for (const p of Object.values(j?.query?.pages || {})) {
+        const qid = p.pageprops?.wikibase_item;
+        if (qid && !titles.has(qid)) titles.set(qid, { title: p.title, wiki });
+      }
+    } catch { /* издание недоступно — не беда */ }
+  }));
+  if (!titles.size) return [];
+
+  try {
+    const ids = [...titles.keys()].slice(0, 50).join('|');
+    const url = 'https://www.wikidata.org/w/api.php?action=wbgetentities&props=claims&format=json&origin=*'
+      + `&ids=${encodeURIComponent(ids)}`;
+    const j = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
+    for (const [qid, e] of Object.entries(j?.entities || {})) {
+      const claims = e.claims || {};
+      const val = pid => (claims[pid] || []).map(x => x.mainsnak?.datavalue?.value).filter(Boolean);
+      const lang = val('P1394').map(g => byId.get(g)).find(Boolean)
+        || val('P220').map(iso => ROWS.find(r => r.iso === iso && !r.par)).find(Boolean);
+      if (lang) found.push({ lang, ...titles.get(qid) });
+    }
+  } catch { /* Wikidata недоступна — останется географическая подсказка */ }
+  return found.slice(0, 2);
+}
+
 async function osmPlaces(q) {
   try {
     // без accept-language: имена приходят на языке самого места, и запрос
@@ -399,11 +436,45 @@ async function osmPlaces(q) {
   } catch { return []; }
 }
 
+function langCardHtml(lang, cap, sourceHtml) {
+  const facts = [
+    lang.fam || T.cardIsolate,
+    lang.spk === null ? '' : `${T.cardSpeakers}: ${fmtCompact.format(lang.spk)}`,
+    T.aes[lang.aes],
+  ].filter(Boolean).join(' · ');
+  return `<div class="geo-place">
+    <a class="geo-primary" href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}">
+      <span class="geo-primary-cap">${esc(cap)}</span>
+      <span class="geo-primary-name">${esc(lang.label)} <span class="geo-arrow">→</span></span>
+      <span class="geo-primary-sub">${esc(facts)}</span>
+    </a>
+    ${sourceHtml}
+  </div>`;
+}
+
 async function geoFallback(q) {
   if (q.length < 3) return;
   const hint = () => document.getElementById('geo-hint');
   if (!hint()) return;
   hint().textContent = T.nothingLooking;
+
+  // сначала спрашиваем текст Википедии: он отвечает про сам язык, а не про
+  // окрестности, и потому точнее географической догадки
+  let mentions = geoCache.get('m:' + q);
+  if (!mentions) {
+    mentions = await languageMentions(q);
+    geoCache.set('m:' + q, mentions);
+  }
+  if (els.search.value.trim().toLowerCase() !== q || !hint()) return;
+  if (mentions.length) {
+    hint().innerHTML = mentions.map(m => {
+      const href = `https://${m.wiki}.wikipedia.org/wiki/${encodeURIComponent(m.title.replace(/ /g, '_'))}`;
+      const src = `<div class="geo-langs"><span class="geo-cap">${esc(T.nothingSource)}:</span>` +
+        `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(m.title)}</a></div>`;
+      return langCardHtml(m.lang, T.nothingByWiki, src);
+    }).join('');
+    return;
+  }
 
   let places = geoCache.get(q);
   if (!places) {
@@ -434,23 +505,13 @@ async function geoFallback(q) {
   hint().innerHTML = withLangs.map(({ p, near }) => {
     // главный ответ — один язык, по которому сразу можно кликнуть; остальные
     // уводим в приписку, чтобы не заставлять выбирать из списка километров
-    const top = near[0].lang;
-    const facts = [
-      top.fam || T.cardIsolate,
-      top.spk === null ? '' : `${T.cardSpeakers}: ${fmtCompact.format(top.spk)}`,
-      T.aes[top.aes],
-    ].filter(Boolean).join(' · ');
     const rest = near.slice(1).map(({ lang, d }) =>
       `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}" title="≈${fmtFull.format(Math.round(d))} km">${esc(lang.label)}</a>`).join('');
-    return `<div class="geo-place">
-      <div class="geo-place-name">📍 ${esc(T.nothingPlace)} <strong>${esc(p.name)}</strong>${p.country ? ', ' + esc(p.country) : ''}</div>
-      <a class="geo-primary" href="#l=${esc(top.id)}" data-open="${esc(top.id)}">
-        <span class="geo-primary-cap">${esc(T.nothingGuess)}</span>
-        <span class="geo-primary-name">${esc(top.label)} <span class="geo-arrow">→</span></span>
-        <span class="geo-primary-sub">${esc(facts)}</span>
-      </a>
-      ${rest ? `<div class="geo-langs"><span class="geo-cap">${esc(T.nothingAlso)}:</span>${rest}</div>` : ''}
-    </div>`;
+    const tail = rest
+      ? `<div class="geo-langs"><span class="geo-cap">${esc(T.nothingAlso)}:</span>${rest}</div>`
+      : '';
+    const place = `<div class="geo-place-name">📍 ${esc(T.nothingPlace)} <strong>${esc(p.name)}</strong>${p.country ? ', ' + esc(p.country) : ''}</div>`;
+    return place + langCardHtml(near[0].lang, T.nothingGuess, tail);
   }).join('');
 }
 
