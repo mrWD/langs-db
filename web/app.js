@@ -919,7 +919,7 @@ async function renderCompare() {
   const va = basicVal(a), vb = basicVal(b);
   const basic = `
     <h3>${esc(T.compareBasic)}</h3>
-    <table class="cmp-table">
+    <div class="cmp-scroll"><table class="cmp-table">
       ${cmpBasicRow(T.cardFamily, va.fam, vb.fam)}
       ${cmpBasicRow(T.cardType, va.type, vb.type)}
       ${cmpBasicRow(T.cardRegion, va.ma, vb.ma)}
@@ -927,7 +927,7 @@ async function renderCompare() {
       ${cmpBasicRow(T.cardSpeakers, va.spk, vb.spk)}
       ${cmpBasicRow(T.thStatus, va.aes, vb.aes)}
       ${cmpBasicRow(T.cardMed, va.med, vb.med)}
-    </table>`;
+    </table></div>`;
   cmpEls.body.innerHTML = head + basic + `<h3>${esc(T.compareGrammar)}</h3><p class="cmp-note">${esc(T.compareLoading)}</p>`;
 
   const wals = await loadWals();
@@ -949,7 +949,7 @@ async function renderCompare() {
     }).join('');
     grammar = common.length
       ? `<p class="cmp-summary">${esc(tpl(T.compareMatches, { m: matches.length, n: common.length }))}</p>
-         <table class="cmp-table">${rows}</table>`
+         <div class="cmp-scroll"><table class="cmp-table">${rows}</table></div>`
       : '';
   }
   cmpEls.body.innerHTML = head + basic +

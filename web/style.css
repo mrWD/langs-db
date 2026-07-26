@@ -393,7 +393,9 @@ td .na { color: var(--muted); }
   color: var(--muted);
   margin: 18px 0 8px;
 }
-.cmp-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+/* широкая таблица прокручивается внутри себя, а не растягивает панель */
+.cmp-scroll { overflow-x: auto; margin-bottom: 4px; }
+.cmp-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 13.5px; }
 .cmp-table td {
   padding: 6px 10px;
   border-bottom: 1px solid var(--hairline);
@@ -539,6 +541,7 @@ td .na { color: var(--muted); }
 .lang-tip .tip-sub { color: var(--ink-2); font-size: 11.5px; }
 
 /* ---- responsive ---- */
+/* ---- планшет: карта и таблица столбиком ---- */
 @media (max-width: 900px) {
   html, body { height: auto; }
   body { min-height: 100vh; }
@@ -547,6 +550,62 @@ td .na { color: var(--muted); }
   .table-pane { min-height: 50vh; max-height: 72vh; }
   .hide-narrow { display: none; }
   .result-count { margin-left: 0; width: 100%; }
+}
+
+/* ---- телефон ---- */
+@media (max-width: 700px) {
+  /* шапка в одну строку не помещается: заголовок и кнопки расходятся
+     по этажам, иначе панель управления уезжает за край экрана */
+  .site-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 14px 14px 8px;
+  }
+  h1 { font-size: 19px; }
+  .subtitle {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 12.5px;
+  }
+  .header-controls { flex-wrap: wrap; }
+  .header-controls .ghost-btn { flex: 1 1 auto; }
+  .lang-select { flex: 1 1 100px; min-width: 0; }
+
+  .toolbar, .status-row, .content { padding-inline: 14px; }
+  .toolbar { gap: 6px; }
+  .toolbar input[type="search"] { flex-basis: 100%; }
+  .toolbar select { flex: 1 1 calc(50% - 3px); min-width: 0; }
+  .status-row-label { display: none; }
+
+  /* на телефоне сперва результаты: за картой пришлось бы листать */
+  .map-pane { order: 1; min-height: 42vh; }
+  .table-pane { max-height: none; }
+
+  .detail { width: 100%; padding: 18px 16px 26px; }
+  .detail dl { grid-template-columns: 110px 1fr; }
+  .dial-chips { max-height: 40vh; }
+  .overlay { padding: 0; }
+  .panel { border-radius: 0; min-height: 100vh; padding: 18px 16px 24px; }
+  .stat-cards { gap: 6px; }
+  .stat-card { padding: 10px; }
+  .stat-num { font-size: 19px; }
+  .stat-bar { grid-template-columns: minmax(70px, 40%) 1fr auto; font-size: 12.5px; }
+}
+
+/* ---- узкие телефоны ---- */
+@media (max-width: 560px) {
+  /* семья не влезает рядом с носителями и статусом — она есть в карточке */
+  td.fam, th[data-sort="fam"] { display: none; }
+  tbody td, thead th { padding: 8px 8px; }
+  .cmp-heads { font-size: 14px; }
+  /* сравнение помещается целиком: листать таблицу вбок на телефоне неудобно */
+  .cmp-table { min-width: 0; font-size: 12px; }
+  .cmp-table td { padding: 5px 6px; }
+  .cmp-table td:first-child { width: 34%; }
+  .cmp-table td:not(:first-child) { width: 33%; }
 }
 .rel-clade { color: var(--muted); font-weight: 400; }
 .fb-text { color: var(--ink-2); font-size: 13.5px; margin: 0 0 14px; line-height: 1.5; }

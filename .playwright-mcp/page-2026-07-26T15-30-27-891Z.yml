@@ -1,0 +1,63 @@
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - generic [ref=f6e3]:
+      - heading "Languages of the World" [level=1] [ref=f6e4]
+      - paragraph
+    - generic [ref=f6e5]:
+      - button "Feedback" [ref=f6e6] [cursor=pointer]
+      - button "Stats" [ref=f6e7] [cursor=pointer]
+      - combobox "Interface language" [ref=f6e8]:
+        - option "Русский"
+        - option "English" [selected]
+        - option "Español"
+        - option "Deutsch"
+        - option "Français"
+        - option "Português"
+        - option "Italiano"
+        - option "中文"
+        - option "日本語"
+        - option "العربية"
+        - option "Türkçe"
+        - option "Polski"
+        - option "Українська"
+        - option "हिन्दी"
+        - option "Indonesia"
+      - button "Toggle theme" [ref=f6e9] [cursor=pointer]: ◐
+  - region "Search and filters" [ref=f6e10]:
+    - 'searchbox "Search: ainu, ket, Altai, Turkic…" [ref=f6e11]'
+    - combobox [ref=f6e12]
+    - combobox [ref=f6e13]
+    - combobox [ref=f6e14]
+    - combobox [ref=f6e15]:
+      - 'option "Speakers: any" [selected]'
+      - option "> 1 M"
+      - option "100 k – 1 M"
+      - option "10–100 k"
+      - option "1–10 k"
+      - option "< 1 000"
+      - option "no data"
+    - combobox [ref=f6e16]:
+      - 'option "Materials: any" [selected]'
+      - option "Has a grammar"
+      - option "At least a grammar sketch"
+      - option "At least texts / dictionary"
+      - option "Barely documented"
+    - combobox [ref=f6e17]:
+      - option "Languages only" [selected]
+      - option "Languages & dialects"
+    - button "Reset" [ref=f6e18] [cursor=pointer]
+  - region "Endangerment status filter" [ref=f6e19]:
+    - generic [ref=f6e20]: "Status:"
+    - group
+  - main [ref=f6e21]:
+    - region "Language list" [ref=f6e22]:
+      - table [ref=f6e24]:
+        - rowgroup [ref=f6e25]:
+          - row [ref=f6e26]:
+            - columnheader "Language" [ref=f6e27] [cursor=pointer]
+            - columnheader "Family" [ref=f6e28] [cursor=pointer]
+            - columnheader "Speakers" [ref=f6e29] [cursor=pointer]
+            - columnheader "Status" [ref=f6e30] [cursor=pointer]
+        - rowgroup
+    - region "Language map" [ref=f6e32]
+  - contentinfo [ref=f6e35]

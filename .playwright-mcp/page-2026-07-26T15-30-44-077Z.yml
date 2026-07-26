@@ -1,0 +1,1609 @@
+- generic [active] [ref=f6e1]:
+  - banner [ref=f6e2]:
+    - generic [ref=f6e3]:
+      - heading "Languages of the World" [level=1] [ref=f6e4]
+      - paragraph [ref=f6e36]: "Interactive atlas: 7,992 languages and 13,706 dialects — families, speakers, endangerment status, map and learning resources"
+    - generic [ref=f6e5]:
+      - button "Feedback" [ref=f6e6] [cursor=pointer]
+      - button "Stats" [ref=f6e7] [cursor=pointer]
+      - combobox "Interface language" [ref=f6e8]:
+        - option "Русский"
+        - option "English" [selected]
+        - option "Español"
+        - option "Deutsch"
+        - option "Français"
+        - option "Português"
+        - option "Italiano"
+        - option "中文"
+        - option "日本語"
+        - option "العربية"
+        - option "Türkçe"
+        - option "Polski"
+        - option "Українська"
+        - option "हिन्दी"
+        - option "Indonesia"
+      - button "Toggle theme" [ref=f6e9] [cursor=pointer]: ◐
+  - region "Search and filters" [ref=f6e10]:
+    - 'searchbox "Search: ainu, ket, Altai, Turkic…" [ref=f6e11]'
+    - combobox [ref=f6e12]:
+      - 'option "Region: all" [selected]'
+      - option "Africa"
+      - option "Australia"
+      - option "Eurasia"
+      - option "N. America"
+      - option "Papunesia"
+      - option "S. America"
+    - combobox [ref=f6e13]:
+      - 'option "Family: all" [selected]'
+      - option "Atlantic-Congo (1408)"
+      - option "Austronesian (1276)"
+      - option "Indo-European (586)"
+      - option "Sino-Tibetan (519)"
+      - option "Afro-Asiatic (381)"
+      - option "Nuclear Trans New Guinea (317)"
+      - option "Pama-Nyungan (250)"
+      - option "Sign Language (227)"
+      - option "Otomanguean (181)"
+      - option "Austroasiatic (158)"
+      - option "Tai-Kadai (95)"
+      - option "Pidgin (87)"
+      - option "Dravidian (82)"
+      - option "Arawakan (77)"
+      - option "Mande (75)"
+      - option "Tupian (70)"
+      - option "Uto-Aztecan (69)"
+      - option "Central Sudanic (63)"
+      - option "Nilotic (56)"
+      - option "Nuclear Torricelli (55)"
+      - option "Uralic (49)"
+      - option "Algic (47)"
+      - option "Athabaskan-Eyak-Tlingit (46)"
+      - option "Pano-Tacanan (45)"
+      - option "Hmong-Mien (44)"
+      - option "Turkic (43)"
+      - option "Quechuan (43)"
+      - option "Cariban (42)"
+      - option "Kru (38)"
+      - option "Nakh-Daghestanian (36)"
+      - option "Sepik (36)"
+      - option "Mayan (34)"
+      - option "Nuclear-Macro-Je (29)"
+      - option "Chibchan (27)"
+      - option "Tucanoan (26)"
+      - option "Salishan (25)"
+      - option "Ramu (24)"
+      - option "Timor-Alor-Pantar (23)"
+      - option "Lakes Plain (20)"
+      - option "Dogon (20)"
+      - option "Ta-Ne-Omotic (19)"
+      - option "Mixe-Zoque (19)"
+      - option "Yam (19)"
+      - option "Siouan (18)"
+      - option "Japonic (17)"
+      - option "Mongolic-Khitan (17)"
+      - option "Anim (17)"
+      - option "North Halmahera (15)"
+      - option "Tungusic (15)"
+      - option "Border (15)"
+      - option "Khoe-Kwadi (14)"
+      - option "Nubian (13)"
+      - option "Eskimo-Aleut (13)"
+      - option "Angan (13)"
+      - option "Totonacan (13)"
+      - option "Miwok-Costanoan (13)"
+      - option "Ndu (13)"
+      - option "Tor-Orya (13)"
+      - option "Chapacuran (12)"
+      - option "Gunwinyguan (12)"
+      - option "Cochimi-Yuman (12)"
+      - option "Surmic (11)"
+      - option "Iroquoian (11)"
+      - option "Sko (11)"
+      - option "Western Daly (11)"
+      - option "Heibanic (11)"
+      - option "Saharan (10)"
+      - option "Maban (10)"
+      - option "Songhay (10)"
+      - option "Nyulnyulan (10)"
+      - option "Great Andamanese (10)"
+      - option "South Bougainville (10)"
+      - option "Geelvink Bay (10)"
+      - option "Ijoid (10)"
+      - option "Worrorran (10)"
+      - option "Chocoan (9)"
+      - option "Tuu (9)"
+      - option "Dagan (9)"
+      - option "Koiarian (8)"
+      - option "Kiowa-Tanoan (8)"
+      - option "Greater Kwerba (8)"
+      - option "Narrow Talodi (8)"
+      - option "Mailuan (8)"
+      - option "South Bird's Head (8)"
+      - option "Muskogean (7)"
+      - option "Chukotko-Kamchatkan (7)"
+      - option "Huitotoan (7)"
+      - option "Pomoan (7)"
+      - option "Bosavi (7)"
+      - option "Dajuic (7)"
+      - option "Mataguayan (7)"
+      - option "Barbacoan (6)"
+      - option "Yanomamic (6)"
+      - option "Arawan (6)"
+      - option "Nambiquaran (6)"
+      - option "Wakashan (6)"
+      - option "Lower Sepik (6)"
+      - option "Zaparoan (6)"
+      - option "Left May (6)"
+      - option "Lengua-Mascoy (6)"
+      - option "Kiwaian (6)"
+      - option "Chumashan (6)"
+      - option "East Strickland (6)"
+      - option "Baining (6)"
+      - option "Kadugli-Krongo (6)"
+      - option "Kartvelian (5)"
+      - option "Abkhaz-Adyge (5)"
+      - option "South Omotic (5)"
+      - option "Misumalpan (5)"
+      - option "Guaicuruan (5)"
+      - option "Kxa (5)"
+      - option "Guahiboan (5)"
+      - option "Koman (5)"
+      - option "Yeniseian (5)"
+      - option "Sahaptian (5)"
+      - option "Caddoan (5)"
+      - option "Keram (5)"
+      - option "Arafundi (5)"
+      - option "Yareban (5)"
+      - option "Yuat (5)"
+      - option "Pauwasi (5)"
+      - option "Nimboranic (5)"
+      - option "Mirndi (5)"
+      - option "West Bird's Head (5)"
+      - option "Eleman (5)"
+      - option "Xincan (5)"
+      - option "Chicham (4)"
+      - option "Mixed Language (4)"
+      - option "North Bougainville (4)"
+      - option "Suki-Gogodala (4)"
+      - option "Naduhup (4)"
+      - option "Maningrida (4)"
+      - option "Turama-Kikori (4)"
+      - option "Aymaran (4)"
+      - option "Iwaidjan Proper (4)"
+      - option "Yukaghir (4)"
+      - option "Mangarrayi-Maran (4)"
+      - option "Tangkic (4)"
+      - option "Chinookan (4)"
+      - option "Eastern Jebel (4)"
+      - option "Kunimaipan (4)"
+      - option "Tamaic (4)"
+      - option "Blue Nile Mao (4)"
+      - option "Eastern Trans-Fly (4)"
+      - option "Yokutsan (4)"
+      - option "Kamakanan (4)"
+      - option "Sentanic (4)"
+      - option "Chonan (4)"
+      - option "Shastan (4)"
+      - option "Maiduan (4)"
+      - option "Walioic (4)"
+      - option "Huavean (4)"
+      - option "Gumuz (3)"
+      - option "Saliban (3)"
+      - option "Peba-Yagua (3)"
+      - option "Zamucoan (3)"
+      - option "Bororoan (3)"
+      - option "Tsimshian (3)"
+      - option "Lepki-Murkim-Kembra (3)"
+      - option "Jarrakan (3)"
+      - option "Kuliak (3)"
+      - option "Kawesqar (3)"
+      - option "Ainu (3)"
+      - option "Kamula-Elevala (3)"
+      - option "Kresh-Aja (3)"
+      - option "Kayagaric (3)"
+      - option "West Bomberai (3)"
+      - option "Kalapuyan (3)"
+      - option "Charruan (3)"
+      - option "Yangmanic (3)"
+      - option "Dizoid (3)"
+      - option "Giimbiyu (3)"
+      - option "Tequistlatecan (3)"
+      - option "Kwalean (3)"
+      - option "Katla-Tima (3)"
+      - option "Kolopom (3)"
+      - option "Mairasic (3)"
+      - option "Bulaka River (3)"
+      - option "East Bird's Head (3)"
+      - option "Western Tasmanian (3)"
+      - option "Koreanic (2)"
+      - option "Furan (2)"
+      - option "Araucanian (2)"
+      - option "Tarascan (2)"
+      - option "Ticuna-Yuri (2)"
+      - option "Cahuapanan (2)"
+      - option "Yawa-Saweru (2)"
+      - option "Keresan (2)"
+      - option "Boran (2)"
+      - option "Chiquitano (2)"
+      - option "Uru-Chipaya (2)"
+      - option "Katukinan (2)"
+      - option "Kakua-Nukak (2)"
+      - option "Harakmbut (2)"
+      - option "Jicaquean (2)"
+      - option "Amto-Musan (2)"
+      - option "Palaihnihan (2)"
+      - option "Nivkh (2)"
+      - option "Bunaban (2)"
+      - option "Nyimang (2)"
+      - option "Pahoturi (2)"
+      - option "Huarpean (2)"
+      - option "Tegem (2)"
+      - option "Senagi (2)"
+      - option "Bayono-Awbono (2)"
+      - option "Baibai-Fas (2)"
+      - option "North-Eastern Tasmanian (2)"
+      - option "South-Eastern Tasmanian (2)"
+      - option "Taulil-Butam (2)"
+      - option "Chimakuan (2)"
+      - option "Hibito-Cholon (2)"
+      - option "Puri-Coroado (2)"
+      - option "Teberan (2)"
+      - option "Manubaran (2)"
+      - option "Doso-Turumsa (2)"
+      - option "East Kutubu (2)"
+      - option "Garrwan (2)"
+      - option "Coosan (2)"
+      - option "Piawi (2)"
+      - option "Hatam-Mansim (2)"
+      - option "Hurro-Urartian (2)"
+      - option "Jarawa-Onge (2)"
+      - option "Eastern Daly (2)"
+      - option "Maybratic (2)"
+      - option "Kaure-Kosare (2)"
+      - option "Mombum-Koneraw (2)"
+      - option "Kwomtari-Nai (2)"
+      - option "Lencan (2)"
+      - option "Bogia (2)"
+      - option "Limilngan-Wulna (2)"
+      - option "Marrku-Wurrugu (2)"
+      - option "Northern Daly (2)"
+      - option "Southern Daly (2)"
+      - option "Namla-Tofanma (2)"
+      - option "Haida (2)"
+      - option "Yuki-Wappo (2)"
+      - option "Otomaco-Taparita (2)"
+      - option "Wintuan (2)"
+      - option "Rashad (2)"
+      - option "Temeinic (2)"
+      - option "Konda-Yahadian (2)"
+      - option "Isolates (183)"
+    - combobox [ref=f6e14]:
+      - 'option "Country: all" [selected]'
+      - option "Afghanistan (48)"
+      - option "Åland Islands (3)"
+      - option "Albania (12)"
+      - option "Algeria (24)"
+      - option "American Samoa (1)"
+      - option "Andorra (5)"
+      - option "Angola (50)"
+      - option "Anguilla (1)"
+      - option "Antigua & Barbuda (1)"
+      - option "Argentina (37)"
+      - option "Armenia (8)"
+      - option "Aruba (3)"
+      - option "Australia (379)"
+      - option "Austria (17)"
+      - option "Azerbaijan (28)"
+      - option "Bahamas (1)"
+      - option "Bahrain (3)"
+      - option "Bangladesh (50)"
+      - option "Barbados (2)"
+      - option "Belarus (15)"
+      - option "Belgium (12)"
+      - option "Belize (7)"
+      - option "Benin (57)"
+      - option "Bermuda (1)"
+      - option "Bhutan (30)"
+      - option "Bolivia (63)"
+      - option "Bosnia & Herzegovina (6)"
+      - option "Botswana (37)"
+      - option "Brazil (280)"
+      - option "British Indian Ocean Territory (1)"
+      - option "British Virgin Islands (1)"
+      - option "Brunei (12)"
+      - option "Bulgaria (20)"
+      - option "Burkina Faso (82)"
+      - option "Burundi (9)"
+      - option "Cambodia (25)"
+      - option "Cameroon (310)"
+      - option "Canada (100)"
+      - option "Cape Verde (1)"
+      - option "Caribbean Netherlands (3)"
+      - option "Cayman Islands (2)"
+      - option "Central African Republic (90)"
+      - option "Chad (143)"
+      - option "Chile (15)"
+      - option "China (433)"
+      - option "Christmas Island (1)"
+      - option "Cocos (Keeling) Islands (2)"
+      - option "Colombia (110)"
+      - option "Comoros (5)"
+      - option "Congo - Brazzaville (70)"
+      - option "Congo - Kinshasa (236)"
+      - option "Cook Islands (6)"
+      - option "Costa Rica (14)"
+      - option "Côte d’Ivoire (108)"
+      - option "Croatia (14)"
+      - option "Cuba (4)"
+      - option "Curaçao (2)"
+      - option "Cyprus (4)"
+      - option "Czechia (11)"
+      - option "Denmark (9)"
+      - option "Djibouti (5)"
+      - option "Dominica (2)"
+      - option "Dominican Republic (4)"
+      - option "Ecuador (25)"
+      - option "Egypt (15)"
+      - option "El Salvador (7)"
+      - option "Equatorial Guinea (12)"
+      - option "Eritrea (15)"
+      - option "Estonia (12)"
+      - option "Eswatini (4)"
+      - option "Ethiopia (99)"
+      - option "Falkland Islands (Islas Malvinas) (1)"
+      - option "Faroe Islands (3)"
+      - option "Fiji (14)"
+      - option "Finland (21)"
+      - option "France (31)"
+      - option "French Guiana (14)"
+      - option "French Polynesia (10)"
+      - option "French Southern Territories (1)"
+      - option "Gabon (49)"
+      - option "Gambia (19)"
+      - option "Georgia (27)"
+      - option "Germany (37)"
+      - option "Ghana (94)"
+      - option "Gibraltar (2)"
+      - option "Greece (26)"
+      - option "Greenland (5)"
+      - option "Grenada (1)"
+      - option "Guadeloupe (2)"
+      - option "Guam (2)"
+      - option "Guatemala (38)"
+      - option "Guernsey (1)"
+      - option "Guinea (50)"
+      - option "Guinea-Bissau (32)"
+      - option "Guyana (25)"
+      - option "Haiti (3)"
+      - option "Honduras (11)"
+      - option "Hungary (15)"
+      - option "Iceland (3)"
+      - option "India (484)"
+      - option "Indonesia (736)"
+      - option "Iran (87)"
+      - option "Iraq (30)"
+      - option "Ireland (5)"
+      - option "Isle of Man (2)"
+      - option "Israel (32)"
+      - option "Italy (50)"
+      - option "Jamaica (4)"
+      - option "Japan (25)"
+      - option "Jersey (1)"
+      - option "Jordan (11)"
+      - option "Kazakhstan (27)"
+      - option "Kenya (82)"
+      - option "Kiribati (2)"
+      - option "Kuwait (6)"
+      - option "Kyrgyzstan (9)"
+      - option "Laos (91)"
+      - option "Latvia (15)"
+      - option "Lebanon (7)"
+      - option "Lesotho (6)"
+      - option "Liberia (39)"
+      - option "Libya (16)"
+      - option "Liechtenstein (4)"
+      - option "Lithuania (16)"
+      - option "Luxembourg (4)"
+      - option "Madagascar (15)"
+      - option "Malawi (29)"
+      - option "Malaysia (129)"
+      - option "Maldives (1)"
+      - option "Mali (76)"
+      - option "Malta (2)"
+      - option "Marshall Islands (1)"
+      - option "Martinique (1)"
+      - option "Mauritania (9)"
+      - option "Mauritius (2)"
+      - option "Mayotte (2)"
+      - option "Mexico (313)"
+      - option "Micronesia (17)"
+      - option "Moldova (10)"
+      - option "Monaco (3)"
+      - option "Mongolia (17)"
+      - option "Montenegro (5)"
+      - option "Montserrat (1)"
+      - option "Morocco (15)"
+      - option "Mozambique (45)"
+      - option "Myanmar (Burma) (134)"
+      - option "Namibia (38)"
+      - option "Nauru (4)"
+      - option "Nepal (119)"
+      - option "Netherlands (24)"
+      - option "New Caledonia (38)"
+      - option "New Zealand (10)"
+      - option "Nicaragua (12)"
+      - option "Niger (25)"
+      - option "Nigeria (559)"
+      - option "Niue (1)"
+      - option "Norfolk Island (2)"
+      - option "North Korea (3)"
+      - option "North Macedonia (16)"
+      - option "Northern Mariana Islands (4)"
+      - option "Norway (16)"
+      - option "Oman (14)"
+      - option "Pakistan (81)"
+      - option "Palau (4)"
+      - option "Palestine (7)"
+      - option "Panama (16)"
+      - option "Papua New Guinea (890)"
+      - option "Paraguay (30)"
+      - option "Peru (122)"
+      - option "Philippines (171)"
+      - option "Pitcairn Islands (2)"
+      - option "Poland (21)"
+      - option "Portugal (10)"
+      - option "Puerto Rico (6)"
+      - option "Qatar (2)"
+      - option "Réunion (2)"
+      - option "Romania (22)"
+      - option "Russia (166)"
+      - option "Rwanda (9)"
+      - option "Samoa (2)"
+      - option "San Marino (2)"
+      - option "São Tomé & Príncipe (4)"
+      - option "Saudi Arabia (13)"
+      - option "Senegal (47)"
+      - option "Serbia (14)"
+      - option "Seychelles (2)"
+      - option "Sierra Leone (24)"
+      - option "Singapore (7)"
+      - option "Sint Maarten (2)"
+      - option "Slovakia (12)"
+      - option "Slovenia (12)"
+      - option "Solomon Islands (73)"
+      - option "Somalia (12)"
+      - option "South Africa (39)"
+      - option "South Georgia & South Sandwich Islands (1)"
+      - option "South Korea (3)"
+      - option "South Sudan (87)"
+      - option "Spain (25)"
+      - option "Sri Lanka (6)"
+      - option "St. Barthélemy (1)"
+      - option "St. Helena (1)"
+      - option "St. Kitts & Nevis (1)"
+      - option "St. Lucia (1)"
+      - option "St. Martin (1)"
+      - option "St. Pierre & Miquelon (1)"
+      - option "St. Vincent & Grenadines (1)"
+      - option "Sudan (101)"
+      - option "Suriname (21)"
+      - option "Svalbard & Jan Mayen (3)"
+      - option "Sweden (20)"
+      - option "Switzerland (19)"
+      - option "Syria (19)"
+      - option "Taiwan (16)"
+      - option "Tajikistan (18)"
+      - option "Tanzania (133)"
+      - option "Thailand (80)"
+      - option "Timor-Leste (21)"
+      - option "Togo (51)"
+      - option "Tokelau (1)"
+      - option "Tonga (4)"
+      - option "Trinidad & Tobago (5)"
+      - option "Tunisia (12)"
+      - option "Türkiye (58)"
+      - option "Turkmenistan (12)"
+      - option "Turks & Caicos Islands (1)"
+      - option "Tuvalu (2)"
+      - option "U.S. Outlying Islands (1)"
+      - option "U.S. Virgin Islands (2)"
+      - option "Uganda (60)"
+      - option "Ukraine (31)"
+      - option "United Arab Emirates (6)"
+      - option "United Kingdom (20)"
+      - option "United States (295)"
+      - option "Uruguay (8)"
+      - option "Uzbekistan (17)"
+      - option "Vanuatu (120)"
+      - option "Vatican City (3)"
+      - option "Venezuela (62)"
+      - option "Vietnam (115)"
+      - option "Wallis & Futuna (2)"
+      - option "Western Sahara (4)"
+      - option "Yemen (19)"
+      - option "Zambia (50)"
+      - option "Zimbabwe (27)"
+    - combobox [ref=f6e15]:
+      - 'option "Speakers: any" [selected]'
+      - option "> 1 M"
+      - option "100 k – 1 M"
+      - option "10–100 k"
+      - option "1–10 k"
+      - option "< 1 000"
+      - option "no data"
+    - combobox [ref=f6e16]:
+      - 'option "Materials: any" [selected]'
+      - option "Has a grammar"
+      - option "At least a grammar sketch"
+      - option "At least texts / dictionary"
+      - option "Barely documented"
+    - combobox [ref=f6e17]:
+      - option "Languages only" [selected]
+      - option "Languages & dialects"
+    - button "Reset" [ref=f6e18] [cursor=pointer]
+  - region "Endangerment status filter" [ref=f6e19]:
+    - generic [ref=f6e20]: "Status:"
+    - group [ref=f6e37]:
+      - button "Not endangered" [pressed] [ref=f6e38] [cursor=pointer]
+      - button "Vulnerable" [pressed] [ref=f6e40] [cursor=pointer]
+      - button "Endangered" [pressed] [ref=f6e42] [cursor=pointer]
+      - button "Severely endangered" [pressed] [ref=f6e44] [cursor=pointer]
+      - button "Critically endangered" [pressed] [ref=f6e46] [cursor=pointer]
+      - button "Extinct" [pressed] [ref=f6e48] [cursor=pointer]
+      - button "No data" [pressed] [ref=f6e50] [cursor=pointer]
+    - generic [ref=f6e52]: "Found: 7,992"
+  - main [ref=f6e21]:
+    - region "Language list" [ref=f6e22]:
+      - table [ref=f6e24]:
+        - rowgroup [ref=f6e25]:
+          - row [ref=f6e26]:
+            - columnheader "Language" [ref=f6e27] [cursor=pointer]
+            - columnheader "Family" [ref=f6e28] [cursor=pointer]
+            - columnheader "Speakers" [ref=f6e29] [cursor=pointer]
+            - columnheader "Status" [ref=f6e30] [cursor=pointer]
+        - rowgroup [ref=f6e53]:
+          - row [ref=f6e54] [cursor=pointer]:
+            - cell "Mandarin Chinese" [ref=f6e55]
+            - cell "Sino-Tibetan" [ref=f6e56]
+            - cell "918M" [ref=f6e57]
+            - cell [ref=f6e58]
+          - row [ref=f6e61] [cursor=pointer]:
+            - cell "English" [ref=f6e62]
+            - cell "Indo-European" [ref=f6e63]
+            - cell "753.4M" [ref=f6e64]
+            - cell [ref=f6e65]
+          - row [ref=f6e68] [cursor=pointer]:
+            - cell "Spanish" [ref=f6e69]
+            - cell "Indo-European" [ref=f6e70]
+            - cell "485M" [ref=f6e71]
+            - cell [ref=f6e72]
+          - row [ref=f6e75] [cursor=pointer]:
+            - cell "Hindi" [ref=f6e76]
+            - cell "Indo-European" [ref=f6e77]
+            - cell "341M" [ref=f6e78]
+            - cell [ref=f6e79]
+          - row [ref=f6e82] [cursor=pointer]:
+            - cell "Standard Arabic" [ref=f6e83]
+            - cell "Afro-Asiatic" [ref=f6e84]
+            - cell "335M" [ref=f6e85]
+            - cell [ref=f6e86]
+          - row [ref=f6e89] [cursor=pointer]:
+            - cell "Bengali" [ref=f6e90]
+            - cell "Indo-European" [ref=f6e91]
+            - cell "300M" [ref=f6e92]
+            - cell [ref=f6e93]
+          - row [ref=f6e96] [cursor=pointer]:
+            - cell "Portuguese" [ref=f6e97]
+            - cell "Indo-European" [ref=f6e98]
+            - cell "254.3M" [ref=f6e99]
+            - cell [ref=f6e100]
+          - row [ref=f6e103] [cursor=pointer]:
+            - cell "French" [ref=f6e104]
+            - cell "Indo-European" [ref=f6e105]
+            - cell "208.2M" [ref=f6e106]
+            - cell [ref=f6e107]
+          - row [ref=f6e110] [cursor=pointer]:
+            - cell "Standard Indonesian" [ref=f6e111]
+            - cell "Austronesian" [ref=f6e112]
+            - cell "199M" [ref=f6e113]
+            - cell [ref=f6e114]
+          - row [ref=f6e117] [cursor=pointer]:
+            - cell "Russian" [ref=f6e118]
+            - cell "Indo-European" [ref=f6e119]
+            - cell "154M" [ref=f6e120]
+            - cell [ref=f6e121]
+          - row [ref=f6e124] [cursor=pointer]:
+            - cell "Japanese" [ref=f6e125]
+            - cell "Japonic" [ref=f6e126]
+            - cell "128M" [ref=f6e127]
+            - cell [ref=f6e128]
+          - row [ref=f6e131] [cursor=pointer]:
+            - cell "Eastern Panjabi" [ref=f6e132]
+            - cell "Indo-European" [ref=f6e133]
+            - cell "125M" [ref=f6e134]
+            - cell [ref=f6e135]
+          - row [ref=f6e138] [cursor=pointer]:
+            - cell "Filipino" [ref=f6e139]
+            - cell "Austronesian" [ref=f6e140]
+            - cell "90M" [ref=f6e141]
+            - cell [ref=f6e142]
+          - row [ref=f6e145] [cursor=pointer]:
+            - cell "Marathi" [ref=f6e146]
+            - cell "Indo-European" [ref=f6e147]
+            - cell "83.1M" [ref=f6e148]
+            - cell [ref=f6e149]
+          - row [ref=f6e152] [cursor=pointer]:
+            - cell "Swahili" [ref=f6e153]
+            - cell "Atlantic-Congo" [ref=f6e154]
+            - cell "82.3M" [ref=f6e155]
+            - cell [ref=f6e156]
+          - row [ref=f6e159] [cursor=pointer]:
+            - cell "Turkish" [ref=f6e160]
+            - cell "Turkic" [ref=f6e161]
+            - cell "82.2M" [ref=f6e162]
+            - cell [ref=f6e163]
+          - row [ref=f6e166] [cursor=pointer]:
+            - cell "Telugu" [ref=f6e167]
+            - cell "Dravidian" [ref=f6e168]
+            - cell "82M" [ref=f6e169]
+            - cell [ref=f6e170]
+          - row [ref=f6e173] [cursor=pointer]:
+            - cell "Wu Chinese" [ref=f6e174]
+            - cell "Sino-Tibetan" [ref=f6e175]
+            - cell "81.4M" [ref=f6e176]
+            - cell [ref=f6e177]
+          - row [ref=f6e180] [cursor=pointer]:
+            - cell "Korean" [ref=f6e181]
+            - cell "Koreanic" [ref=f6e182]
+            - cell "77.3M" [ref=f6e183]
+            - cell [ref=f6e184]
+          - row [ref=f6e187] [cursor=pointer]:
+            - cell "German" [ref=f6e188]
+            - cell "Indo-European" [ref=f6e189]
+            - cell "76.5M" [ref=f6e190]
+            - cell [ref=f6e191]
+          - row [ref=f6e194] [cursor=pointer]:
+            - cell "Vietnamese" [ref=f6e195]
+            - cell "Austroasiatic" [ref=f6e196]
+            - cell "76M" [ref=f6e197]
+            - cell [ref=f6e198]
+          - row [ref=f6e201] [cursor=pointer]:
+            - cell "Tamil" [ref=f6e202]
+            - cell "Dravidian" [ref=f6e203]
+            - cell "75M" [ref=f6e204]
+            - cell [ref=f6e205]
+          - row [ref=f6e208] [cursor=pointer]:
+            - cell "Yue Chinese" [ref=f6e209]
+            - cell "Sino-Tibetan" [ref=f6e210]
+            - cell "73.1M" [ref=f6e211]
+            - cell [ref=f6e212]
+          - row [ref=f6e215] [cursor=pointer]:
+            - cell "Urdu" [ref=f6e216]
+            - cell "Indo-European" [ref=f6e217]
+            - cell "68.6M" [ref=f6e218]
+            - cell [ref=f6e219]
+          - row [ref=f6e222] [cursor=pointer]:
+            - cell "Javanese" [ref=f6e223]
+            - cell "Austronesian" [ref=f6e224]
+            - cell "68.3M" [ref=f6e225]
+            - cell [ref=f6e226]
+          - row [ref=f6e229] [cursor=pointer]:
+            - cell "Italian" [ref=f6e230]
+            - cell "Indo-European" [ref=f6e231]
+            - cell "64.8M" [ref=f6e232]
+            - cell [ref=f6e233]
+          - row [ref=f6e236] [cursor=pointer]:
+            - cell "Egyptian Arabic" [ref=f6e237]
+            - cell "Afro-Asiatic" [ref=f6e238]
+            - cell "64.6M" [ref=f6e239]
+            - cell [ref=f6e240]
+          - row [ref=f6e243] [cursor=pointer]:
+            - cell "Gujarati" [ref=f6e244]
+            - cell "Indo-European" [ref=f6e245]
+            - cell "56.4M" [ref=f6e246]
+            - cell [ref=f6e247]
+          - row [ref=f6e250] [cursor=pointer]:
+            - cell "Western Farsi" [ref=f6e251]
+            - cell "Indo-European" [ref=f6e252]
+            - cell "52.8M" [ref=f6e253]
+            - cell [ref=f6e254]
+          - row [ref=f6e257] [cursor=pointer]:
+            - cell "Bhojpuri" [ref=f6e258]
+            - cell "Indo-European" [ref=f6e259]
+            - cell "52.2M" [ref=f6e260]
+            - cell [ref=f6e261]
+          - row [ref=f6e264] [cursor=pointer]:
+            - cell "Min Nan Chinese" [ref=f6e265]
+            - cell "Sino-Tibetan" [ref=f6e266]
+            - cell "50.1M" [ref=f6e267]
+            - cell [ref=f6e268]
+          - row [ref=f6e271] [cursor=pointer]:
+            - cell "Hakka Chinese" [ref=f6e272]
+            - cell "Sino-Tibetan" [ref=f6e273]
+            - cell "48.2M" [ref=f6e274]
+            - cell [ref=f6e275]
+          - row [ref=f6e278] [cursor=pointer]:
+            - cell "Nigerian Pidgin" [ref=f6e279]
+            - cell "Indo-European" [ref=f6e280]
+            - cell "47.5M" [ref=f6e281]
+            - cell [ref=f6e282]
+          - row [ref=f6e285] [cursor=pointer]:
+            - cell "Jinyu Chinese" [ref=f6e286]
+            - cell "Sino-Tibetan" [ref=f6e287]
+            - cell "46.9M" [ref=f6e288]
+            - cell [ref=f6e289]
+          - row [ref=f6e292] [cursor=pointer]:
+            - cell "Levantine Arabic" [ref=f6e293]
+            - cell "Afro-Asiatic" [ref=f6e294]
+            - cell "44M" [ref=f6e295]
+            - cell [ref=f6e296]
+          - row [ref=f6e299] [cursor=pointer]:
+            - cell "Hausa" [ref=f6e300]
+            - cell "Afro-Asiatic" [ref=f6e301]
+            - cell "43.9M" [ref=f6e302]
+            - cell [ref=f6e303]
+          - row [ref=f6e306] [cursor=pointer]:
+            - cell "Kannada" [ref=f6e307]
+            - cell "Dravidian" [ref=f6e308]
+            - cell "43.6M" [ref=f6e309]
+            - cell [ref=f6e310]
+          - row [ref=f6e313] [cursor=pointer]:
+            - cell "Algerian Arabic" [ref=f6e314]
+            - cell "Afro-Asiatic" [ref=f6e315]
+            - cell "42.3M" [ref=f6e316]
+            - cell [ref=f6e317]
+          - row [ref=f6e320] [cursor=pointer]:
+            - cell "Polish" [ref=f6e321]
+            - cell "Indo-European" [ref=f6e322]
+            - cell "39.7M" [ref=f6e323]
+            - cell [ref=f6e324]
+          - row [ref=f6e327] [cursor=pointer]:
+            - cell "Yoruba" [ref=f6e328]
+            - cell "Atlantic-Congo" [ref=f6e329]
+            - cell "37.8M" [ref=f6e330]
+            - cell [ref=f6e331]
+          - row [ref=f6e334] [cursor=pointer]:
+            - cell "Xiang Chinese" [ref=f6e335]
+            - cell "Sino-Tibetan" [ref=f6e336]
+            - cell "37.3M" [ref=f6e337]
+            - cell [ref=f6e338]
+          - row [ref=f6e341] [cursor=pointer]:
+            - cell "Malayalam" [ref=f6e342]
+            - cell "Dravidian" [ref=f6e343]
+            - cell "37.1M" [ref=f6e344]
+            - cell [ref=f6e345]
+          - row [ref=f6e348] [cursor=pointer]:
+            - cell "Odia" [ref=f6e349]
+            - cell "Indo-European" [ref=f6e350]
+            - cell "34.5M" [ref=f6e351]
+            - cell [ref=f6e352]
+          - row [ref=f6e355] [cursor=pointer]:
+            - cell "Maithili" [ref=f6e356]
+            - cell "Indo-European" [ref=f6e357]
+            - cell "33.9M" [ref=f6e358]
+            - cell [ref=f6e359]
+          - row [ref=f6e362] [cursor=pointer]:
+            - cell "Burmese" [ref=f6e363]
+            - cell "Sino-Tibetan" [ref=f6e364]
+            - cell "32.9M" [ref=f6e365]
+            - cell [ref=f6e366]
+          - row [ref=f6e369] [cursor=pointer]:
+            - cell "Sundanese" [ref=f6e370]
+            - cell "Austronesian" [ref=f6e371]
+            - cell "32.4M" [ref=f6e372]
+            - cell [ref=f6e373]
+          - row [ref=f6e376] [cursor=pointer]:
+            - cell "Sudanese Arabic" [ref=f6e377]
+            - cell "Afro-Asiatic" [ref=f6e378]
+            - cell "31.9M" [ref=f6e379]
+            - cell [ref=f6e380]
+          - row [ref=f6e383] [cursor=pointer]:
+            - cell "Moroccan Arabic" [ref=f6e384]
+            - cell "Afro-Asiatic" [ref=f6e385]
+            - cell "27.5M" [ref=f6e386]
+            - cell [ref=f6e387]
+          - row [ref=f6e390] [cursor=pointer]:
+            - cell "Igbo" [ref=f6e391]
+            - cell "Atlantic-Congo" [ref=f6e392]
+            - cell "27M" [ref=f6e393]
+            - cell [ref=f6e394]
+          - row [ref=f6e397] [cursor=pointer]:
+            - cell "Ukrainian" [ref=f6e398]
+            - cell "Indo-European" [ref=f6e399]
+            - cell "26.9M" [ref=f6e400]
+            - cell [ref=f6e401]
+          - row [ref=f6e404] [cursor=pointer]:
+            - cell "Northern Uzbek" [ref=f6e405]
+            - cell "Turkic" [ref=f6e406]
+            - cell "25.1M" [ref=f6e407]
+            - cell [ref=f6e408]
+          - row [ref=f6e411] [cursor=pointer]:
+            - cell "Sindhi" [ref=f6e412]
+            - cell "Indo-European" [ref=f6e413]
+            - cell "24.6M" [ref=f6e414]
+            - cell [ref=f6e415]
+          - row [ref=f6e418] [cursor=pointer]:
+            - cell "Romanian" [ref=f6e419]
+            - cell "Indo-European" [ref=f6e420]
+            - cell "24.3M" [ref=f6e421]
+            - cell [ref=f6e422]
+          - row [ref=f6e425] [cursor=pointer]:
+            - cell "Tagalog" [ref=f6e426]
+            - cell "Austronesian" [ref=f6e427]
+            - cell "23.6M" [ref=f6e428]
+            - cell [ref=f6e429]
+          - row [ref=f6e432] [cursor=pointer]:
+            - cell "Dutch" [ref=f6e433]
+            - cell "Indo-European" [ref=f6e434]
+            - cell "23.1M" [ref=f6e435]
+            - cell [ref=f6e436]
+          - row [ref=f6e439] [cursor=pointer]:
+            - cell "Saidi Arabic" [ref=f6e440]
+            - cell "Afro-Asiatic" [ref=f6e441]
+            - cell "22.4M" [ref=f6e442]
+            - cell [ref=f6e443]
+          - row [ref=f6e446] [cursor=pointer]:
+            - cell "Gan Chinese" [ref=f6e447]
+            - cell "Sino-Tibetan" [ref=f6e448]
+            - cell "22.1M" [ref=f6e449]
+            - cell [ref=f6e450]
+          - row [ref=f6e453] [cursor=pointer]:
+            - cell "Awadhi" [ref=f6e454]
+            - cell "Indo-European" [ref=f6e455]
+            - cell "22M" [ref=f6e456]
+            - cell [ref=f6e457]
+          - row [ref=f6e460] [cursor=pointer]:
+            - cell "Amharic" [ref=f6e461]
+            - cell "Afro-Asiatic" [ref=f6e462]
+            - cell "21.9M" [ref=f6e463]
+            - cell [ref=f6e464]
+          - row [ref=f6e467] [cursor=pointer]:
+            - cell "Northern Pashto" [ref=f6e468]
+            - cell "Indo-European" [ref=f6e469]
+            - cell "20.9M" [ref=f6e470]
+            - cell [ref=f6e471]
+          - row [ref=f6e474] [cursor=pointer]:
+            - cell "Magahi" [ref=f6e475]
+            - cell "Indo-European" [ref=f6e476]
+            - cell "20.7M" [ref=f6e477]
+            - cell [ref=f6e478]
+          - row [ref=f6e481] [cursor=pointer]:
+            - cell "Thai" [ref=f6e482]
+            - cell "Tai-Kadai" [ref=f6e483]
+            - cell "20.7M" [ref=f6e484]
+            - cell [ref=f6e485]
+          - row [ref=f6e488] [cursor=pointer]:
+            - cell "Saraiki" [ref=f6e489]
+            - cell "Indo-European" [ref=f6e490]
+            - cell "20M" [ref=f6e491]
+            - cell [ref=f6e492]
+          - row [ref=f6e495] [cursor=pointer]:
+            - cell "Kinshasa Lingala" [ref=f6e496]
+            - cell "Atlantic-Congo" [ref=f6e497]
+            - cell "20M" [ref=f6e498]
+            - cell [ref=f6e499]
+          - row [ref=f6e502] [cursor=pointer]:
+            - cell "Serbian-Croatian-Bosnian" [ref=f6e503]
+            - cell "Indo-European" [ref=f6e504]
+            - cell "19M" [ref=f6e505]
+            - cell [ref=f6e506]
+          - row [ref=f6e509] [cursor=pointer]:
+            - cell "Central Moroccan Berber" [ref=f6e510]
+            - cell "Afro-Asiatic" [ref=f6e511]
+            - cell "17M" [ref=f6e512]
+            - cell [ref=f6e513]
+          - row [ref=f6e516] [cursor=pointer]:
+            - cell "Central Khmer" [ref=f6e517]
+            - cell "Austroasiatic" [ref=f6e518]
+            - cell "16.6M" [ref=f6e519]
+            - cell [ref=f6e520]
+          - row [ref=f6e523] [cursor=pointer]:
+            - cell "Chhattisgarhi" [ref=f6e524]
+            - cell "Indo-European" [ref=f6e525]
+            - cell "16.3M" [ref=f6e526]
+            - cell [ref=f6e527]
+          - row [ref=f6e530] [cursor=pointer]:
+            - cell "Somali" [ref=f6e531]
+            - cell "Afro-Asiatic" [ref=f6e532]
+            - cell "16.2M" [ref=f6e533]
+            - cell [ref=f6e534]
+          - row [ref=f6e537] [cursor=pointer]:
+            - cell "Turkmen" [ref=f6e538]
+            - cell "Turkic" [ref=f6e539]
+            - cell "16M" [ref=f6e540]
+            - cell [ref=f6e541]
+          - row [ref=f6e544] [cursor=pointer]:
+            - cell "Cebuano" [ref=f6e545]
+            - cell "Austronesian" [ref=f6e546]
+            - cell "15.9M" [ref=f6e547]
+            - cell [ref=f6e548]
+          - row [ref=f6e551] [cursor=pointer]:
+            - cell "Gilit Mesopotamian Arabic" [ref=f6e552]
+            - cell "Afro-Asiatic" [ref=f6e553]
+            - cell "15.7M" [ref=f6e554]
+            - cell [ref=f6e555]
+          - row [ref=f6e558] [cursor=pointer]:
+            - cell "Assamese" [ref=f6e559]
+            - cell "Indo-European" [ref=f6e560]
+            - cell "15.3M" [ref=f6e561]
+            - cell [ref=f6e562]
+          - row [ref=f6e565] [cursor=pointer]:
+            - cell "Sinhala" [ref=f6e566]
+            - cell "Indo-European" [ref=f6e567]
+            - cell "15.3M" [ref=f6e568]
+            - cell [ref=f6e569]
+          - row [ref=f6e572] [cursor=pointer]:
+            - cell "Madurese" [ref=f6e573]
+            - cell "Austronesian" [ref=f6e574]
+            - cell "15M" [ref=f6e575]
+            - cell [ref=f6e576]
+          - row [ref=f6e579] [cursor=pointer]:
+            - cell "Modern Greek" [ref=f6e580]
+            - cell "Indo-European" [ref=f6e581]
+            - cell "15M" [ref=f6e582]
+            - cell [ref=f6e583]
+          - row [ref=f6e586] [cursor=pointer]:
+            - cell "Northeastern Thai" [ref=f6e587]
+            - cell "Tai-Kadai" [ref=f6e588]
+            - cell "15M" [ref=f6e589]
+            - cell [ref=f6e590]
+          - row [ref=f6e593] [cursor=pointer]:
+            - cell "Northern Kurdish" [ref=f6e594]
+            - cell "Indo-European" [ref=f6e595]
+            - cell "14.6M" [ref=f6e596]
+            - cell [ref=f6e597]
+          - row [ref=f6e600] [cursor=pointer]:
+            - cell "Hausa States Fulfulde" [ref=f6e601]
+            - cell "Atlantic-Congo" [ref=f6e602]
+            - cell "14.5M" [ref=f6e603]
+            - cell [ref=f6e604]
+          - row [ref=f6e607] [cursor=pointer]:
+            - cell "Hijazi Arabic" [ref=f6e608]
+            - cell "Afro-Asiatic" [ref=f6e609]
+            - cell "14.5M" [ref=f6e610]
+            - cell [ref=f6e611]
+          - row [ref=f6e614] [cursor=pointer]:
+            - cell "Bavarian" [ref=f6e615]
+            - cell "Indo-European" [ref=f6e616]
+            - cell "14.1M" [ref=f6e617]
+            - cell [ref=f6e618]
+          - row [ref=f6e621] [cursor=pointer]:
+            - cell "Haryanvi" [ref=f6e622]
+            - cell "Indo-European" [ref=f6e623]
+            - cell "14M" [ref=f6e624]
+            - cell [ref=f6e625]
+          - row [ref=f6e628] [cursor=pointer]:
+            - cell "Tajik" [ref=f6e629]
+            - cell "Indo-European" [ref=f6e630]
+            - cell "14M" [ref=f6e631]
+            - cell [ref=f6e632]
+          - row [ref=f6e635] [cursor=pointer]:
+            - cell "Sylheti" [ref=f6e636]
+            - cell "Indo-European" [ref=f6e637]
+            - cell "14M" [ref=f6e638]
+            - cell [ref=f6e639]
+          - row [ref=f6e642] [cursor=pointer]:
+            - cell "South Azerbaijani" [ref=f6e643]
+            - cell "Turkic" [ref=f6e644]
+            - cell "13.8M" [ref=f6e645]
+            - cell [ref=f6e646]
+          - row [ref=f6e649] [cursor=pointer]:
+            - cell "Chittagonian" [ref=f6e650]
+            - cell "Indo-European" [ref=f6e651]
+            - cell "13M" [ref=f6e652]
+            - cell [ref=f6e653]
+          - row [ref=f6e656] [cursor=pointer]:
+            - cell "Tsonga" [ref=f6e657]
+            - cell "Atlantic-Congo" [ref=f6e658]
+            - cell "13M" [ref=f6e659]
+            - cell [ref=f6e660]
+          - row [ref=f6e663] [cursor=pointer]:
+            - cell "Kazakh" [ref=f6e664]
+            - cell "Turkic" [ref=f6e665]
+            - cell "12.9M" [ref=f6e666]
+            - cell [ref=f6e667]
+          - row [ref=f6e670] [cursor=pointer]:
+            - cell "Hungarian" [ref=f6e671]
+            - cell "Uralic" [ref=f6e672]
+            - cell "12.6M" [ref=f6e673]
+            - cell [ref=f6e674]
+          - row [ref=f6e677] [cursor=pointer]:
+            - cell "Kinyarwanda" [ref=f6e678]
+            - cell "Atlantic-Congo" [ref=f6e679]
+            - cell "12.1M" [ref=f6e680]
+            - cell [ref=f6e681]
+          - row [ref=f6e684] [cursor=pointer]:
+            - cell "Zulu" [ref=f6e685]
+            - cell "Atlantic-Congo" [ref=f6e686]
+            - cell "12.1M" [ref=f6e687]
+            - cell [ref=f6e688]
+          - row [ref=f6e691] [cursor=pointer]:
+            - cell "Nyanja" [ref=f6e692]
+            - cell "Atlantic-Congo" [ref=f6e693]
+            - cell "12M" [ref=f6e694]
+            - cell [ref=f6e695]
+          - row [ref=f6e698] [cursor=pointer]:
+            - cell "Tunisian Arabic" [ref=f6e699]
+            - cell "Afro-Asiatic" [ref=f6e700]
+            - cell "11.6M" [ref=f6e701]
+            - cell [ref=f6e702]
+          - row [ref=f6e705] [cursor=pointer]:
+            - cell "Sanaani Arabic" [ref=f6e706]
+            - cell "Afro-Asiatic" [ref=f6e707]
+            - cell "11.4M" [ref=f6e708]
+            - cell [ref=f6e709]
+          - row [ref=f6e712] [cursor=pointer]:
+            - cell "Akan" [ref=f6e713]
+            - cell "Atlantic-Congo" [ref=f6e714]
+            - cell "11M" [ref=f6e715]
+            - cell [ref=f6e716]
+          - row [ref=f6e719] [cursor=pointer]:
+            - cell "Min Bei Chinese" [ref=f6e720]
+            - cell "Sino-Tibetan" [ref=f6e721]
+            - cell "11M" [ref=f6e722]
+            - cell [ref=f6e723]
+          - row [ref=f6e726] [cursor=pointer]:
+            - cell "Southern Pashto" [ref=f6e727]
+            - cell "Indo-European" [ref=f6e728]
+            - cell "10.9M" [ref=f6e729]
+            - cell [ref=f6e730]
+          - row [ref=f6e733] [cursor=pointer]:
+            - cell "Rundi" [ref=f6e734]
+            - cell "Atlantic-Congo" [ref=f6e735]
+            - cell "10.8M" [ref=f6e736]
+            - cell [ref=f6e737]
+          - row [ref=f6e740] [cursor=pointer]:
+            - cell "Czech" [ref=f6e741]
+            - cell "Indo-European" [ref=f6e742]
+            - cell "10.7M" [ref=f6e743]
+            - cell [ref=f6e744]
+          - row [ref=f6e747] [cursor=pointer]:
+            - cell "Ta'izzi-Adeni Arabic" [ref=f6e748]
+            - cell "Afro-Asiatic" [ref=f6e749]
+            - cell "10.5M" [ref=f6e750]
+            - cell [ref=f6e751]
+          - row [ref=f6e754] [cursor=pointer]:
+            - cell "Uighur" [ref=f6e755]
+            - cell "Turkic" [ref=f6e756]
+            - cell "10.4M" [ref=f6e757]
+            - cell [ref=f6e758]
+          - row [ref=f6e761] [cursor=pointer]:
+            - cell "Afrikaans" [ref=f6e762]
+            - cell "Indo-European" [ref=f6e763]
+            - cell "10.3M" [ref=f6e764]
+            - cell [ref=f6e765]
+          - row [ref=f6e768] [cursor=pointer]:
+            - cell "Min Dong Chinese" [ref=f6e769]
+            - cell "Sino-Tibetan" [ref=f6e770]
+            - cell "10.3M" [ref=f6e771]
+            - cell [ref=f6e772]
+          - row [ref=f6e775] [cursor=pointer]:
+            - cell "Central Alemannic" [ref=f6e776]
+            - cell "Indo-European" [ref=f6e777]
+            - cell "10M" [ref=f6e778]
+            - cell [ref=f6e779]
+          - row [ref=f6e782] [cursor=pointer]:
+            - cell "Malvi" [ref=f6e783]
+            - cell "Indo-European" [ref=f6e784]
+            - cell "10M" [ref=f6e785]
+            - cell [ref=f6e786]
+          - row [ref=f6e789] [cursor=pointer]:
+            - cell "Dari" [ref=f6e790]
+            - cell "Indo-European" [ref=f6e791]
+            - cell "9.6M" [ref=f6e792]
+            - cell [ref=f6e793]
+          - row [ref=f6e796] [cursor=pointer]:
+            - cell "Dhundari" [ref=f6e797]
+            - cell "Indo-European" [ref=f6e798]
+            - cell "9.6M" [ref=f6e799]
+            - cell [ref=f6e800]
+          - row [ref=f6e803] [cursor=pointer]:
+            - cell "Haitian" [ref=f6e804]
+            - cell "Indo-European" [ref=f6e805]
+            - cell "9.6M" [ref=f6e806]
+            - cell [ref=f6e807]
+          - row [ref=f6e810] [cursor=pointer]:
+            - cell "Modern Hebrew" [ref=f6e811]
+            - cell "Afro-Asiatic" [ref=f6e812]
+            - cell "9.3M" [ref=f6e813]
+            - cell [ref=f6e814]
+          - row [ref=f6e817] [cursor=pointer]:
+            - cell "Central Kanuri" [ref=f6e818]
+            - cell "Saharan" [ref=f6e819]
+            - cell "9.3M" [ref=f6e820]
+            - cell [ref=f6e821]
+          - row [ref=f6e824] [cursor=pointer]:
+            - cell "Swedish" [ref=f6e825]
+            - cell "Indo-European" [ref=f6e826]
+            - cell "9.2M" [ref=f6e827]
+            - cell [ref=f6e828]
+          - row [ref=f6e831] [cursor=pointer]:
+            - cell "North Azerbaijani" [ref=f6e832]
+            - cell "Turkic" [ref=f6e833]
+            - cell "9.2M" [ref=f6e834]
+            - cell [ref=f6e835]
+          - row [ref=f6e838] [cursor=pointer]:
+            - cell "Congo Swahili" [ref=f6e839]
+            - cell "Atlantic-Congo" [ref=f6e840]
+            - cell "9.1M" [ref=f6e841]
+            - cell [ref=f6e842]
+          - row [ref=f6e845] [cursor=pointer]:
+            - cell "Iloko" [ref=f6e846]
+            - cell "Austronesian" [ref=f6e847]
+            - cell "9.1M" [ref=f6e848]
+            - cell [ref=f6e849]
+          - row [ref=f6e852] [cursor=pointer]:
+            - cell "Bulgarian" [ref=f6e853]
+            - cell "Indo-European" [ref=f6e854]
+            - cell "9M" [ref=f6e855]
+            - cell [ref=f6e856]
+          - row [ref=f6e859] [cursor=pointer]:
+            - cell "Shona" [ref=f6e860]
+            - cell "Atlantic-Congo" [ref=f6e861]
+            - cell "8.3M" [ref=f6e862]
+            - cell [ref=f6e863]
+          - row [ref=f6e866] [cursor=pointer]:
+            - cell "Hiligaynon" [ref=f6e867]
+            - cell "Austronesian" [ref=f6e868]
+            - cell "8.2M" [ref=f6e869]
+            - cell [ref=f6e870]
+          - row [ref=f6e873] [cursor=pointer]:
+            - cell "Xhosa" [ref=f6e874]
+            - cell "Atlantic-Congo" [ref=f6e875]
+            - cell "8.2M" [ref=f6e876]
+            - cell [ref=f6e877]
+          - row [ref=f6e880] [cursor=pointer]:
+            - cell "Bagheli" [ref=f6e881]
+            - cell "Indo-European" [ref=f6e882]
+            - cell "8M" [ref=f6e883]
+            - cell [ref=f6e884]
+          - row [ref=f6e887] [cursor=pointer]:
+            - cell "Tachelhit" [ref=f6e888]
+            - cell "Afro-Asiatic" [ref=f6e889]
+            - cell "8M" [ref=f6e890]
+            - cell [ref=f6e891]
+          - row [ref=f6e894] [cursor=pointer]:
+            - cell "Marwari (India)" [ref=f6e895]
+            - cell "Indo-European" [ref=f6e896]
+            - cell "7.9M" [ref=f6e897]
+            - cell [ref=f6e898]
+          - row [ref=f6e901] [cursor=pointer]:
+            - cell "Belarusian" [ref=f6e902]
+            - cell "Indo-European" [ref=f6e903]
+            - cell "7.6M" [ref=f6e904]
+            - cell [ref=f6e905]
+          - row [ref=f6e908] [cursor=pointer]:
+            - cell "Mossi" [ref=f6e909]
+            - cell "Atlantic-Congo" [ref=f6e910]
+            - cell "7.6M" [ref=f6e911]
+            - cell [ref=f6e912]
+          - row [ref=f6e915] [cursor=pointer]:
+            - cell "Tigrinya" [ref=f6e916]
+            - cell "Afro-Asiatic" [ref=f6e917]
+            - cell "7.5M" [ref=f6e918]
+            - cell [ref=f6e919]
+          - row [ref=f6e922] [cursor=pointer]:
+            - cell "Continental Southern Italian" [ref=f6e923]
+            - cell "Indo-European" [ref=f6e924]
+            - cell "7.5M" [ref=f6e925]
+            - cell [ref=f6e926]
+          - row [ref=f6e929] [cursor=pointer]:
+            - cell "Makhuwa" [ref=f6e930]
+            - cell "Atlantic-Congo" [ref=f6e931]
+            - cell "7.4M" [ref=f6e932]
+            - cell [ref=f6e933]
+          - row [ref=f6e936] [cursor=pointer]:
+            - cell "Central Kurdish" [ref=f6e937]
+            - cell "Indo-European" [ref=f6e938]
+            - cell "7.3M" [ref=f6e939]
+            - cell [ref=f6e940]
+          - row [ref=f6e943] [cursor=pointer]:
+            - cell "Santali" [ref=f6e944]
+            - cell "Austroasiatic" [ref=f6e945]
+            - cell "7.2M" [ref=f6e946]
+            - cell [ref=f6e947]
+          - row [ref=f6e950] [cursor=pointer]:
+            - cell "Sadri" [ref=f6e951]
+            - cell "Indo-European" [ref=f6e952]
+            - cell "7M" [ref=f6e953]
+            - cell [ref=f6e954]
+          - row [ref=f6e957] [cursor=pointer]:
+            - cell "Tumbuka" [ref=f6e958]
+            - cell "Atlantic-Congo" [ref=f6e959]
+            - cell "7M" [ref=f6e960]
+            - cell [ref=f6e961]
+          - row [ref=f6e964] [cursor=pointer]:
+            - cell "Kashmiri" [ref=f6e965]
+            - cell "Indo-European" [ref=f6e966]
+            - cell "6.9M" [ref=f6e967]
+            - cell [ref=f6e968]
+          - row [ref=f6e971] [cursor=pointer]:
+            - cell "Eastern Armenian" [ref=f6e972]
+            - cell "Indo-European" [ref=f6e973]
+            - cell "6.7M" [ref=f6e974]
+            - cell [ref=f6e975]
+          - row [ref=f6e978] [cursor=pointer]:
+            - cell "Kikuyu" [ref=f6e979]
+            - cell "Atlantic-Congo" [ref=f6e980]
+            - cell "6.6M" [ref=f6e981]
+            - cell [ref=f6e982]
+          - row [ref=f6e985] [cursor=pointer]:
+            - cell "Central Pashto" [ref=f6e986]
+            - cell "Indo-European" [ref=f6e987]
+            - cell "6.5M" [ref=f6e988]
+            - cell [ref=f6e989]
+          - row [ref=f6e992] [cursor=pointer]:
+            - cell "Luba-Lulua" [ref=f6e993]
+            - cell "Atlantic-Congo" [ref=f6e994]
+            - cell "6.3M" [ref=f6e995]
+            - cell [ref=f6e996]
+          - row [ref=f6e999] [cursor=pointer]:
+            - cell "Northern Thai" [ref=f6e1000]
+            - cell "Tai-Kadai" [ref=f6e1001]
+            - cell "6M" [ref=f6e1002]
+            - cell [ref=f6e1003]
+          - row [ref=f6e1006] [cursor=pointer]:
+            - cell "Danish" [ref=f6e1007]
+            - cell "Indo-European" [ref=f6e1008]
+            - cell "6M" [ref=f6e1009]
+            - cell [ref=f6e1010]
+          - row [ref=f6e1013] [cursor=pointer]:
+            - cell "Lambadi" [ref=f6e1014]
+            - cell "Indo-European" [ref=f6e1015]
+            - cell "6M" [ref=f6e1016]
+            - cell [ref=f6e1017]
+          - row [ref=f6e1020] [cursor=pointer]:
+            - cell "Slovak" [ref=f6e1021]
+            - cell "Indo-European" [ref=f6e1022]
+            - cell "6M" [ref=f6e1023]
+            - cell [ref=f6e1024]
+          - row [ref=f6e1027] [cursor=pointer]:
+            - cell "Southern Sotho" [ref=f6e1028]
+            - cell "Atlantic-Congo" [ref=f6e1029]
+            - cell "6M" [ref=f6e1030]
+            - cell [ref=f6e1031]
+          - row [ref=f6e1034] [cursor=pointer]:
+            - cell "Umbundu" [ref=f6e1035]
+            - cell "Atlantic-Congo" [ref=f6e1036]
+            - cell "6M" [ref=f6e1037]
+            - cell [ref=f6e1038]
+          - row [ref=f6e1041] [cursor=pointer]:
+            - cell "Wolaytta" [ref=f6e1042]
+            - cell "Ta-Ne-Omotic" [ref=f6e1043]
+            - cell "5.8M" [ref=f6e1044]
+            - cell [ref=f6e1045]
+          - row [ref=f6e1048] [cursor=pointer]:
+            - cell "Kabyle" [ref=f6e1049]
+            - cell "Afro-Asiatic" [ref=f6e1050]
+            - cell "5.6M" [ref=f6e1051]
+            - cell [ref=f6e1052]
+          - row [ref=f6e1055] [cursor=pointer]:
+            - cell "Minangkabau" [ref=f6e1056]
+            - cell "Austronesian" [ref=f6e1057]
+            - cell "5.5M" [ref=f6e1058]
+            - cell [ref=f6e1059]
+          - row [ref=f6e1062] [cursor=pointer]:
+            - cell "Sukuma" [ref=f6e1063]
+            - cell "Atlantic-Congo" [ref=f6e1064]
+            - cell "5.4M" [ref=f6e1065]
+            - cell [ref=f6e1066]
+          - row [ref=f6e1069] [cursor=pointer]:
+            - cell "Finnish" [ref=f6e1070]
+            - cell "Uralic" [ref=f6e1071]
+            - cell "5.4M" [ref=f6e1072]
+            - cell [ref=f6e1073]
+          - row [ref=f6e1076] [cursor=pointer]:
+            - cell "Lao" [ref=f6e1077]
+            - cell "Tai-Kadai" [ref=f6e1078]
+            - cell "5.2M" [ref=f6e1079]
+            - cell [ref=f6e1080]
+          - row [ref=f6e1083] [cursor=pointer]:
+            - cell "Norwegian" [ref=f6e1084]
+            - cell "Indo-European" [ref=f6e1085]
+            - cell "5.2M" [ref=f6e1086]
+            - cell [ref=f6e1087]
+          - row [ref=f6e1090] [cursor=pointer]:
+            - cell "Tatar" [ref=f6e1091]
+            - cell "Turkic" [ref=f6e1092]
+            - cell "5.2M" [ref=f6e1093]
+            - cell [ref=f6e1094]
+          - row [ref=f6e1097] [cursor=pointer]:
+            - cell "Buginese" [ref=f6e1098]
+            - cell "Austronesian" [ref=f6e1099]
+            - cell "5M" [ref=f6e1100]
+            - cell [ref=f6e1101]
+          - row [ref=f6e1104] [cursor=pointer]:
+            - cell "Betawi" [ref=f6e1105]
+            - cell "Austronesian" [ref=f6e1106]
+            - cell "5M" [ref=f6e1107]
+            - cell [ref=f6e1108]
+          - row [ref=f6e1111] [cursor=pointer]:
+            - cell "Eastern Low German" [ref=f6e1112]
+            - cell "Indo-European" [ref=f6e1113]
+            - cell "5M" [ref=f6e1114]
+            - cell [ref=f6e1115]
+          - row [ref=f6e1118] [cursor=pointer]:
+            - cell "Ghanaian Pidgin English" [ref=f6e1119]
+            - cell "Indo-European" [ref=f6e1120]
+            - cell "5M" [ref=f6e1121]
+            - cell [ref=f6e1122]
+          - row [ref=f6e1125] [cursor=pointer]:
+            - cell "Mewari" [ref=f6e1126]
+            - cell "Indo-European" [ref=f6e1127]
+            - cell "5M" [ref=f6e1128]
+            - cell [ref=f6e1129]
+          - row [ref=f6e1132] [cursor=pointer]:
+            - cell "Mewati" [ref=f6e1133]
+            - cell "Indo-European" [ref=f6e1134]
+            - cell "5M" [ref=f6e1135]
+            - cell [ref=f6e1136]
+          - row [ref=f6e1139] [cursor=pointer]:
+            - cell "Catalan" [ref=f6e1140]
+            - cell "Indo-European" [ref=f6e1141]
+            - cell "4.9M" [ref=f6e1142]
+            - cell [ref=f6e1143]
+          - row [ref=f6e1146] [cursor=pointer]:
+            - cell "Paraguayan Guaraní" [ref=f6e1147]
+            - cell "Tupian" [ref=f6e1148]
+            - cell "4.9M" [ref=f6e1149]
+            - cell [ref=f6e1150]
+          - row [ref=f6e1153] [cursor=pointer]:
+            - cell "Sicilian" [ref=f6e1154]
+            - cell "Indo-European" [ref=f6e1155]
+            - cell "4.7M" [ref=f6e1156]
+            - cell [ref=f6e1157]
+          - row [ref=f6e1160] [cursor=pointer]:
+            - cell "Hui Chinese" [ref=f6e1161]
+            - cell "Sino-Tibetan" [ref=f6e1162]
+            - cell "4.6M" [ref=f6e1163]
+            - cell [ref=f6e1164]
+          - row [ref=f6e1167] [cursor=pointer]:
+            - cell "Sango" [ref=f6e1168]
+            - cell "Atlantic-Congo" [ref=f6e1169]
+            - cell "4.6M" [ref=f6e1170]
+            - cell [ref=f6e1171]
+          - row [ref=f6e1174] [cursor=pointer]:
+            - cell "Kirghiz" [ref=f6e1175]
+            - cell "Turkic" [ref=f6e1176]
+            - cell "4.6M" [ref=f6e1177]
+            - cell [ref=f6e1178]
+          - row [ref=f6e1181] [cursor=pointer]:
+            - cell "Southern Thai" [ref=f6e1182]
+            - cell "Tai-Kadai" [ref=f6e1183]
+            - cell "4.5M" [ref=f6e1184]
+            - cell [ref=f6e1185]
+          - row [ref=f6e1188] [cursor=pointer]:
+            - cell "Tswana" [ref=f6e1189]
+            - cell "Atlantic-Congo" [ref=f6e1190]
+            - cell "4.5M" [ref=f6e1191]
+            - cell [ref=f6e1192]
+          - row [ref=f6e1195] [cursor=pointer]:
+            - cell "Hadrami Arabic" [ref=f6e1196]
+            - cell "Afro-Asiatic" [ref=f6e1197]
+            - cell "4.5M" [ref=f6e1198]
+            - cell [ref=f6e1199]
+          - row [ref=f6e1202] [cursor=pointer]:
+            - cell "Pulaar" [ref=f6e1203]
+            - cell "Atlantic-Congo" [ref=f6e1204]
+            - cell "4.5M" [ref=f6e1205]
+            - cell [ref=f6e1206]
+          - row [ref=f6e1209] [cursor=pointer]:
+            - cell "Tarifiyt-Beni-Iznasen-Eastern Middle Atlas Berber" [ref=f6e1210]
+            - cell "Afro-Asiatic" [ref=f6e1211]
+            - cell "4.4M" [ref=f6e1212]
+            - cell [ref=f6e1213]
+          - row [ref=f6e1216] [cursor=pointer]:
+            - cell "Libyan Arabic" [ref=f6e1217]
+            - cell "Afro-Asiatic" [ref=f6e1218]
+            - cell "4.3M" [ref=f6e1219]
+            - cell [ref=f6e1220]
+          - row [ref=f6e1223] [cursor=pointer]:
+            - cell "Bambara" [ref=f6e1224]
+            - cell "Mande" [ref=f6e1225]
+            - cell "4.2M" [ref=f6e1226]
+            - cell [ref=f6e1227]
+          - row [ref=f6e1230] [cursor=pointer]:
+            - cell "Southern Uzbek" [ref=f6e1231]
+            - cell "Turkic" [ref=f6e1232]
+            - cell "4.2M" [ref=f6e1233]
+            - cell [ref=f6e1234]
+          - row [ref=f6e1237] [cursor=pointer]:
+            - cell "Ganda" [ref=f6e1238]
+            - cell "Atlantic-Congo" [ref=f6e1239]
+            - cell "4.1M" [ref=f6e1240]
+            - cell [ref=f6e1241]
+          - row [ref=f6e1244] [cursor=pointer]:
+            - cell "Pedi" [ref=f6e1245]
+            - cell "Atlantic-Congo" [ref=f6e1246]
+            - cell "4.1M" [ref=f6e1247]
+            - cell [ref=f6e1248]
+          - row [ref=f6e1251] [cursor=pointer]:
+            - cell "Balinese" [ref=f6e1252]
+            - cell "Austronesian" [ref=f6e1253]
+            - cell "4M" [ref=f6e1254]
+            - cell [ref=f6e1255]
+          - row [ref=f6e1258] [cursor=pointer]:
+            - cell "Lithuanian" [ref=f6e1259]
+            - cell "Indo-European" [ref=f6e1260]
+            - cell "4M" [ref=f6e1261]
+            - cell [ref=f6e1262]
+          - row [ref=f6e1265] [cursor=pointer]:
+            - cell "Merwari" [ref=f6e1266]
+            - cell "Indo-European" [ref=f6e1267]
+            - cell "4M" [ref=f6e1268]
+            - cell [ref=f6e1269]
+          - row [ref=f6e1272] [cursor=pointer]:
+            - cell "S'gaw Karen" [ref=f6e1273]
+            - cell "Sino-Tibetan" [ref=f6e1274]
+            - cell "4M" [ref=f6e1275]
+            - cell [ref=f6e1276]
+          - row [ref=f6e1279] [cursor=pointer]:
+            - cell "Tok Pisin" [ref=f6e1280]
+            - cell "Indo-European" [ref=f6e1281]
+            - cell "4M" [ref=f6e1282]
+            - cell [ref=f6e1283]
+          - row [ref=f6e1286] [cursor=pointer]:
+            - cell "Lombard" [ref=f6e1287]
+            - cell "Indo-European" [ref=f6e1288]
+            - cell "3.9M" [ref=f6e1289]
+            - cell [ref=f6e1290]
+          - row [ref=f6e1293] [cursor=pointer]:
+            - cell "Kamba (Kenya)" [ref=f6e1294]
+            - cell "Atlantic-Congo" [ref=f6e1295]
+            - cell "3.9M" [ref=f6e1296]
+            - cell [ref=f6e1297]
+          - row [ref=f6e1300] [cursor=pointer]:
+            - cell "Hassaniyya" [ref=f6e1301]
+            - cell "Afro-Asiatic" [ref=f6e1302]
+            - cell "3.8M" [ref=f6e1303]
+            - cell [ref=f6e1304]
+          - row [ref=f6e1307] [cursor=pointer]:
+            - cell "Georgian" [ref=f6e1308]
+            - cell "Kartvelian" [ref=f6e1309]
+            - cell "3.7M" [ref=f6e1310]
+            - cell [ref=f6e1311]
+          - row [ref=f6e1314] [cursor=pointer]:
+            - cell "Wolof" [ref=f6e1315]
+            - cell "Atlantic-Congo" [ref=f6e1316]
+            - cell "3.7M" [ref=f6e1317]
+            - cell [ref=f6e1318]
+          - row [ref=f6e1321] [cursor=pointer]:
+            - cell "Goan Konkani" [ref=f6e1322]
+            - cell "Indo-European" [ref=f6e1323]
+            - cell "3.6M" [ref=f6e1324]
+            - cell [ref=f6e1325]
+          - row [ref=f6e1328] [cursor=pointer]:
+            - cell "Bemba (Zambia)" [ref=f6e1329]
+            - cell "Atlantic-Congo" [ref=f6e1330]
+            - cell "3.6M" [ref=f6e1331]
+            - cell [ref=f6e1332]
+          - row [ref=f6e1335] [cursor=pointer]:
+            - cell "Acehnese" [ref=f6e1336]
+            - cell "Austronesian" [ref=f6e1337]
+            - cell "3.5M" [ref=f6e1338]
+            - cell [ref=f6e1339]
+          - row [ref=f6e1342] [cursor=pointer]:
+            - cell "Banjar" [ref=f6e1343]
+            - cell "Austronesian" [ref=f6e1344]
+            - cell "3.5M" [ref=f6e1345]
+            - cell [ref=f6e1346]
+          - row [ref=f6e1349] [cursor=pointer]:
+            - cell "Bhili" [ref=f6e1350]
+            - cell "Indo-European" [ref=f6e1351]
+            - cell "3.3M" [ref=f6e1352]
+            - cell [ref=f6e1353]
+          - row [ref=f6e1356] [cursor=pointer]:
+            - cell "Mazanderani" [ref=f6e1357]
+            - cell "Indo-European" [ref=f6e1358]
+            - cell "3.3M" [ref=f6e1359]
+            - cell [ref=f6e1360]
+          - row [ref=f6e1363] [cursor=pointer]:
+            - cell "Jamaican Creole English" [ref=f6e1364]
+            - cell "Indo-European" [ref=f6e1365]
+            - cell "3.2M" [ref=f6e1366]
+            - cell [ref=f6e1367]
+          - row [ref=f6e1370] [cursor=pointer]:
+            - cell "Dagbani" [ref=f6e1371]
+            - cell "Atlantic-Congo" [ref=f6e1372]
+            - cell "3.2M" [ref=f6e1373]
+            - cell [ref=f6e1374]
+          - row [ref=f6e1377] [cursor=pointer]:
+            - cell "Waray (Philippines)" [ref=f6e1378]
+            - cell "Austronesian" [ref=f6e1379]
+            - cell "3.1M" [ref=f6e1380]
+            - cell [ref=f6e1381]
+          - row [ref=f6e1384] [cursor=pointer]:
+            - cell "Eastern Balochi" [ref=f6e1385]
+            - cell "Indo-European" [ref=f6e1386]
+            - cell "3.1M" [ref=f6e1387]
+            - cell [ref=f6e1388]
+          - row [ref=f6e1391] [cursor=pointer]:
+            - cell "Abron" [ref=f6e1392]
+            - cell "Atlantic-Congo" [ref=f6e1393]
+            - cell "3M" [ref=f6e1394]
+            - cell [ref=f6e1395]
+          - row [ref=f6e1398] [cursor=pointer]:
+            - cell "Brazilian Sign Language" [ref=f6e1399]
+            - cell "Sign Language" [ref=f6e1400]
+            - cell "3M" [ref=f6e1401]
+            - cell [ref=f6e1402]
+          - row [ref=f6e1405] [cursor=pointer]:
+            - cell "Ewe" [ref=f6e1406]
+            - cell "Atlantic-Congo" [ref=f6e1407]
+            - cell "3M" [ref=f6e1408]
+            - cell [ref=f6e1409]
+          - row [ref=f6e1412] [cursor=pointer]:
+            - cell "Garhwali" [ref=f6e1413]
+            - cell "Indo-European" [ref=f6e1414]
+            - cell "3M" [ref=f6e1415]
+            - cell [ref=f6e1416]
+          - row [ref=f6e1419] [cursor=pointer]:
+            - cell "Luo (Kenya and Tanzania)" [ref=f6e1420]
+            - cell "Nilotic" [ref=f6e1421]
+            - cell "3M" [ref=f6e1422]
+            - cell [ref=f6e1423]
+          - row [ref=f6e1426] [cursor=pointer]:
+            - cell "Northern Tosk Albanian" [ref=f6e1427]
+            - cell "Indo-European" [ref=f6e1428]
+            - cell "3M" [ref=f6e1429]
+            - cell [ref=f6e1430]
+          - row [ref=f6e1433] [cursor=pointer]:
+            - cell "Sabah Malay" [ref=f6e1434]
+            - cell "Austronesian" [ref=f6e1435]
+            - cell "3M" [ref=f6e1436]
+            - cell [ref=f6e1437]
+          - row [ref=f6e1440] [cursor=pointer]:
+            - cell "Shan" [ref=f6e1441]
+            - cell "Tai-Kadai" [ref=f6e1442]
+            - cell "3M" [ref=f6e1443]
+            - cell [ref=f6e1444]
+          - row [ref=f6e1447] [cursor=pointer]:
+            - cell "Southern Kurdish" [ref=f6e1448]
+            - cell "Indo-European" [ref=f6e1449]
+            - cell "3M" [ref=f6e1450]
+            - cell [ref=f6e1451]
+    - region "Language map" [ref=f6e32]:
+      - generic [ref=f6e33]:
+        - generic:
+          - generic [ref=f6e1455]:
+            - button "Zoom in" [ref=f6e1456] [cursor=pointer]: +
+            - button "Zoom out" [ref=f6e1457] [cursor=pointer]: −
+          - generic [ref=f6e1458]:
+            - link "Leaflet" [ref=f6e1459] [cursor=pointer]:
+              - /url: https://leafletjs.com
+            - text: "| ©"
+            - link "OpenStreetMap" [ref=f6e1464] [cursor=pointer]:
+              - /url: https://www.openstreetmap.org/copyright
+            - text: ©
+            - link "CARTO" [ref=f6e1465] [cursor=pointer]:
+              - /url: https://carto.com/attributions
+      - generic [ref=f6e34]:
+        - generic [ref=f6e1466]: Not endangered · 2,773
+        - generic [ref=f6e1468]: Vulnerable · 1,566
+        - generic [ref=f6e1470]: Endangered · 1,801
+        - generic [ref=f6e1472]: Severely endangered · 421
+        - generic [ref=f6e1474]: Critically endangered · 302
+        - generic [ref=f6e1476]: Extinct · 1,026
+        - generic [ref=f6e1478]: No data · 103
+  - contentinfo [ref=f6e35]:
+    - generic [ref=f6e1480]:
+      - text: "Data:"
+      - link "Glottolog 5.x" [ref=f6e1481] [cursor=pointer]:
+        - /url: https://glottolog.org
+      - text: (CC BY 4.0) ·
+      - link "Wikidata" [ref=f6e1482] [cursor=pointer]:
+        - /url: https://www.wikidata.org
+      - text: (CC0) ·
+      - link "WALS" [ref=f6e1483] [cursor=pointer]:
+        - /url: https://wals.info
+      - text: (CC BY 4.0) · build 2026-07-26 · Data is aggregated automatically and may contain inaccuracies — please verify against the primary sources.
+    - generic [ref=f6e1484]:
+      - text: "Support the project:"
+      - link "☕ Buy Me a Coffee" [ref=f6e1485] [cursor=pointer]:
+        - /url: https://buymeacoffee.com/ipupok
+      - text: ·
+      - link "Ko-fi" [ref=f6e1486] [cursor=pointer]:
+        - /url: https://ko-fi.com/ipupok
+      - text: ·
+      - link "PayPal" [ref=f6e1487] [cursor=pointer]:
+        - /url: https://www.paypal.com/donate/?hosted_button_id=VBNDB5AHYLGCY
