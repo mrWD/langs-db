@@ -17,6 +17,7 @@
     <p class="subtitle" id="subtitle"></p>
   </div>
   <div class="header-controls">
+    <button id="fb-btn" class="ghost-btn" data-i18n="fbBtn"></button>
     <button id="stats-btn" class="ghost-btn" data-i18n="statsBtn"></button>
     <select id="lang-select" class="lang-select" aria-label="Interface language"></select>
     <button id="theme-toggle" class="icon-btn" title="" aria-label="">◐</button>
@@ -105,6 +106,14 @@
     <button id="stats-close" class="icon-btn panel-close" aria-label="Close">✕</button>
     <h2 data-i18n="statsTitle"></h2>
     <div id="stats-body"></div>
+  </div>
+</div>
+
+<div id="feedback" class="overlay" hidden>
+  <div class="panel panel-narrow" role="dialog" aria-modal="true">
+    <button id="fb-close" class="icon-btn panel-close" aria-label="Close">✕</button>
+    <h2 data-i18n="fbTitle"></h2>
+    <div id="fb-body"></div>
   </div>
 </div>
 

@@ -549,3 +549,4 @@ td .na { color: var(--muted); }
   .result-count { margin-left: 0; width: 100%; }
 }
 .rel-clade { color: var(--muted); font-weight: 400; }
+.fb-text { color: var(--ink-2); font-size: 13.5px; margin: 0 0 14px; line-height: 1.5; }

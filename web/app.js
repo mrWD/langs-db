@@ -602,6 +602,7 @@ document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
   if (!document.getElementById('compare').hidden) closeCompare();
   else if (!document.getElementById('stats').hidden) closeStats();
+  else if (!document.getElementById('feedback').hidden) closeFeedback();
   else closeDetail();
 });
 
@@ -715,6 +716,40 @@ function openDetail(r, { fly }) {
     }
     map.flyTo(center, z, { duration: 0.8 });
   }
+}
+
+// ---------- обратная связь ----------
+// Статический сайт не может отправить письмо сам, поэтому здесь просто каналы
+// связи. Адрес почты собирается из кусков в коде: так его труднее выгрести
+// спам-роботам, которые читают исходник страницы
+const FEEDBACK = {
+  user: 'lvigtor',
+  domain: 'gmail.com',
+  linkedin: 'https://www.linkedin.com/in/viktor-lavrov/',
+  github: 'https://github.com/mrWD/langs-db/issues',
+};
+
+function initFeedback() {
+  const overlay = document.getElementById('feedback');
+  const mail = `${FEEDBACK.user}@${FEEDBACK.domain}`;
+  document.getElementById('fb-body').innerHTML = `
+    <p class="fb-text">${esc(T.fbText)}</p>
+    <ul class="links">
+      <li><a href="mailto:${esc(mail)}?subject=${encodeURIComponent(T.fbSubject)}">
+        ${esc(T.fbEmail)}<span class="link-note">${esc(mail)}</span></a></li>
+      <li><a href="${esc(FEEDBACK.linkedin)}" target="_blank" rel="noopener">
+        ${esc(T.fbLinkedIn)}<span class="link-note">Viktor Lavrov</span></a></li>
+      <li><a href="${esc(FEEDBACK.github)}" target="_blank" rel="noopener">
+        ${esc(T.fbGithub)}<span class="link-note">${esc(T.fbGithubNote)}</span></a></li>
+    </ul>`;
+
+  const open = () => { overlay.hidden = false; };
+  document.getElementById('fb-btn').addEventListener('click', open);
+  document.getElementById('fb-close').addEventListener('click', closeFeedback);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeFeedback(); });
+}
+function closeFeedback() {
+  document.getElementById('feedback').hidden = true;
 }
 
 // ---------- связи языка ----------
@@ -1059,6 +1094,7 @@ async function boot() {
     if (a) openCompare(a, c[2] ? byId.get(c[2]) : null);
   }
 
+  initFeedback();
   initAnalytics({ T, esc, tpl, fmtFull, LANG, collator, countryName });
 
   // альтернативные названия (86 тыс. вариантов) — фоном, поиск станет шире
