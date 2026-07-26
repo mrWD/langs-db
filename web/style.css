@@ -580,9 +580,12 @@ td .na { color: var(--muted); }
   .toolbar select { flex: 1 1 calc(50% - 3px); min-width: 0; }
   .status-row-label { display: none; }
 
-  /* на телефоне сперва результаты: за картой пришлось бы листать */
-  .map-pane { order: 1; min-height: 42vh; }
+  /* карта сверху, как и на планшете */
+  .map-pane { min-height: 40vh; }
   .table-pane { max-height: none; }
+  /* легенда закрывала полкарты, а те же цвета с подписями стоят
+     в строке статусов прямо над ней */
+  .legend { display: none; }
 
   .detail { width: 100%; padding: 18px 16px 26px; }
   .detail dl { grid-template-columns: 110px 1fr; }
