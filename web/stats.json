@@ -1,20 +1,25 @@
 {
- "generated": "2026-07-26T06:21:18Z",
- "total": 5,
- "uniq": 3,
+ "generated": "2026-07-27T06:49:12Z",
+ "total": 11,
+ "uniq": 6,
  "days": {
-  "2026-07-25": 5
+  "2026-07-25": 5,
+  "2026-07-26": 6
  },
  "countries": {
-  "IT": 4,
+  "IT": 8,
+  "US": 1,
+  "DE": 1,
   "RU": 1
  },
  "cities": {
-  "Europe/Rome": 4,
+  "Europe/Rome": 8,
+  "America/Los_Angeles": 1,
+  "Europe/Berlin": 1,
   "Europe/Moscow": 1
  },
  "langs": {
-  "en": 4,
+  "en": 10,
   "ru": 1
  }
 }
