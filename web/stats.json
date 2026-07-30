@@ -1,25 +1,28 @@
 {
- "generated": "2026-07-29T06:14:11Z",
- "total": 11,
- "uniq": 6,
+ "generated": "2026-07-30T06:05:38Z",
+ "total": 22,
+ "uniq": 14,
  "days": {
   "2026-07-25": 5,
-  "2026-07-26": 6
+  "2026-07-26": 6,
+  "2026-07-29": 11
  },
  "countries": {
-  "IT": 8,
+  "IT": 11,
+  "BR": 7,
+  "DE": 2,
   "US": 1,
-  "DE": 1,
   "RU": 1
  },
  "cities": {
-  "Europe/Rome": 8,
+  "Europe/Rome": 11,
+  "America/Sao_Paulo": 7,
+  "Europe/Berlin": 2,
   "America/Los_Angeles": 1,
-  "Europe/Berlin": 1,
   "Europe/Moscow": 1
  },
  "langs": {
-  "en": 10,
-  "ru": 1
+  "en": 14,
+  "ru": 8
  }
 }
