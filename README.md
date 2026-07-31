@@ -1,163 +1,168 @@
-# Языки мира — интерактивный атлас
+# Languages of the World — an interactive atlas
 
-Статический сайт-каталог **7 992 языков и 13 706 диалектов мира**: поиск на
-15 языках, фильтры, сортируемая таблица, интерактивная карта, сравнение языков
-по грамматике (WALS) и карточка каждого языка со ссылками на грамматики,
-словари, записи речи и учебные материалы.
+A static catalogue site covering **7,992 languages and 13,706 dialects**: search
+in 15 languages, filters, a sortable table, an interactive map, grammar-based
+language comparison (WALS), and a card for every language linking to grammars,
+dictionaries, speech recordings and learning materials.
 
 🌍 **[mrwd.github.io/langs-db](https://mrwd.github.io/langs-db/)**
 
-![стек](https://img.shields.io/badge/stack-vanilla_JS_+_Leaflet-blue)
+![stack](https://img.shields.io/badge/stack-vanilla_JS_+_Leaflet-blue)
 
-## Что умеет
+## Features
 
-- **Поиск** по русскому и английскому названию, ISO 639-3, глоттокоду и семье
-  («алтайский», `ket`, `Turkic`…).
-- **Фильтры**: макрорегион, языковая семья (242), страна, число носителей,
-  степень описанности (есть ли грамматика/словарь), статус угрозы (шкала AES).
-- **Карта** (Leaflet + CARTO): каждый язык — точка, цвет — статус угрозы;
-  при небольшом числе результатов карта сама подлетает к ним.
-- **Карточка языка**: семья, страны, носители, лучшее опубликованное описание
-  и ссылки — Glottolog, Википедия (ru/en), OLAC (записи речи и материалы),
-  Ethnologue, Endangered Languages Project.
-- Светлая и тёмная тема, мобильная вёрстка, постоянные ссылки вида `#l=<глоттокод>`.
-- **15 языков интерфейса**: русский, English, Español, Deutsch, Français,
+- **Search** by Russian and English name, ISO 639-3 code, Glottocode and family
+  ("Altaic", `ket`, `Turkic`…).
+- **Filters**: macroarea, language family (242), country, number of speakers,
+  level of documentation (is there a grammar/dictionary?), endangerment status
+  (AES scale).
+- **Map** (Leaflet + CARTO): every language is a dot coloured by endangerment
+  status; when few results are left, the map flies to them automatically.
+- **Language card**: family, countries, speakers, the best published description,
+  and links — Glottolog, Wikipedia (ru/en), OLAC (speech recordings and
+  materials), Ethnologue, Endangered Languages Project.
+- Light and dark themes, mobile layout, permalinks of the form `#l=<glottocode>`.
+- **15 interface languages**: Русский, English, Español, Deutsch, Français,
   Português, Italiano, 中文, 日本語, العربية (RTL), Türkçe, Polski, Українська,
-  हिन्दी, Indonesia — переключатель в шапке; статусы, страны и форматы чисел
-  локализуются, названия языков берутся из меток Wikidata (33 тыс. меток).
-- **Поиск на любом языке**: индекс включает все локализованные названия и
-  84 тыс. альтернативных имён из Glottolog (`altnames.json`, грузится фоном) —
-  «wenecki», «Idioma veneciano» и «Altaï méridional» находят один и тот же язык.
-  Диалекты ищутся всегда, даже когда в фильтре стоит «Только языки».
-- **Статистика посещений** прямо на сайте (кнопка «Статистика»): визиты,
-  посетители, динамика за 30 дней, разбивка по странам, городам и языкам
-  интерфейса.
-- **Географическая подсказка**: если идиом не найден, сайт проверяет, не
-  название ли это места, и показывает языки того района в радиусе 200 км. Так
-  «sandonatese» приводит к Сан-Донà-ди-Пьяве, а «sandonese» — к Сандоно, и в
-  обоих случаях к венетскому, хотя таких языкоидов нет ни в одном каталоге.
-  Источники (оба бесплатные, без ключей): основной —
-  [Nominatim](https://nominatim.openstreetmap.org), он знает, что именно
-  является населённым пунктом; запасной — полнотекстовый поиск Википедии, он
-  берёт производные формы названий, но отдаёт и посторонние объекты с
-  координатами, поэтому включается, только когда Nominatim промолчал.
-  Подсказка появляется, лишь когда название места и запрос имеют общую основу —
-  случайные совпадения по улицам отсеиваются.
-- **Диалекты** (13 706): переключатель «Языки и диалекты» в фильтрах; диалект
-  наследует статус и страны родителя, в карточке языка — список его диалектов,
-  в карточке диалекта — ссылка на родительский язык.
-- **Сравнение двух языков** (кнопка «⚖ Сравнить» в карточке): базовые
-  параметры + грамматические признаки из [WALS](https://wals.info) (192
-  признака, 2 501 язык) с подсветкой совпадений; для диалектов используются
-  данные родительского языка.
-- **Связи языка** в карточке — четыре независимых измерения:
-  - *ветвь и родственники* — полное дерево Glottolog (до 10 уровней:
-    «Indo-European › … › East Slavic»), родня берётся от ближайшей ветви;
-  - *похожи грамматикой* — доля совпавших признаков WALS (970 языков, у
-    которых закодировано хотя бы 30 признаков);
-  - *похожи лексикой* — списки Сводеша [ASJP](https://asjp.clld.org) сравнены
-    методом LDND (5 544 языка, 870 тыс. пар);
-  - *соседи на карте* — ближайшие языки по координатам.
+  हिन्दी, Indonesia — switcher in the header; statuses, countries and number
+  formats are localised, and language names come from Wikidata labels
+  (33k labels).
+- **Search in any language**: the index includes all localised names plus 84k
+  alternative names from Glottolog (`altnames.json`, loaded in the background) —
+  "wenecki", "Idioma veneciano" and "Altaï méridional" all resolve to the same
+  language. Dialects are always searched, even when the filter is set to
+  "Languages only".
+- **Visit statistics** right on the site (the "Statistics" button): visits,
+  visitors, a 30-day trend, and breakdowns by country, city and interface
+  language.
+- **Geographic hint**: if an idiom is not found, the site checks whether the
+  query is a place name and shows the languages of that area within a 200 km
+  radius. That way "sandonatese" leads to San Donà di Piave and "sandonese" to
+  Sandono, and in both cases to Venetian — even though no catalogue lists those
+  languoids. Sources (both free, no API keys): the primary one is
+  [Nominatim](https://nominatim.openstreetmap.org), which knows what actually is
+  a populated place; the fallback is Wikipedia full-text search, which picks up
+  derived forms of names but also returns unrelated objects with coordinates, so
+  it only kicks in when Nominatim comes up empty. The hint is only shown when the
+  place name and the query share a common stem — accidental street-name matches
+  are filtered out.
+- **Dialects** (13,706): the "Languages and dialects" toggle in the filters; a
+  dialect inherits its parent's status and countries, a language card lists its
+  dialects, and a dialect card links back to its parent language.
+- **Compare two languages** (the "⚖ Compare" button on a card): basic parameters
+  plus grammatical features from [WALS](https://wals.info) (192 features, 2,501
+  languages) with matches highlighted; for dialects the parent language's data is
+  used.
+- **Language relations** on the card — four independent dimensions:
+  - *branch and relatives* — the full Glottolog tree (up to 10 levels:
+    "Indo-European › … › East Slavic"), with relatives taken from the nearest
+    branch;
+  - *grammatically similar* — the share of matching WALS features (970 languages
+    with at least 30 features coded);
+  - *lexically similar* — [ASJP](https://asjp.clld.org) Swadesh lists compared
+    using LDND (5,544 languages, 870k pairs);
+  - *neighbours on the map* — the nearest languages by coordinates.
 
-## Запуск
+## Running locally
 
 ```bash
 python3 -m http.server 8642 --directory web
 # → http://localhost:8642
 ```
 
-(Сервер нужен только чтобы страница могла загрузить `data.json`; годится любой
-статический хостинг.)
+(The server is only needed so the page can load `data.json`; any static host will
+do.)
 
-## Структура
+## Layout
 
 ```
-web/               сайт целиком (можно деплоить как есть)
+web/               the entire site (deployable as is)
   index.html
-  app.js           логика: фильтры, таблица, карта, карточки, сравнение
-  i18n.js          переводы интерфейса (15 локалей)
-  stats.js         счётчик посещений и панель статистики
-  style.css        темы и вёрстка (включая RTL)
-  data.json        основная база: 7 992 языка + 13 706 диалектов (3.6 МБ)
-  altnames.json    84 тыс. альтернативных названий для поиска (1.4 МБ, лениво)
-  wals.json        192 грамматических признака WALS (0.9 МБ, лениво)
-  stats.json       агрегированная статистика, обновляет CI раз в сутки
+  app.js           logic: filters, table, map, cards, comparison
+  i18n.js          interface translations (15 locales)
+  stats.js         visit counter and statistics panel
+  style.css        themes and layout (including RTL)
+  data.json        the main database: 7,992 languages + 13,706 dialects (3.6 MB)
+  altnames.json    84k alternative names for search (1.4 MB, lazy-loaded)
+  wals.json        192 WALS grammatical features (0.9 MB, lazy-loaded)
+  stats.json       aggregated statistics, refreshed daily by CI
   vendor/          Leaflet 1.9.4
 data/
-  build_data.py       сборка data.json и altnames.json
-  build_wals.py       сборка wals.json
-  fetch_wikidata.py   выгрузка носителей и названий на 14 языках
-  collect_stats.py    опрос счётчиков Abacus → web/stats.json (для CI)
-  tz_countries.json   часовой пояс → код страны (из IANA zone.tab)
-  raw/                скачанные исходники (glottolog-cldf, wals, wikidata)
+  build_data.py       builds data.json and altnames.json
+  build_wals.py       builds wals.json
+  fetch_wikidata.py   pulls speaker counts and names in 14 languages
+  collect_stats.py    polls the Abacus counters → web/stats.json (for CI)
+  tz_countries.json   time zone → country code (from the IANA zone.tab)
+  raw/                downloaded sources (glottolog-cldf, wals, wikidata)
 ```
 
-## Данные и лицензии
+## Data and licences
 
-| Источник | Что берём | Лицензия |
+| Source | What we take | Licence |
 |---|---|---|
-| [Glottolog](https://glottolog.org) (glottolog-cldf) | языки, диалекты, семьи, координаты, страны, статус AES, MED | CC BY 4.0 |
-| [Wikidata](https://www.wikidata.org) | число носителей (P1098), локализованные названия, ссылки на Википедию | CC0 |
-| [WALS](https://wals.info) (cldf-datasets/wals) | 192 грамматических признака для сравнения языков | CC BY 4.0 |
-| [ASJP](https://asjp.clld.org) (lexibank/asjp) | списки Сводеша для лексического сходства | CC BY 4.0 |
+| [Glottolog](https://glottolog.org) (glottolog-cldf) | languages, dialects, families, coordinates, countries, AES status, MED | CC BY 4.0 |
+| [Wikidata](https://www.wikidata.org) | speaker counts (P1098), localised names, Wikipedia links | CC0 |
+| [WALS](https://wals.info) (cldf-datasets/wals) | 192 grammatical features for comparing languages | CC BY 4.0 |
+| [ASJP](https://asjp.clld.org) (lexibank/asjp) | Swadesh lists for lexical similarity | CC BY 4.0 |
 
-- **AES** (Agglomerated Endangerment Status) — сводный статус угрозы по данным
-  ElCat, Ethnologue и UNESCO: 1 «вне угрозы» … 6 «вымерший».
-- **MED** (Most Extensive Description) — самое полное опубликованное описание
-  языка: от полной грамматики (300+ стр.) до списка слов.
-- Число носителей есть у ~1 800 языков; для малых языков может быть устаревшим.
+- **AES** (Agglomerated Endangerment Status) — a combined endangerment status
+  based on ElCat, Ethnologue and UNESCO data: 1 "not endangered" … 6 "extinct".
+- **MED** (Most Extensive Description) — the most complete published description
+  of a language, from a full grammar (300+ pages) down to a word list.
+- Speaker counts exist for ~1,800 languages; for small languages they may be out
+  of date.
 
-## Обновление данных
+## Updating the data
 
 ```bash
 cd data
-# 1) свежие данные Glottolog
+# 1) fresh Glottolog data
 curl -sL -o raw/languages.csv https://raw.githubusercontent.com/glottolog/glottolog-cldf/master/cldf/languages.csv
 curl -sL -o raw/values.csv    https://raw.githubusercontent.com/glottolog/glottolog-cldf/master/cldf/values.csv
-# 2) свежая выгрузка Wikidata (~1 мин, 26 SPARQL-запросов)
+# 2) a fresh Wikidata dump (~1 min, 26 SPARQL queries)
 python3 fetch_wikidata.py
-# 3) пересборка web/data.json
+# 3) rebuild web/data.json
 python3 build_data.py
-# 4) (опционально) обновление WALS для сравнения языков
+# 4) (optional) refresh WALS for language comparison
 for f in values parameters codes languages; do
   curl -sL -o raw/wals_$f.csv https://raw.githubusercontent.com/cldf-datasets/wals/master/cldf/$f.csv
 done
 python3 build_wals.py
-# 5) (опционально) сходство языков: грамматическое и лексическое
+# 5) (optional) language similarity: grammatical and lexical
 for f in forms languages; do
   curl -sL -o raw/asjp_$f.csv https://raw.githubusercontent.com/lexibank/asjp/master/cldf/$f.csv
 done
-python3 -m venv ../.venv && ../.venv/bin/pip install rapidfuzz   # нужен один раз
-../.venv/bin/python build_related.py     # ~6 минут: 870 тыс. пар
+python3 -m venv ../.venv && ../.venv/bin/pip install rapidfuzz   # needed once
+../.venv/bin/python build_related.py     # ~6 minutes: 870k pairs
 ```
 
-## Статистика посещений
+## Visit statistics
 
-Аналитика собрана из двух частей, обе — без единого аккаунта:
+Analytics is assembled from two parts, neither of which needs an account:
 
-1. **Браузер** ([stats.js](web/stats.js)) при первом заходе в сессии увеличивает
-   несколько счётчиков на [Abacus](https://abacus.jasoncameron.dev) — публичном
-   API счётчиков без регистрации: `total`, `uniq`, `d-<дата>`,
-   `tz-<часовой пояс>`, `ui-<локаль>`. Ни cookies, ни персональных данных;
-   страна и город берутся из часового пояса браузера, IP нигде не сохраняется.
-   На localhost счёт отключён, чтобы разработка не искажала цифры.
-2. **Ночной GitHub Action** ([stats.yml](.github/workflows/stats.yml)) раз в
-   сутки опрашивает все ключи через [collect_stats.py](data/collect_stats.py) и
-   коммитит `web/stats.json` — у Abacus нет эндпоинта «перечислить ключи»,
-   поэтому разбивку собирает CI, а сайт показывает готовый файл мгновенно.
+1. **The browser** ([stats.js](web/stats.js)) bumps several counters on
+   [Abacus](https://abacus.jasoncameron.dev) — a public, registration-free
+   counter API — on the first hit of a session: `total`, `uniq`, `d-<date>`,
+   `tz-<time zone>`, `ui-<locale>`. No cookies and no personal data; country and
+   city are derived from the browser's time zone, and the IP is never stored.
+   Counting is disabled on localhost so development does not skew the numbers.
+2. **A nightly GitHub Action** ([stats.yml](.github/workflows/stats.yml)) polls
+   every key once a day via [collect_stats.py](data/collect_stats.py) and commits
+   `web/stats.json` — Abacus has no "list keys" endpoint, so CI assembles the
+   breakdown and the site serves the ready-made file instantly.
 
-Что стоит знать: счётчик публичный (пространство имён видно в JS, теоретически
-его может накрутить кто угодно), блокировщики рекламы срезают часть визитов, а
-город определяется по часовому поясу — это регион, а не точное местоположение.
-Заменить Abacus на другой сервис — правки только в [stats.js](web/stats.js) и
+Worth knowing: the counter is public (the namespace is visible in the JS, so in
+theory anyone could inflate it), ad blockers cut off some visits, and the city is
+inferred from the time zone — that is a region, not a precise location. Swapping
+Abacus for another service only takes edits to [stats.js](web/stats.js) and
 [collect_stats.py](data/collect_stats.py).
 
-## Деплой
+## Deployment
 
-Сайт публикуется на GitHub Pages автоматически: каждый пуш в `main`
-запускает workflow [`deploy.yml`](.github/workflows/deploy.yml), который
-выкладывает папку `web/`. После обновления данных достаточно закоммитить
-новый `web/data.json` и запушить.
+The site is published to GitHub Pages automatically: every push to `main`
+triggers the [`deploy.yml`](.github/workflows/deploy.yml) workflow, which
+publishes the `web/` folder. After a data refresh, committing the new
+`web/data.json` and pushing is enough.
 
-Папка `web/` самодостаточна, так что при желании её можно перенести на любой
-другой статический хостинг (Cloudflare Pages, Netlify, Vercel) без изменений.
+The `web/` folder is self-contained, so it can be moved to any other static host
+(Cloudflare Pages, Netlify, Vercel) unchanged.
