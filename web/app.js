@@ -1,6 +1,6 @@
-/* Языки мира / Languages of the World — interactive atlas.
+/* Languages of the World — interactive atlas.
    Data: Glottolog (CC BY 4.0) + Wikidata (CC0) + WALS (CC BY 4.0).
-   Переводы интерфейса — в i18n.js, счётчик посещений — в stats.js. */
+   Interface translations live in i18n.js, the visit counter in stats.js. */
 'use strict';
 
 // ---------- locale ----------
@@ -70,7 +70,7 @@ function applyStatic() {
 let ROWS = [];
 let byId = new Map();
 let childrenOf = new Map();
-let altNames = null;          // {glottocode: [name, ...]} — грузится лениво
+let altNames = null;          // {glottocode: [name, ...]} — loaded lazily
 let filtered = [];
 let renderedCount = 0;
 const PAGE = 200;
@@ -134,7 +134,7 @@ function accentColor() {
   return getComputedStyle(root).getPropertyValue('--accent').trim();
 }
 
-// базовый / наведённый / выбранный стили маркера (диалекты — мельче)
+// base / hovered / selected marker styles (dialects are smaller)
 function baseStyle(r) {
   return { radius: r.par ? 3 : 4.5, weight: 1, color: markerStroke(), opacity: 0.9, fillColor: aesColor(r.aes), fillOpacity: r.par ? 0.7 : 0.85 };
 }
@@ -182,7 +182,7 @@ function updateMapMarkers() {
     const m = markers[r.idx];
     if (m) { markerGroup.addLayer(m); pts.push(m.getLatLng()); }
   }
-  // с небольшим набором результатов подводим карту к найденному
+  // with a small result set, fly the map to what was found
   if (pts.length && pts.length <= 100) {
     map.fitBounds(L.latLngBounds(pts).pad(0.25), { maxZoom: 6, animate: true });
   }
@@ -251,7 +251,7 @@ function applyFilters() {
   const lvl = els.lvl.value;
 
   filtered = ROWS.filter(r => {
-    // при поиске диалекты показываем всегда — иначе их просто не найти
+    // while searching, always show dialects — otherwise they cannot be found
     if (!q && lvl !== 'all' && r.par) return false;
     if (!activeStatuses.has(r.aes)) return false;
     if (ma && !r.maList.includes(ma)) return false;
@@ -291,17 +291,19 @@ function renderEmptyState(q) {
   geoFallback(q);
 }
 
-// ---------- географическая подсказка ----------
-// Многие местные говоры («sandonatese») не выделены в каталогах отдельной
-// единицей, зато их название образовано от места. Спрашиваем геокодер OSM,
-// не место ли это, и показываем языки этого района. Запрос уходит только
-// когда обычный поиск не нашёл ничего.
+// ---------- geographic hint ----------
+// Many local varieties ("sandonatese") are not listed in catalogues as a
+// separate unit, yet their name derives from a place. We ask the OSM geocoder
+// whether this is a place, and show the languages of that area. The request
+// only goes out when the ordinary search found nothing.
 const geoCache = new Map();
 
-// Геокодер отвечает и на случайные совпадения: «вологодский» находит
-// Вологодский переулок в сибирском селе. Принимаем место, только если его
-// название и запрос имеют общую основу — «sandonatese» ↔ «San Donà di Piave».
+// The geocoder also answers on accidental matches: "vologodsky" finds
+// Vologodsky Lane in a Siberian village. We accept a place only if its
+// name and the query share a stem — "sandonatese" <-> "San Donà di Piave".
 function normPlace(s) {
+  // the Cyrillic range is matching data: queries and place names arrive in
+  // whatever script the source uses
   return s.toLowerCase().normalize('NFD')
     .replace(/[̀-ͯ]/g, '')
     .replace(/[^a-zа-я0-9]+/gi, '');
@@ -315,9 +317,9 @@ function looksRelated(q, name) {
   return i >= 5;
 }
 
-// 200 км — предел, на котором «здесь говорят» ещё правда: у крупных языков в
-// Glottolog одна точка на весь ареал, и без ограничения к городу притягивался
-// бы язык за три сотни километров
+// 200 km is the limit at which "spoken here" is still true: in Glottolog a
+// large language has one point for its whole range, and without a limit a
+// language three hundred kilometres away would be pulled to the city
 function nearestLanguages(lat, lon, cc = '', maxKm = 200, limit = 5) {
   const kx = 111.32 * Math.cos(lat * Math.PI / 180);
   const seen = new Set();
@@ -325,17 +327,17 @@ function nearestLanguages(lat, lon, cc = '', maxKm = 200, limit = 5) {
   const scored = [];
   for (const r of ROWS) {
     if (r.lat === null) continue;
-    if (r.aes === 6) continue;   // «здесь говорят» — значит, не о вымерших
-    if (r.cat === 'S') continue; // жестовый язык не бывает местным говором
-    // страна места известна — не предлагаем язык из-за границы, даже если
-    // его точка оказалась ближе
+    if (r.aes === 6) continue;   // "spoken here" means we are not talking about extinct ones
+    if (r.cat === 'S') continue; // a sign language is never a local variety
+    // the place's country is known — don't offer a language from abroad, even if
+    // its point happens to be closer
     if (cc && r.ccList.length && !r.ccList.includes(cc)) continue;
     const d = Math.hypot((r.lat - lat) * 111.32, (r.lon - lon) * kx);
     if (d <= maxKm) scored.push({ r, d });
   }
   scored.sort((a, b) => a.d - b.d);
   for (const { r, d } of scored) {
-    // диалекты сводим к родительскому языку: в Glottolog у них общая точка
+    // dialects fold into the parent language: in Glottolog they share a point
     const lang = r.par ? (byId.get(r.par) || r) : r;
     if (seen.has(lang.id)) continue;
     seen.add(lang.id);
@@ -345,9 +347,9 @@ function nearestLanguages(lat, lon, cc = '', maxKm = 200, limit = 5) {
   return out;
 }
 
-// Полнотекстовый поиск Википедии умеет то, чего не умеют геокодер и Wikidata:
-// сопоставляет производные формы («sandonese» → Сандоно). Язык запроса заранее
-// неизвестен, поэтому спрашиваем несколько изданий, выбранных по письменности.
+// Wikipedia full-text search can do what the geocoder and Wikidata cannot:
+// it matches derived forms ("sandonese" -> Sandono). The query language is not
+// known in advance, so we ask several editions chosen by writing system.
 function wikiCandidates(q) {
   const set = [LANG];
   if (/[Ѐ-ӿ]/.test(q)) set.push('ru', 'uk');
@@ -377,10 +379,10 @@ async function wikiPlaces(q) {
   return out;
 }
 
-// Самый точный ответ даёт не география, а текст Википедии: местные говоры
-// перечислены в статьях о языках («sandonatese» — в «Lingua veneta»). Находим
-// такие статьи, переводим их в элементы Wikidata и берём те, у которых есть код
-// Glottolog или ISO — то есть которые и есть язык из нашей базы.
+// The most accurate answer comes not from geography but from Wikipedia text:
+// local varieties are listed in language articles ("sandonatese" in "Lingua
+// veneta"). We find such articles, resolve them to Wikidata items and keep the
+// ones with a Glottolog or ISO code — i.e. an actual language from our database.
 async function languageMentions(q) {
   const wikis = wikiCandidates(q).slice(0, 3);
   const found = [];
@@ -394,7 +396,7 @@ async function languageMentions(q) {
         const qid = p.pageprops?.wikibase_item;
         if (qid && !titles.has(qid)) titles.set(qid, { title: p.title, wiki });
       }
-    } catch { /* издание недоступно — не беда */ }
+    } catch { /* edition unavailable — never mind */ }
   }));
   if (!titles.size) return [];
 
@@ -410,15 +412,15 @@ async function languageMentions(q) {
         || val('P220').map(iso => ROWS.find(r => r.iso === iso && !r.par)).find(Boolean);
       if (lang) found.push({ lang, ...titles.get(qid) });
     }
-  } catch { /* Wikidata недоступна — останется географическая подсказка */ }
+  } catch { /* Wikidata unavailable — the geographic hint remains */ }
   return found.slice(0, 2);
 }
 
 async function osmPlaces(q) {
   try {
-    // без accept-language: имена приходят на языке самого места, и запрос
-    // сверяется с настоящим названием, а не с его переводом. Страну
-    // локализуем сами по коду
+    // no accept-language: names arrive in the local language, so the query is
+    // checked against the real name rather than a translation. The country
+    // we localise ourselves from the code
     const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=8'
       + `&addressdetails=1&q=${encodeURIComponent(q)}`;
     const raw = await (await fetch(url, { signal: AbortSignal.timeout(9000) })).json();
@@ -426,8 +428,8 @@ async function osmPlaces(q) {
     for (const x of raw) {
       const a = x.address || {};
       const name = a.city || a.town || a.village || a.municipality || a.county || a.state;
-      // сверяем именно с населённым пунктом: название улицы или заведения
-      // может содержать запрос, находясь за тысячу километров от него
+      // match against the populated place specifically: a street or venue name
+      // may contain the query while sitting a thousand kilometres away
       if (!name || !looksRelated(q, name)) continue;
       const cc = (a.country_code || '').toUpperCase();
       out.push({ name, cc, country: cc ? countryName(cc) : '', lat: +x.lat, lon: +x.lon });
@@ -458,8 +460,8 @@ async function geoFallback(q) {
   if (!hint()) return;
   hint().textContent = T.nothingLooking;
 
-  // сначала спрашиваем текст Википедии: он отвечает про сам язык, а не про
-  // окрестности, и потому точнее географической догадки
+  // ask the Wikipedia text first: it answers about the language itself rather
+  // than the surroundings, and so beats a geographic guess
   let mentions = geoCache.get('m:' + q);
   if (!mentions) {
     mentions = await languageMentions(q);
@@ -478,10 +480,10 @@ async function geoFallback(q) {
 
   let places = geoCache.get(q);
   if (!places) {
-    // геокодер знает, что именно является населённым пунктом, поэтому он
-    // основной. Википедия — запасной: она берёт производные формы названий
-    // («sandonese» → Сандоно), но отдаёт и любые объекты с координатами,
-    // от стадионов до тюрем, поэтому идёт в ход, только когда OSM промолчал
+    // the geocoder knows what actually is a populated place, so it is the
+    // primary one. Wikipedia is the fallback: it picks up derived name forms
+    // ("sandonese" -> Sandono) but also returns any object with coordinates,
+    // from stadiums to prisons, so it is used only when OSM stayed silent
     const osm = await osmPlaces(q);
     const found = osm.length ? osm : (await wikiPlaces(q)).slice(0, 2);
     const byPlace = new Map();
@@ -492,19 +494,19 @@ async function geoFallback(q) {
     places = [...byPlace.values()].slice(0, 3);
     geoCache.set(q, places);
   }
-  // пока ходили в сеть, запрос мог смениться
+  // the query may have changed while we were on the network
   if (els.search.value.trim().toLowerCase() !== q || !hint()) return;
   if (!places || !places.length) { hint().textContent = ''; return; }
 
-  // место без языков поблизости показывать не о чем
+  // a place with no languages nearby has nothing to show
   const withLangs = places
     .map(p => ({ p, near: nearestLanguages(p.lat, p.lon, p.cc) }))
     .filter(x => x.near.length);
   if (!withLangs.length) { hint().textContent = ''; return; }
 
   hint().innerHTML = withLangs.map(({ p, near }) => {
-    // главный ответ — один язык, по которому сразу можно кликнуть; остальные
-    // уводим в приписку, чтобы не заставлять выбирать из списка километров
+    // the headline answer is one language you can click straight away; the rest
+    // go into a footnote so nobody has to pick from a list of kilometres
     const rest = near.slice(1).map(({ lang, d }) =>
       `<a href="#l=${esc(lang.id)}" data-open="${esc(lang.id)}" title="≈${fmtFull.format(Math.round(d))} km">${esc(lang.label)}</a>`).join('');
     const tail = rest
@@ -515,7 +517,7 @@ async function geoFallback(q) {
   }).join('');
 }
 
-// переход к языку из географической подсказки
+// jump to a language from the geographic hint
 els.empty.addEventListener('click', e => {
   const a = e.target.closest('[data-open]');
   if (!a) return;
@@ -535,7 +537,7 @@ function sortFiltered() {
       va = a.aes === 0 ? 7 : a.aes; vb = b.aes === 0 ? 7 : b.aes;
       return d * (va - vb) || collator.compare(a.label, b.label);
     }
-    // spk: пустые значения всегда в конце, независимо от направления
+    // spk: empty values always last, regardless of sort direction
     va = a.spk; vb = b.spk;
     if (va === null && vb === null) return collator.compare(a.label, b.label);
     if (va === null) return 1;
@@ -702,13 +704,13 @@ function openDetail(r, { fly }) {
   renderRelations(r);
   if (!related) loadRelated().then(() => { if (selectedId === r.id) renderRelations(r); });
 
-  // карта в свёрнутой вкладке имеет нулевой размер, и полёт к точке делит на ноль
+  // a map in a collapsed tab has zero size, and flying to a point divides by zero
   const mapReady = map && map.getSize().x > 0 && map.getSize().y > 0;
   if (fly && r.lat !== null && mapReady) {
     const z = Math.max(map.getZoom(), 5);
     let center = L.latLng(r.lat, r.lon);
-    // на десктопе карточка накрывает край карты — целимся в сторону, чтобы
-    // выбранный маркер остался на виду
+    // on desktop the card covers the edge of the map — aim to the side so the
+    // selected marker stays visible
     if (window.innerWidth > 900) {
       const shift = Math.min(430, window.innerWidth * 0.92) / 2;
       const px = map.project(center, z).add([RTL ? -shift : shift, 0]);
@@ -718,10 +720,10 @@ function openDetail(r, { fly }) {
   }
 }
 
-// ---------- обратная связь ----------
-// Статический сайт не может отправить письмо сам, поэтому здесь просто каналы
-// связи. Адрес почты собирается из кусков в коде: так его труднее выгрести
-// спам-роботам, которые читают исходник страницы
+// ---------- feedback ----------
+// A static site cannot send mail itself, so these are just contact channels.
+// The email address is assembled from pieces in the code: that makes it harder
+// for spam robots reading the page source to harvest
 const FEEDBACK = {
   user: 'lvigtor',
   domain: 'gmail.com',
@@ -752,11 +754,11 @@ function closeFeedback() {
   document.getElementById('feedback').hidden = true;
 }
 
-// ---------- связи языка ----------
+// ---------- language relations ----------
 let related = null;        // {glottocode: {g: [[id,%,n]], l: [[id,%,n]]}}
 let relatedPromise = null;
 let cladeNames = [];
-let byClade = new Map();   // индекс последней ветви → языки этой ветви
+let byClade = new Map();   // index of the last branch -> languages of that branch
 
 function loadRelated() {
   if (!relatedPromise) {
@@ -778,10 +780,10 @@ function relLinks(list) {
 }
 
 function kinLinks(r) {
-  // Родственники — потомки ближайшей общей ветви. Спускаться до последнего узла
-  // мало: украинский сидит на уровень глубже русского (East Slavic ›
-  // Ukrainian-Rusyn) и иначе в родню не попал бы. Поэтому идём от самой узкой
-  // ветви вверх, пока не наберётся хотя бы пара языков
+  // Relatives are descendants of the nearest common branch. Going down to the
+  // last node is not enough: Ukrainian sits a level deeper than Russian (East
+  // Slavic > Ukrainian-Rusyn) and would otherwise miss the kin list. So we walk
+  // up from the narrowest branch until at least a couple of languages accumulate
   for (let i = r.cls.length - 1; i >= 0; i--) {
     const members = (byClade.get(r.cls[i]) || []).filter(x => x.id !== r.id);
     if (members.length >= 2 || (members.length && i === 0)) {
@@ -812,7 +814,7 @@ function renderRelations(r) {
       `${more > 0 ? `<span class="rel-pct">+${fmtFull.format(more)}</span>` : ''}</span></div>`);
   }
 
-  // грамматика и лексика — из related.json, для диалекта берём родителя
+  // grammar and lexicon come from related.json; for a dialect we take the parent
   const rel = related && (related[r.id] || (r.par ? related[r.par] : null));
   if (rel?.g) {
     parts.push(`<div class="rel-line"><span class="rel-cap">${esc(T.relGram)}:</span>` +
@@ -931,7 +933,7 @@ async function renderCompare() {
   cmpEls.body.innerHTML = head + basic + `<h3>${esc(T.compareGrammar)}</h3><p class="cmp-note">${esc(T.compareLoading)}</p>`;
 
   const wals = await loadWals();
-  if (cmpA !== a || cmpB !== b) return; // пока грузилось, выбрали другое
+  if (cmpA !== a || cmpB !== b) return; // something else was selected while loading
   const wa = wals.langs[a.id] || wals.langs[a.par];
   const wb = wals.langs[b.id] || wals.langs[b.par];
   const missing = [!wa && a, !wb && b].filter(Boolean)
@@ -1031,7 +1033,7 @@ async function boot() {
     const localized = nm ? nm[LANG] : '';
     r.label = localized || r.name;
     r.sub = localized && localized.toLowerCase() !== r.name.toLowerCase() ? r.name : '';
-    // в поиск идут все локализованные названия — искать можно на любом языке
+    // every localised name goes into the index — search works in any language
     r.search = `${r.name}|${nm ? Object.values(nm).join('|') : ''}|${r.iso}|${r.id}|${r.fam}`.toLowerCase();
     return r;
   });
@@ -1040,8 +1042,8 @@ async function boot() {
   cladeNames = data.clades || [];
   byClade = new Map();
   for (const r of ROWS) {
-    if (r.par) continue;                    // родню ищем среди языков, не диалектов
-    for (const k of r.cls) {                // язык числится во всех своих ветвях
+    if (r.par) continue;                    // look for kin among languages, not dialects
+    for (const k of r.cls) {                // a language is listed in all of its branches
       if (!byClade.has(k)) byClade.set(k, []);
       byClade.get(k).push(r);
     }
@@ -1097,7 +1099,7 @@ async function boot() {
   initFeedback();
   initAnalytics({ T, esc, tpl, fmtFull, LANG, collator, countryName });
 
-  // альтернативные названия (86 тыс. вариантов) — фоном, поиск станет шире
+  // alternative names (86k variants) in the background, widening the search
   fetch('altnames.json')
     .then(r => r.json())
     .then(a => {

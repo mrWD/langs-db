@@ -393,7 +393,7 @@ td .na { color: var(--muted); }
   color: var(--muted);
   margin: 18px 0 8px;
 }
-/* широкая таблица прокручивается внутри себя, а не растягивает панель */
+/* a wide table scrolls inside itself instead of stretching the panel */
 .cmp-scroll { overflow-x: auto; margin-bottom: 4px; }
 .cmp-table { width: 100%; min-width: 420px; border-collapse: collapse; font-size: 13.5px; }
 .cmp-table td {
@@ -429,7 +429,7 @@ td .na { color: var(--muted); }
 .spark { display: flex; align-items: flex-end; gap: 2px; height: 56px; padding: 4px 0; }
 .spark-bar {
   flex: 1 1 0;
-  max-width: 22px;   /* чтобы один-два дня не растягивались на всю ширину */
+  max-width: 22px;   /* so that one or two days do not stretch across the full width */
   background: var(--accent);
   border-radius: 2px 2px 0 0;
   opacity: 0.85;
@@ -541,7 +541,7 @@ td .na { color: var(--muted); }
 .lang-tip .tip-sub { color: var(--ink-2); font-size: 11.5px; }
 
 /* ---- responsive ---- */
-/* ---- планшет: карта и таблица столбиком ---- */
+/* ---- tablet: map and table stacked ---- */
 @media (max-width: 900px) {
   html, body { height: auto; }
   body { min-height: 100vh; }
@@ -552,10 +552,10 @@ td .na { color: var(--muted); }
   .result-count { margin-left: 0; width: 100%; }
 }
 
-/* ---- телефон ---- */
+/* ---- phone ---- */
 @media (max-width: 700px) {
-  /* шапка в одну строку не помещается: заголовок и кнопки расходятся
-     по этажам, иначе панель управления уезжает за край экрана */
+  /* the header doesn't fit on one line: the title and buttons split across
+     rows, otherwise the control panel runs off the edge of the screen */
   .site-header {
     flex-direction: column;
     align-items: stretch;
@@ -580,11 +580,11 @@ td .na { color: var(--muted); }
   .toolbar select { flex: 1 1 calc(50% - 3px); min-width: 0; }
   .status-row-label { display: none; }
 
-  /* карта сверху, как и на планшете */
+  /* map on top, as on tablet */
   .map-pane { min-height: 40vh; }
   .table-pane { max-height: none; }
-  /* легенда закрывала полкарты, а те же цвета с подписями стоят
-     в строке статусов прямо над ней */
+  /* the legend covered half the map, and the same colours with labels
+     sit in the status row right above it */
   .legend { display: none; }
 
   .detail { width: 100%; padding: 18px 16px 26px; }
@@ -598,13 +598,13 @@ td .na { color: var(--muted); }
   .stat-bar { grid-template-columns: minmax(70px, 40%) 1fr auto; font-size: 12.5px; }
 }
 
-/* ---- узкие телефоны ---- */
+/* ---- narrow phones ---- */
 @media (max-width: 560px) {
-  /* семья не влезает рядом с носителями и статусом — она есть в карточке */
+  /* the family does not fit next to speakers and status — it is on the card */
   td.fam, th[data-sort="fam"] { display: none; }
   tbody td, thead th { padding: 8px 8px; }
   .cmp-heads { font-size: 14px; }
-  /* сравнение помещается целиком: листать таблицу вбок на телефоне неудобно */
+  /* the comparison fits whole: scrolling a table sideways on a phone is awkward */
   .cmp-table { min-width: 0; font-size: 12px; }
   .cmp-table td { padding: 5px 6px; }
   .cmp-table td:first-child { width: 34%; }

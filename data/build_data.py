@@ -112,9 +112,9 @@ def main():
 
     wd = json.load(open(os.path.join(RAW, "wikidata.json")))
 
-    # Полное дерево Glottolog: путь предков от семьи к ближайшей ветви.
-    # Названия веток храним отдельной таблицей, в строках — только индексы,
-    # иначе «Indo-European/Classical Indo-European/...» повторится тысячи раз
+    # The full Glottolog tree: the ancestor path from family to nearest branch.
+    # Branch names live in a separate table and rows hold only indices,
+    # otherwise "Indo-European/Classical Indo-European/..." repeats thousands of times
     clade_idx, clade_names = {}, []
 
     def clade_path(gid):

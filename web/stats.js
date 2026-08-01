@@ -1,16 +1,16 @@
-/* Счётчик посещений и панель статистики.
+/* Visit counter and statistics panel.
 
-   Считаем через Abacus (abacus.jasoncameron.dev) — публичный счётчик без
-   регистрации: браузер увеличивает несколько ключей, ничего не сохраняя о
-   пользователе. Ключи: total, uniq, d-<дата>, tz-<часовой пояс>, ui-<локаль>.
-   Разбивку по странам и городам собирает ночной GitHub Action
-   (data/collect_stats.py) в web/stats.json — у Abacus нет способа перечислить
-   ключи, поэтому их опрашивает CI, а сайт читает готовый файл. */
+   Counting goes through Abacus (abacus.jasoncameron.dev), a public
+   registration-free counter: the browser bumps a few keys and stores nothing
+   about the user. Keys: total, uniq, d-<date>, tz-<time zone>, ui-<locale>.
+   The per-country and per-city breakdown is assembled by a nightly GitHub
+   Action (data/collect_stats.py) into web/stats.json — Abacus has no way to
+   list keys, so CI polls them and the site reads the ready-made file. */
 'use strict';
 
 const ABACUS = 'https://abacus.jasoncameron.dev';
 const NAMESPACE = 'langs-db-mrwd';
-// счёт ведём только на боевом домене, чтобы локальная разработка не искажала цифры
+// count only on the production domain so local development doesn't skew the numbers
 const COUNT_HOSTS = ['mrwd.github.io'];
 
 let statsCtx = null;
@@ -30,7 +30,7 @@ function readCounter(key) {
 
 function tzKey() {
   let tz = '';
-  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch { /* нет данных */ }
+  try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch { /* no data */ }
   if (!tz) return null;
   return 'tz-' + tz.replace(/\//g, '-').replace(/[^A-Za-z0-9_\-.]/g, '');
 }
@@ -53,10 +53,10 @@ function countVisit(lang) {
       localStorage.setItem('langs-seen', '1');
       hit('uniq');
     }
-  } catch { /* приватный режим — просто не считаем */ }
+  } catch { /* private mode — simply don't count */ }
 }
 
-// ---------- панель ----------
+// ---------- panel ----------
 function statsBars(entries, labelFn, total) {
   if (!entries.length) return '';
   const max = entries[0][1] || 1;
@@ -85,7 +85,7 @@ function cityLabel(tz) {
 async function renderStats() {
   const { T, esc, tpl, fmtFull } = statsCtx;
   const body = document.getElementById('stats-body');
-  // три верхние цифры читаем вживую, разбивку — из суточного файла
+  // the three headline numbers are read live, the breakdown from the daily file
   const [data, liveTotal, liveUniq, liveToday] = await Promise.all([
     fetch('stats.json').then(r => (r.ok ? r.json() : null)).catch(() => null),
     readCounter('total'),

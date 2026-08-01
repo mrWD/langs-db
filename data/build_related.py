@@ -28,10 +28,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "raw")
 WEB = os.path.join(HERE, "..", "web")
 
-TOP_N = 12               # соседей на язык в каждом измерении
-MIN_SHARED_FEATURES = 30  # меньше — сходство считается по шуму
+TOP_N = 12               # neighbours per language in each dimension
+MIN_SHARED_FEATURES = 30  # fewer than this and similarity is computed from noise
 MIN_SHARED_CONCEPTS = 28
-GEO_CANDIDATES = 120      # ближайших соседей, с кем сверяем лексику
+GEO_CANDIDATES = 120      # nearest neighbours to compare lexicon against
 FAMILY_CANDIDATES = 200
 
 
@@ -43,7 +43,7 @@ def load_atlas():
         gid = r[i["id"]]
         parent[gid] = r[i["par"]]
         if r[i["par"]]:
-            continue  # диалекты сводим к родителю
+            continue  # dialects are folded into their parent
         langs[gid] = {
             "name": r[i["name"]], "fam": r[i["fam"]],
             "lat": r[i["lat"]], "lon": r[i["lon"]],
@@ -52,7 +52,7 @@ def load_atlas():
 
 
 def roll_up(gid, langs, parent):
-    """Диалект → его язык; неизвестный код → None."""
+    """Dialect -> its language; unknown code -> None."""
     seen = 0
     while gid and gid not in langs and seen < 5:
         gid = parent.get(gid, "")
@@ -60,11 +60,11 @@ def roll_up(gid, langs, parent):
     return gid if gid in langs else None
 
 
-# ---------- грамматика ----------
+# ---------- grammar ----------
 def grammar_neighbours(langs, parent):
     path = os.path.join(WEB, "wals.json")
     if not os.path.exists(path):
-        print("! web/wals.json нет — грамматическое сходство пропущено")
+        print("! web/wals.json missing - grammatical similarity skipped")
         return {}
     wals = json.load(open(path))["langs"]
 
@@ -73,14 +73,14 @@ def grammar_neighbours(langs, parent):
         target = roll_up(gid, langs, parent)
         if not target or len(fv) < MIN_SHARED_FEATURES:
             continue
-        # у языка мог быть и свой набор, и набор диалекта — берём больший
+        # a language may have both its own set and a dialect set - take the larger
         if target in feats and len(feats[target]) >= len(fv):
             continue
         feats[target] = set(fv)
         pairs[target] = {f"{f}={v}" for f, v in fv.items()}
 
     ids = list(feats)
-    print(f"грамматика: {len(ids)} языков с {MIN_SHARED_FEATURES}+ признаками")
+    print(f"grammar: {len(ids)} languages with {MIN_SHARED_FEATURES}+ features")
     out = {}
     for a in ids:
         fa, pa = feats[a], pairs[a]
@@ -97,9 +97,9 @@ def grammar_neighbours(langs, parent):
     return out
 
 
-# ---------- лексика ----------
+# ---------- lexicon ----------
 def load_asjp(langs, parent):
-    """glottocode → {понятие: [до двух словоформ]} по самому полному доculect."""
+    """glottocode -> {concept: [up to two word forms]} from the fullest doculect."""
     doc2glotto = {}
     for r in csv.DictReader(open(os.path.join(RAW, "asjp_languages.csv"))):
         target = roll_up(r.get("Glottocode", ""), langs, parent)
@@ -127,12 +127,12 @@ def ldn(a, b):
 
 
 def pair_distance(wa, wb, shared):
-    """LDND: расстояние по одинаковым понятиям, нормированное на случайное."""
+    """LDND: distance over shared concepts, normalised against chance."""
     same, other = [], []
     keys = shared
     for c in keys:
         same.append(min(ldn(x, y) for x in wa[c] for y in wb[c]))
-    # «случайный» уровень: те же слова, но составленные в разные пары
+    # the "chance" level: the same words, but paired up differently
     shifted = keys[1:] + keys[:1]
     for c, c2 in zip(keys, shifted):
         if c != c2:
@@ -148,7 +148,7 @@ def pair_distance(wa, wb, shared):
 def lexical_neighbours(langs, parent):
     words = load_asjp(langs, parent)
     ids = [g for g in words if len(words[g]) >= MIN_SHARED_CONCEPTS]
-    print(f"лексика: {len(ids)} языков со списками ASJP")
+    print(f"lexicon: {len(ids)} languages with ASJP lists")
 
     by_family = defaultdict(list)
     for g in ids:
@@ -156,7 +156,7 @@ def lexical_neighbours(langs, parent):
     coords = [(g, langs[g]["lat"], langs[g]["lon"]) for g in ids
               if langs[g]["lat"] is not None]
 
-    # кандидаты: своя семья + географические соседи
+    # candidates: own family + geographic neighbours
     candidates = {}
     for g in ids:
         cand = set(by_family[langs[g]["fam"] or g][:FAMILY_CANDIDATES])
@@ -172,7 +172,7 @@ def lexical_neighbours(langs, parent):
         candidates[g] = cand
 
     todo = {frozenset((a, b)) for a, cs in candidates.items() for b in cs}
-    print(f"лексика: {len(todo)} пар к сравнению")
+    print(f"lexicon: {len(todo)} pairs to compare")
 
     scored = defaultdict(list)
     for n, pair in enumerate(todo):
@@ -215,7 +215,7 @@ def main():
     path = os.path.join(WEB, "related.json")
     with open(path, "w") as f:
         json.dump(related, f, ensure_ascii=False, separators=(",", ":"))
-    print(f"related.json: {len(related)} языков, {os.path.getsize(path) / 1e6:.2f} MB")
+    print(f"related.json: {len(related)} languages, {os.path.getsize(path) / 1e6:.2f} MB")
 
 
 if __name__ == "__main__":

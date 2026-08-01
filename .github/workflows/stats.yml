@@ -25,5 +25,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add web/stats.json
           git diff --cached --quiet && echo "no change" && exit 0
-          git commit -m "Статистика посещений на $(date -u +%Y-%m-%d)"
+          git commit -m "Visit statistics for $(date -u +%Y-%m-%d)"
           git push
