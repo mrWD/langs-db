@@ -1,13 +1,15 @@
-# Languages of the World — an interactive atlas
+# Languages of the World: an interactive atlas
 
-A static catalogue site covering **7,992 languages and 13,706 dialects**: search
-in 15 languages, filters, a sortable table, an interactive map, grammar-based
-language comparison (WALS), and a card for every language linking to grammars,
-dictionaries, speech recordings and learning materials.
+A static site that puts 7,992 languages and 13,706 dialects on one map, with
+search in 15 languages, filters, a language card for each entry, and four ways
+to see how any two languages relate: family tree, grammar (WALS), vocabulary
+(ASJP) and distance. Built from Glottolog, Wikidata, WALS and ASJP; no backend,
+no accounts.
 
-🌍 **[mrwd.github.io/langs-db](https://mrwd.github.io/langs-db/)**
+**Try it:** [mrwd.github.io/langs-db](https://mrwd.github.io/langs-db/) (live app) ·
+[product page](https://mrwd.github.io/products/langs-db/)
 
-![stack](https://img.shields.io/badge/stack-vanilla_JS_+_Leaflet-blue)
+![The atlas: search and filters on top, a table of languages and a map with dots coloured by endangerment status](docs/readme/home-light.png)
 
 ## Features
 
@@ -78,22 +80,24 @@ do.)
 ```
 web/               the entire site (deployable as is)
   index.html
-  app.js           logic: filters, table, map, cards, comparison
+  app.js           logic: filters, table, map, cards, comparison, relations
   i18n.js          interface translations (15 locales)
   stats.js         visit counter and statistics panel
   style.css        themes and layout (including RTL)
-  data.json        the main database: 7,992 languages + 13,706 dialects (3.6 MB)
+  data.json        the main database: 7,992 languages + 13,706 dialects (4.5 MB)
   altnames.json    84k alternative names for search (1.4 MB, lazy-loaded)
-  wals.json        192 WALS grammatical features (0.9 MB, lazy-loaded)
+  wals.json        192 WALS grammatical features (0.8 MB, lazy-loaded)
+  related.json     grammatical and lexical similarity per language (1.6 MB, lazy-loaded)
   stats.json       aggregated statistics, refreshed daily by CI
   vendor/          Leaflet 1.9.4
 data/
   build_data.py       builds data.json and altnames.json
   build_wals.py       builds wals.json
+  build_related.py    builds related.json (WALS overlap + ASJP/LDND)
   fetch_wikidata.py   pulls speaker counts and names in 14 languages
   collect_stats.py    polls the Abacus counters → web/stats.json (for CI)
   tz_countries.json   time zone → country code (from the IANA zone.tab)
-  raw/                downloaded sources (glottolog-cldf, wals, wikidata)
+  raw/                downloaded sources (glottolog-cldf, wals, asjp, wikidata), not in git
 ```
 
 ## Data and licences
@@ -166,3 +170,8 @@ publishes the `web/` folder. After a data refresh, committing the new
 
 The `web/` folder is self-contained, so it can be moved to any other static host
 (Cloudflare Pages, Netlify, Vercel) unchanged.
+
+## Licence
+
+The code is under the MIT licence (see [LICENSE](LICENSE)). The data keeps the
+licences of its sources, listed in the table above.
