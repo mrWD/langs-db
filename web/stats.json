@@ -1,40 +1,47 @@
 {
- "generated": "2026-10-18T08:10:13Z",
- "total": 40,
- "uniq": 28,
+ "generated": "2026-10-19T09:02:03Z",
+ "total": 52,
+ "uniq": 35,
  "days": {
-  "2026-08-20": 1,
   "2026-09-12": 1,
   "2026-10-10": 1,
   "2026-10-17": 3,
-  "2026-10-18": 1
+  "2026-10-18": 10,
+  "2026-10-19": 3
  },
  "countries": {
-  "IT": 13,
+  "IT": 16,
   "DE": 9,
   "BR": 8,
+  "PL": 7,
   "RU": 4,
-  "PL": 2,
+  "PH": 2,
   "US": 1,
+  "PK": 1,
   "AU": 1,
   "RS": 1,
+  "GB": 1,
   "BY": 1
  },
  "cities": {
-  "Europe/Rome": 13,
+  "Europe/Rome": 16,
   "Europe/Berlin": 9,
   "America/Sao_Paulo": 8,
+  "Europe/Warsaw": 7,
   "Asia/Omsk": 3,
-  "Europe/Warsaw": 2,
+  "Asia/Manila": 2,
   "America/Los_Angeles": 1,
+  "Asia/Karachi": 1,
   "Australia/Adelaide": 1,
   "Europe/Belgrade": 1,
+  "Europe/London": 1,
   "Europe/Minsk": 1,
   "Europe/Moscow": 1
  },
  "langs": {
-  "en": 23,
-  "ru": 14,
-  "de": 3
+  "en": 27,
+  "ru": 19,
+  "de": 3,
+  "it": 3
  }
 }
