@@ -1,19 +1,21 @@
 {
- "generated": "2026-10-21T08:42:28Z",
- "total": 52,
- "uniq": 35,
+ "generated": "2026-10-22T08:44:44Z",
+ "total": 56,
+ "uniq": 36,
  "days": {
   "2026-09-12": 1,
   "2026-10-10": 1,
   "2026-10-17": 3,
   "2026-10-18": 10,
-  "2026-10-19": 3
+  "2026-10-19": 3,
+  "2026-10-21": 4
  },
  "countries": {
   "IT": 16,
   "DE": 9,
   "BR": 8,
   "PL": 7,
+  "LY": 4,
   "RU": 4,
   "PH": 2,
   "US": 1,
@@ -28,6 +30,7 @@
   "Europe/Berlin": 9,
   "America/Sao_Paulo": 8,
   "Europe/Warsaw": 7,
+  "Africa/Tripoli": 4,
   "Asia/Omsk": 3,
   "Asia/Manila": 2,
   "America/Los_Angeles": 1,
@@ -39,7 +42,7 @@
   "Europe/Moscow": 1
  },
  "langs": {
-  "en": 27,
+  "en": 31,
   "ru": 19,
   "de": 3,
   "it": 3
