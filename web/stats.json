@@ -1,7 +1,7 @@
 {
- "generated": "2026-10-29T10:05:58Z",
- "total": 63,
- "uniq": 39,
+ "generated": "2026-10-30T10:10:37Z",
+ "total": 64,
+ "uniq": 40,
  "days": {
   "2026-09-12": 1,
   "2026-10-10": 1,
@@ -11,7 +11,7 @@
   "2026-10-21": 4,
   "2026-10-26": 1,
   "2026-10-27": 5,
-  "2026-10-29": 1
+  "2026-10-29": 2
  },
  "countries": {
   "IT": 16,
@@ -26,6 +26,7 @@
   "AU": 1,
   "RS": 1,
   "GB": 1,
+  "ES": 1,
   "BY": 1,
   "EE": 1
  },
@@ -42,12 +43,13 @@
   "Australia/Adelaide": 1,
   "Europe/Belgrade": 1,
   "Europe/London": 1,
+  "Europe/Madrid": 1,
   "Europe/Minsk": 1,
   "Europe/Moscow": 1,
   "Europe/Tallinn": 1
  },
  "langs": {
-  "en": 38,
+  "en": 39,
   "ru": 19,
   "de": 3,
   "it": 3
