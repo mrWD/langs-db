@@ -106,11 +106,13 @@ let markers = [];
 let markerGroup = null;
 let selectedIdx = null;
 
-const TILE_URLS = {
-  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-};
-const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+// OpenStreetMap's own tiles, toned down in CSS (.basemap in style.css) to the quiet grey the
+// language dots need, and inverted for the dark theme. CARTO's basemaps were used until
+// 2026-10: since 29 Sep 2026 they need an API key and keyless requests get "API KEY
+// REQUIRED" tiles. OSM's tile policy allows this for a site of this size, with the
+// attribution below and no bulk downloading.
+const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 function initMap() {
   map = L.map('map', {
@@ -123,8 +125,9 @@ function initMap() {
 }
 function switchTiles(theme) {
   if (tiles) tiles.remove();
-  tiles = L.tileLayer(TILE_URLS[theme] || TILE_URLS.light, {
-    attribution: TILE_ATTR, subdomains: 'abcd', maxZoom: 19,
+  // One tile set for both themes: the theme only changes the CSS filter on it.
+  tiles = L.tileLayer(TILE_URL, {
+    attribution: TILE_ATTR, maxZoom: 19, className: 'basemap',
   }).addTo(map);
 }
 function markerStroke() {

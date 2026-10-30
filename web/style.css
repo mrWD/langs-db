@@ -517,6 +517,10 @@ td .na { color: var(--muted); }
 
 /* ---- leaflet theme fixes ---- */
 .leaflet-container { font: inherit; }
+/* OSM's standard tiles are colourful; the dots carry the colour here, so the map underneath
+   is greyed and lightened, and inverted in the dark theme (see TILE_URL in app.js). */
+.basemap { filter: grayscale(1) brightness(1.06) contrast(0.85); }
+[data-theme="dark"] .basemap { filter: grayscale(1) invert(1) brightness(0.82) contrast(0.9); }
 .leaflet-control-attribution {
   background: color-mix(in srgb, var(--surface) 85%, transparent) !important;
   color: var(--muted) !important;

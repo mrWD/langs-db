@@ -3,6 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # The stats workflow commits with GITHUB_TOKEN, and GitHub never starts another workflow
+  # from such a push, so its commits sat in main without reaching the site (it stayed on
+  # the last human push). workflow_run is exempt from that rule: deploy after it finishes.
+  workflow_run:
+    workflows: ['Collect visit stats']
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -16,6 +22,7 @@ concurrency:
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
