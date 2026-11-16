@@ -1,62 +1,54 @@
 {
- "generated": "2026-11-15T12:17:04Z",
- "total": 85,
- "uniq": 53,
+ "generated": "2026-11-16T12:33:15Z",
+ "total": 86,
+ "uniq": 0,
  "days": {
   "2026-10-10": 1,
   "2026-10-17": 3,
-  "2026-10-18": 10,
-  "2026-10-19": 3,
-  "2026-10-21": 4,
   "2026-10-26": 1,
   "2026-10-27": 5,
-  "2026-10-31": 2,
+  "2026-10-30": 2,
   "2026-11-02": 1,
-  "2026-11-03": 1,
   "2026-11-04": 3,
   "2026-11-05": 1,
-  "2026-11-06": 2,
   "2026-11-12": 2,
-  "2026-11-13": 3,
-  "2026-11-14": 2,
-  "2026-11-15": 1
+  "2026-11-16": 1
  },
  "countries": {
-  "DE": 20,
   "IT": 18,
   "BR": 12,
-  "PL": 7,
+  "RU": 6,
   "LY": 4,
-  "RU": 3,
   "PH": 2,
+  "JP": 2,
   "GB": 2,
   "CZ": 2,
   "US": 1,
   "PK": 1,
+  "CN": 1,
   "AU": 1,
-  "ES": 1,
+  "RS": 1,
   "BY": 1,
-  "FR": 1,
-  "EE": 1
+  "FR": 1
  },
  "cities": {
-  "Europe/Berlin": 20,
   "Europe/Rome": 18,
   "America/Sao_Paulo": 9,
-  "Europe/Warsaw": 7,
   "Africa/Tripoli": 4,
   "America/Cuiaba": 3,
+  "Asia/Omsk": 3,
   "Europe/Moscow": 3,
   "Asia/Manila": 2,
+  "Asia/Tokyo": 2,
   "Europe/London": 2,
   "Europe/Prague": 2,
   "America/Los_Angeles": 1,
   "Asia/Karachi": 1,
+  "Asia/Shanghai": 1,
   "Australia/Adelaide": 1,
-  "Europe/Madrid": 1,
+  "Europe/Belgrade": 1,
   "Europe/Minsk": 1,
-  "Europe/Paris": 1,
-  "Europe/Tallinn": 1
+  "Europe/Paris": 1
  },
  "langs": {
   "en": 53,
@@ -64,6 +56,7 @@
   "pt": 4,
   "de": 3,
   "it": 3,
-  "ja": 2
+  "ja": 2,
+  "zh": 1
  }
 }
