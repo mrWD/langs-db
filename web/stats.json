@@ -1,7 +1,7 @@
 {
- "generated": "2026-11-21T11:56:06Z",
+ "generated": "2026-11-22T11:57:02Z",
  "total": 0,
- "uniq": 58,
+ "uniq": 0,
  "days": {
   "2026-10-10": 1,
   "2026-10-17": 3,
@@ -22,15 +22,18 @@
   "2026-11-12": 2,
   "2026-11-13": 3,
   "2026-11-14": 2,
+  "2026-11-15": 1,
   "2026-11-16": 1,
+  "2026-11-17": 3,
+  "2026-11-18": 2,
   "2026-11-19": 1,
   "2026-11-20": 2,
   "2026-11-21": 4
  },
  "countries": {
   "DE": 20,
+  "BR": 19,
   "IT": 18,
-  "BR": 9,
   "PL": 7,
   "US": 6,
   "RU": 6,
@@ -41,6 +44,7 @@
   "CZ": 2,
   "PK": 1,
   "CN": 1,
+  "AU": 1,
   "RS": 1,
   "ES": 1,
   "BY": 1,
@@ -50,6 +54,7 @@
  "cities": {
   "Europe/Berlin": 20,
   "Europe/Rome": 18,
+  "America/Sao_Paulo": 10,
   "America/Cuiaba": 9,
   "Europe/Warsaw": 7,
   "Africa/Tripoli": 4,
@@ -63,6 +68,7 @@
   "Europe/Prague": 2,
   "Asia/Karachi": 1,
   "Asia/Shanghai": 1,
+  "Australia/Adelaide": 1,
   "Europe/Belgrade": 1,
   "Europe/Madrid": 1,
   "Europe/Minsk": 1,
@@ -70,10 +76,12 @@
   "Europe/Tallinn": 1
  },
  "langs": {
+  "en": 57,
   "ru": 20,
   "pt": 11,
   "de": 3,
   "it": 3,
-  "zh": 2
+  "zh": 2,
+  "ja": 2
  }
 }
